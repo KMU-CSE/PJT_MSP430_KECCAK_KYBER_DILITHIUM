@@ -4,7 +4,7 @@
 
 ## Artifact
 This repository contains the **artifact** accompanying our paper submitted to [**CHES 2026**](https://ches.iacr.org/2026/) issue 2.  
-It includes the complete source code, MSP430 assembly implementations, and benchmark data for **Kyber** and the **Dilithium**. There are two subfolders included in this repository:
+It includes the complete source code, MSP430 assembly implementations for **Kyber** and **Dilithium**. This repository contains two subfolders:
 
 ```bash
 artifact_tches2026-2/
@@ -18,9 +18,9 @@ artifact_tches2026-2/
 ```
 
 The artifact demonstrates:
-- **Optimized Implementations** of Kyber and Dilithium on 16-bit MSP430 microcontrollers.  
+- **Optimized implementations** of Kyber and Dilithium on 16-bit MSP430 microcontrollers.  
 - **Optimized MSP430 assembly routines** for modular arithmetic, NTT, inverse NTT, and Keccak.  
-- **Experimental results** including cycle counts, stack usage, and code size, validated on `MSP430F67991` device.
+- **Experimental results** including cycle counts, stack usage, and code size, validated on the `MSP430F67791` device.
 
 All materials are provided to ensure **reproducibility**, **transparency**, and **practical validation** of our results for the [CHES 2026 artifact evaluation](https://ches.iacr.org/2026/artifacts.php).
 
@@ -52,19 +52,13 @@ Our contributions are summarized as follows:
 
 
 
-
-=== [Build]
-We developed and benchmarked the code using the "IAR Embedded Workbench for MSP430" IDE (https://www.iar.com/embedded-development-tools).
+## Benchmark Setup
+**SetUp** : We developed and benchmarked the code using the "IAR Embedded Workbench for MSP430" IDE (https://www.iar.com/embedded-development-tools).
 Please select “New Workspace” and “New Project” in IAR Workbench and paste our code.
-The target device is "MSP430F6779", equipped with 32KB of RAM.
+The target device is "MSP430F67791", equipped with 32KB of RAM.
 The compiler used is "IAR C/C++ Compiler for MSP430 (version 8.10.3)", and we compile the code using the "High (Speed)" option, which is equivalent to the “-O3” option in GCC.
-Our Keccak and Kyber implementations are based on the optimized code from PQClean (https://github.com/PQClean/PQClean).
+Our Kyber and Dilithium implementations are based on the optimized code from PQClean (https://github.com/PQClean/PQClean).
+- In *Tools* → *Options* → *stack*, we enabled the flag `Enable stack usage tracking`, and measured stack usage via *View* → *stack* during runtime.
+- We measure cycle counts using the \texttt{CYCLECOUNTER} register in *View* → *registers*.
+- We measured code size from the *.map* file generated after the build.
 - Note: Code execution may take a long time. Please wait—this is expected behavior and not a bug.
-
-=== [Code]
-
-
-Execution starts from "main.c", which calls the corresponding Kyber KEM APIs.
-Performance measurements can be obtained by inspecting the register status window in the "IAR Embedded Workbench". By setting breakpoints on the KEM API calls in main.c, one can measure performance identical to that reported in our paper.
-
-
