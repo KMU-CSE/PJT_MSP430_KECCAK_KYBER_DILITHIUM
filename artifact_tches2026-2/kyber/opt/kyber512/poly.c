@@ -21,7 +21,7 @@
 **************************************************/
 void poly_packcompress(unsigned char* r, poly* a, int i) {
 	int j, k;
-
+        uint64_t d0;
 	uint16_t t[8];
 
 #if (KYBER_POLYVECCOMPRESSEDBYTES == (KYBER_K * 352))
@@ -29,7 +29,13 @@ void poly_packcompress(unsigned char* r, poly* a, int i) {
 		for (k = 0; k < 8; k++) {
 			t[k] = a->coeffs[8 * j + k];
 			t[k] += ((int16_t)t[k] >> 15) & KYBER_Q;
-			t[k] = ((((uint32_t)t[k] << 11) + KYBER_Q / 2) / KYBER_Q) & 0x7ff;
+			//t[k] = ((((uint32_t)t[k] << 11) + KYBER_Q / 2) / KYBER_Q) & 0x7ff;
+                        d0 = (uint64_t)t[k];
+                        d0 <<= 11;
+                        d0 += 1664;
+                        d0 *= 645084;
+                        d0 >>= 31;
+                        t[k] = d0 & 0x7ff;
 		}
 
 		r[352 * i + 11 * j + 0] = (uint8_t)(t[0] >> 0);
@@ -50,7 +56,13 @@ void poly_packcompress(unsigned char* r, poly* a, int i) {
 		for (k = 0; k < 4; k++) {
 			t[k] = a->coeffs[4 * j + k];
 			t[k] += ((int16_t)t[k] >> 15) & KYBER_Q;
-			t[k] = ((((uint32_t)t[k] << 10) + KYBER_Q / 2) / KYBER_Q) & 0x3ff;
+			//t[k] = ((((uint32_t)t[k] << 10) + KYBER_Q / 2) / KYBER_Q) & 0x3ff;
+                        d0 = (uint64_t)t[k];
+                        d0 <<= 10;
+                        d0 += 1665;
+                        d0 *= 1290167;
+                        d0 >>= 32;
+                        t[k] = d0 & 0x3ff;
 		}
 
 		r[320 * i + 5 * j + 0] = (uint8_t)(t[0] >> 0);
@@ -116,6 +128,7 @@ int cmp_poly_compress(const unsigned char* r, poly* a) {
 	unsigned char rc = 0;
 	uint8_t t[8];
 	int16_t u;        
+        uint32_t d0;
 	int i, j, k = 0;
 
 #if (KYBER_POLYCOMPRESSEDBYTES == 128)
@@ -127,7 +140,12 @@ int cmp_poly_compress(const unsigned char* r, poly* a) {
                         if(u<0){
                           u += KYBER_Q;
                         }                        
-			t[j] = ((((uint16_t)u << 4) + KYBER_Q / 2) / KYBER_Q) & 15;                        
+			//t[j] = ((((uint16_t)u << 4) + KYBER_Q / 2) / KYBER_Q) & 15;            
+                        d0 = (uint32_t)u << 4;
+                        d0 += 1665;
+                        d0 *= 80635;
+                        d0 >>= 28;
+                        t[j] = d0 & 0xf;
 		}
 
 		rc |= r[k + 0] ^ (uint8_t)(t[0] | (t[1] << 4));
@@ -146,7 +164,12 @@ int cmp_poly_compress(const unsigned char* r, poly* a) {
                         if(u<0){
                           u += KYBER_Q;
                         }                        
-			t[j] = ((((uint32_t)u << 5) + KYBER_Q / 2) / KYBER_Q) & 31;                        
+			//t[j] = ((((uint32_t)u << 5) + KYBER_Q / 2) / KYBER_Q) & 31;                        
+                        d0 = (uint32_t)u << 5;
+                        d0 += 1664;
+                        d0 *= 40318;
+                        d0 >>= 27;
+                        t[j] = d0 & 0x1f;
 		}
 
 		rc |= r[k] ^ (uint8_t)(t[0] | (t[1] << 5));
@@ -177,6 +200,7 @@ int cmp_poly_compress(const unsigned char* r, poly* a) {
 int cmp_poly_packcompress(const unsigned char* r, poly* a, int i) {
 	unsigned char rc = 0;
 	int j, k;
+        uint64_t d0;
 
 #if (KYBER_POLYVECCOMPRESSEDBYTES == (KYBER_K * 352))
 	uint16_t t[8];
@@ -186,7 +210,13 @@ int cmp_poly_packcompress(const unsigned char* r, poly* a, int i) {
 		{
 			t[k] = a->coeffs[8 * j + k];
 			t[k] += ((int16_t)t[k] >> 15) & KYBER_Q;
-			t[k] = ((((uint32_t)t[k] << 11) + KYBER_Q / 2) / KYBER_Q) & 0x7ff;
+			//t[k] = ((((uint32_t)t[k] << 11) + KYBER_Q / 2) / KYBER_Q) & 0x7ff;
+                        d0 = (uint64_t)t[k];
+                        d0 <<= 11;
+                        d0 += 1664;
+                        d0 *= 645084;
+                        d0 >>= 31;
+                        t[k] = d0 & 0x7ff;
 		}
 
 		rc |= r[352 * i + 11 * j + 0] ^ (uint8_t)(t[0] & 0xff);
@@ -208,7 +238,13 @@ int cmp_poly_packcompress(const unsigned char* r, poly* a, int i) {
 		{
 			t[k] = a->coeffs[4 * j + k];
 			t[k] += ((int16_t)t[k] >> 15) & KYBER_Q;
-			t[k] = ((((uint32_t)t[k] << 10) + KYBER_Q / 2) / KYBER_Q) & 0x3ff;
+			//t[k] = ((((uint32_t)t[k] << 10) + KYBER_Q / 2) / KYBER_Q) & 0x3ff;
+                        d0 = (uint64_t)t[k];
+                        d0 <<= 10;
+                        d0 += 1665;
+                        d0 *= 1290167;
+                        d0 >>= 32;
+                        t[k] = d0 & 0x3ff;
 		}
 
 		rc |= r[320 * i + 5 * j + 0] ^ (uint8_t)(t[0] & 0xff);
@@ -235,6 +271,7 @@ int cmp_poly_packcompress(const unsigned char* r, poly* a, int i) {
 void poly_compress(uint8_t r[KYBER_POLYCOMPRESSEDBYTES], const poly* a) {
 	size_t i, j;
 	int16_t u;
+        uint32_t d0;
 	uint8_t t[8];
         int cnt = 0;
 
@@ -247,7 +284,12 @@ void poly_compress(uint8_t r[KYBER_POLYCOMPRESSEDBYTES], const poly* a) {
                         if(u<0){
                           u += KYBER_Q;
                         }                        
-			t[j] = ((((uint32_t)u << 5) + KYBER_Q / 2) / KYBER_Q) & 31;
+			//t[j] = ((((uint32_t)u << 5) + KYBER_Q / 2) / KYBER_Q) & 31;
+                        d0 = (uint32_t)u << 5;
+                        d0 += 1664;
+                        d0 *= 40318;
+                        d0 >>= 27;
+                        t[j] = d0 & 0x1f;
 		}
 
 		r[0] = (t[0] >> 0) | (t[1] << 5);
@@ -266,7 +308,12 @@ void poly_compress(uint8_t r[KYBER_POLYCOMPRESSEDBYTES], const poly* a) {
                         if(u<0){
                           u+=KYBER_Q;
                         }                        
-			t[j] = ((((uint16_t)u << 4) + KYBER_Q / 2) / KYBER_Q) & 15;
+			//t[j] = ((((uint16_t)u << 4) + KYBER_Q / 2) / KYBER_Q) & 15;
+                              d0 = (uint32_t)u << 4;
+                              d0 += 1665;
+                              d0 *= 80635;
+                              d0 >>= 28;
+                              t[j] = d0 & 0xf;
 		}
 
 		r[0] = t[0] | (t[1] << 4);
@@ -348,7 +395,7 @@ void poly_tobytes(uint8_t r[KYBER_POLYBYTES], const poly* a) {
 		t1 += ((int16_t)t1 >> 15) & KYBER_Q;                
 		r[3 * i + 0] = (uint8_t)(t0 >> 0);
 		r[3 * i + 1] = (uint8_t)((t0 >> 8) | (t1 << 4));
-		r[3 * i + 2] = (uint8_t)(t1 >> 4);
+		r[3 * i + 2] = (uint8_t)(t1 >> 4);                
 	}
 }
 
@@ -400,15 +447,23 @@ void poly_frommsg(poly* r, const uint8_t msg[KYBER_INDCPA_MSGBYTES]) {
 **************************************************/
 void poly_tomsg(uint8_t msg[KYBER_INDCPA_MSGBYTES], const poly* a) {
 	size_t i, j;
-	uint16_t t;
+	uint32_t t;
 
 	for (i = 0; i < KYBER_N / 8; i++) {
 		msg[i] = 0;
 		for (j = 0; j < 8; j++) {
-			t = a->coeffs[8 * i + j];
-			t += ((int16_t)t >> 15) & KYBER_Q;
-			t = (((t << 1) + KYBER_Q / 2) / KYBER_Q) & 1;
-			msg[i] |= t << j;
+//			t = a->coeffs[8 * i + j];
+//			t += ((int16_t)t >> 15) & KYBER_Q;
+//			t = (((t << 1) + KYBER_Q / 2) / KYBER_Q) & 1;
+//			msg[i] |= t << j;
+                        
+                        t  = (uint32_t)a->coeffs[8*i+j];
+                        t <<= 1;
+                        t += 1665;
+                        t *= 80635;
+                        t >>= 28;
+                        t &= 1;
+                        msg[i] |= t << j;
 		}
 	}
 }

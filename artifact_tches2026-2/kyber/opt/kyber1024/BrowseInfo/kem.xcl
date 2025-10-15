@@ -1,15 +1,15 @@
-"C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\kem.c"
+"C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024\kem.c"
 -std=c99
 -ferror-limit=0
 -fbracket-depth=512
 -funsigned-char
 -MD
 -MF
-C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\BrowseInfo\kem.pbi.dep
+C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024\BrowseInfo\kem.pbi.dep
 -o
-C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\BrowseInfo\kem.pbi
+C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024\BrowseInfo\kem.pbi
 -I
-C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024
+C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024
 -I
 C:\Program Files\IAR Systems\Embedded Workbench 9.1\430\inc\dlib
 -I

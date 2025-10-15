@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.general.xcl" --backend -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.general.xcl" --backend -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber1024\settings\kyber1024_msp430.Debug.driver.xcl" 
 }

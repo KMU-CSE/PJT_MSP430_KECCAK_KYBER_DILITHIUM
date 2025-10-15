@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber768\settings\kyber768_msp430.Debug.general.xcl" --backend -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber768\settings\kyber768_msp430.Debug.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber768\settings\kyber768_msp430.Debug.general.xcl" --backend -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber768\settings\kyber768_msp430.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber768\settings\kyber768_msp430.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber768\settings\kyber768_msp430.Debug.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.1\common\bin\cspybat" -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber768\settings\kyber768_msp430.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\dong\Desktop\MSP430 Code\artifact_tches2026-2\kyber\opt\kyber768\settings\kyber768_msp430.Debug.driver.xcl" 
 
 @echo off 
 :end
