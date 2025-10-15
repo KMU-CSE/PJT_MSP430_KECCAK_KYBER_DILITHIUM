@@ -1,0 +1,635 @@
+#include <msp430.h>
+
+
+NAME asm_keccak1600            ; module name
+PUBLIC asm_keccak1600          ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+
+
+#define         element1        r4
+#define         element2        r5
+#define         element3        r6
+#define         element4        r7
+
+
+#define         temp1          r8
+#define         temp2           r9
+#define         temp3           r10
+#define         temp4           r11
+#define         temp5           r14
+
+#define         temp             r15
+
+#define         ptr     r12
+#define         ptr_RC        r13
+         
+
+
+         
+xor_left_rotate     macro x4, x3, x2, x1, y4, y3, y2, y1            ;high: w4, low: w1  
+
+         rla    y4  
+         rlc    y1
+         rlc    y2
+         rlc    y3
+         adc   y4       
+         
+         xor x4, y4
+         xor x3, y3
+         xor x2, y2
+         xor x1, y1
+         
+         endm
+prepare_theta   macro   off1, off2, off3, off4, off5, dst
+         mov    off1(ptr), temp
+         mov    off2(ptr), dst
+         xor    temp, dst
+         
+         mov    off3(ptr), temp
+         xor    temp, dst
+         mov    off4(ptr), temp
+         xor    temp, dst
+         mov    off5(ptr), temp
+         xor    temp, dst
+
+         endm
+push_theta      macro w4, w3, w2, w1
+         push w4
+         push w3
+         push w2
+         push w1
+
+         endm
+         
+pop_theta      macro off1, off2, off3, off4, off5, src
+         pop temp
+         mov off1(ptr), src
+         xor temp, src
+         mov src, off1(ptr)
+         
+         mov off2(ptr), src
+         xor temp, src
+         mov src, off2(ptr)
+         
+         mov off3(ptr), src
+         xor temp, src
+         mov src, off3(ptr)
+         
+         mov off4(ptr), src
+         xor temp, src
+         mov src, off4(ptr)
+         
+         mov off5(ptr), src
+         xor temp, src
+         mov src, off5(ptr)         
+
+         endm
+         
+         
+last_theta      macro off1, off2, off3, off4, off5, off6, off7, off8, off9, off10, off11, off12, off13, off14, off15, off16, off17, off18, off19, off20  
+         
+         pop_theta off1, off2, off3, off4, off5, temp5
+         pop_theta off6, off7, off8, off9, off10, temp5
+         pop_theta off11, off12, off13, off14, off15, temp5 
+         pop_theta off16, off17, off18, off19, off20, temp5
+
+         endm
+
+theta     macro             ;high: w4, low: w1
+
+          ; a e  i o  u
+          ; 0 8 16 24 32
+         prepare_theta 32, 72, 112, 152, 192, element1    //u
+         prepare_theta 34, 74, 114, 154, 194, element2
+         prepare_theta 36, 76, 116, 156, 196, element3
+         prepare_theta 38, 78, 118, 158, 198, element4
+         
+         prepare_theta 8, 48, 88, 128, 168, temp1     //e
+         prepare_theta 10, 50, 90, 130, 170, temp2
+         prepare_theta 12, 52, 92, 132, 172, temp3
+         prepare_theta 14, 54, 94, 134, 174, temp4 
+         xor_left_rotate element4, element3, element2, element1, temp4, temp3, temp2, temp1
+         push_theta     temp4, temp3, temp2, temp1      //push(Da), u 살았음
+         
+         prepare_theta 16, 56, 96, 136, 176, temp1     //i
+         prepare_theta 18, 58, 98, 138, 178, temp2
+         prepare_theta 20, 60, 100, 140, 180, temp3
+         prepare_theta 22, 62, 102, 142, 182, temp4
+         xor_left_rotate  temp4, temp3, temp2, temp1, element4, element3, element2, element1
+         push_theta     element4, element3, element2, element1      //push(Do), i 살았음
+         
+         prepare_theta 0, 40, 80, 120, 160, element1     //a
+         prepare_theta 2, 42, 82, 122, 162, element2
+         prepare_theta 4, 44, 84, 124, 164, element3
+         prepare_theta 6, 46, 86, 126, 166, element4
+         xor_left_rotate  element4, element3, element2, element1,temp4, temp3, temp2, temp1
+         push_theta     temp4, temp3, temp2, temp1      //push(De), a 살았음
+         
+         prepare_theta 24, 64, 104, 144, 184, temp1     //o
+         prepare_theta 26, 66, 106, 146, 186, temp2
+         prepare_theta 28, 68, 108, 148, 188, temp3
+         prepare_theta 30, 70, 110, 150, 190, temp4
+         xor_left_rotate  temp4, temp3, temp2, temp1, element4, element3, element2, element1
+         push_theta     element4, element3, element2, element1      //push(Du), o 살았음
+         
+         prepare_theta 8, 48, 88, 128, 168, element1     //e
+         prepare_theta 10, 50, 90, 130, 170, element2
+         prepare_theta 12, 52, 92, 132, 172, element3
+         prepare_theta 14, 54, 94, 134, 174, element4
+         xor_left_rotate  element4, element3, element2, element1,temp4, temp3, temp2, temp1
+         push_theta     temp4, temp3, temp2, temp1      //push(Di), e 살았음
+         
+         last_theta 16, 56, 96, 136, 176, 18, 58, 98, 138, 178, 20, 60, 100, 140, 180, 22, 62, 102, 142, 182    ;Di
+         last_theta 32, 72, 112, 152, 192, 34, 74, 114, 154, 194, 36, 76, 116, 156, 196, 38, 78, 118, 158, 198  ;Du
+         last_theta 8, 48, 88, 128, 168, 10, 50, 90, 130, 170, 12, 52, 92, 132, 172, 14, 54, 94, 134, 174       ;De
+         last_theta 24, 64, 104, 144, 184, 26, 66, 106, 146, 186, 28, 68, 108, 148, 188, 30, 70, 110, 150, 190  ;Do
+         last_theta 0, 40, 80, 120, 160, 2, 42, 82, 122, 162, 4, 44, 84, 124, 164, 6, 46, 86, 126, 166  ;Da
+         endm
+  
+          ;a
+         ;0, 40, 80, 120, 160
+         ;2, 42, 82, 122, 162
+         ;4, 44, 84, 124, 164
+         ;6, 46, 86, 126, 166
+         ;o
+         ;24, 64, 104, 144, 184
+         ;26, 66, 106, 146, 186
+         ;28, 68, 108, 148, 188
+         ;30, 70, 110, 150, 190
+   
+
+
+ld64      macro off1, off2, off3, off4, w1,w2,w3,w4        ;high: w4, low: w1 
+
+         mov  off1(ptr), w1
+         mov  off2(ptr), w2
+         mov  off3(ptr), w3
+         mov  off4(ptr), w4
+         
+         endm
+         
+st64      macro off1, off2, off3, off4, w4,w3,w2,w1       ;high: w4, low: w1 
+
+         mov  w1, off1(ptr)
+         mov  w2, off2(ptr)
+         mov  w3, off3(ptr)
+         mov  w4, off4(ptr)
+         
+         endm
+         
+right_rotate8      macro w4, w3, w2, w1     ;high: w4, low: w1 
+
+         mov.b    w1, temp  ;ror8
+         xor.b  w2, temp
+         xor.w  temp, w1
+         xor.w  temp, w2
+         
+         mov.b w2, temp
+         xor.b  w3, temp
+         xor.w  temp, w2
+         xor.w  temp, w3
+         
+         mov.b w3, temp
+         xor.b  w4, temp
+         xor.w  temp, w3
+         xor.w  temp, w4
+         
+         swpb   w1
+         swpb   w2
+         swpb   w3
+         swpb   w4
+         
+         endm
+         
+right_rotate1      macro w4, w3, w2, w1        ;high: w4, low: w1      
+
+         bit    #1, w1  ;ror 1
+         rrc    w4
+         rrc    w3
+         rrc    w2
+         rrc    w1    
+         
+         endm
+         
+left_rotate1      macro w4, w3, w2, w1            ;high: w4, low: w1  
+
+         rla    w4  
+         rlc    w1
+         rlc    w2
+         rlc    w3
+         adc   w4
+         
+         endm         
+         
+rho_phi      macro     
+
+         ld64   104, 106, 108, 110, element1,  element2,  element3,  element4
+         ;rol25, element        ko
+
+         right_rotate8  element2, element1, element4, element3
+         left_rotate1   element2, element1, element4, element3        
+         ld64   96, 98, 100, 102, temp1, temp2, temp3, temp4
+         st64   96, 98, 100, 102, element2, element1, element4, element3
+         
+         
+         ;rol43 temp            ki         
+         right_rotate1  temp1, temp4, temp3, temp2
+         right_rotate1  temp1, temp4, temp3, temp2
+         right_rotate1  temp1, temp4, temp3, temp2
+         right_rotate1  temp1, temp4, temp3, temp2
+         right_rotate1  temp1, temp4, temp3, temp2
+         ld64   16, 18, 20, 22, element1,  element2,  element3,  element4
+         st64   16, 18, 20, 22, temp1, temp4, temp3, temp2
+         
+         ;rol62, element        bi
+         right_rotate1  element4,  element3,  element2,  element1
+         right_rotate1  element4,  element3,  element2,  element1
+         ld64   160, 162, 164, 166, temp1, temp2, temp3, temp4
+         st64   160, 162, 164, 166, element4,  element3,  element2,  element1
+         
+         
+         ;rol18 temp            sa
+         left_rotate1   temp3, temp2, temp1, temp4
+         left_rotate1   temp3, temp2, temp1, temp4
+         ld64   112, 114, 116, 118, element1,  element2,  element3,  element4
+         st64   112, 114, 116, 118, temp3, temp2, temp1, temp4
+         
+         ;rol39, element        ku
+         right_rotate8  element1,  element4,  element3,  element2
+         right_rotate1  element1,  element4,  element3,  element2         
+         ld64   176, 178, 180, 182, temp1, temp2, temp3, temp4
+         st64   176, 178, 180, 182, element1,  element4,  element3,  element2
+         
+         
+         ;rol61 temp          si
+         right_rotate1  temp4, temp3, temp2, temp1
+         right_rotate1  temp4, temp3, temp2, temp1
+         right_rotate1  temp4, temp3, temp2, temp1
+         ld64   72, 74, 76, 78, element1,  element2,  element3,  element4
+         st64   72, 74, 76, 78, temp4, temp3, temp2, temp1
+         
+         ;rol20, element        gu
+         left_rotate1   element3, element2, element1, element4
+         left_rotate1   element3, element2, element1, element4
+         left_rotate1   element3, element2, element1, element4
+         left_rotate1   element3, element2, element1, element4
+         ld64   48, 50, 52, 54, temp1, temp2, temp3, temp4
+         st64   48, 50, 52, 54, element3, element2, element1, element4
+         
+         
+         ;rol44 temp            ge
+         right_rotate1  temp1, temp4, temp3, temp2
+         right_rotate1  temp1, temp4, temp3, temp2
+         right_rotate1  temp1, temp4, temp3, temp2
+         right_rotate1  temp1, temp4, temp3, temp2
+         ld64   8, 10, 12, 14, element1,  element2,  element3,  element4
+         st64   8, 10, 12, 14, temp1, temp4, temp3, temp2
+         
+         
+         
+         ;rol1, element        be
+         left_rotate1  element4, element3, element2, element1
+         ld64   80, 82, 84, 86, temp1, temp2, temp3, temp4
+         st64   80, 82, 84, 86, element4, element3, element2, element1
+         
+         
+         ;rol3 temp            ka
+         left_rotate1  temp4, temp3, temp2, temp1 
+         left_rotate1  temp4, temp3, temp2, temp1 
+         left_rotate1  temp4, temp3, temp2, temp1 
+         ld64   56, 58, 60, 62, element1,  element2,  element3,  element4
+         st64   56, 58, 60, 62, temp4, temp3, temp2, temp1
+         
+         ;rol6, element       gi 
+         left_rotate1  element4, element3, element2, element1 
+         left_rotate1  element4, element3, element2, element1 
+         left_rotate1  element4, element3, element2, element1 
+         left_rotate1  element4, element3, element2, element1 
+         left_rotate1  element4, element3, element2, element1 
+         left_rotate1  element4, element3, element2, element1 
+         ld64   88, 90, 92, 94, temp1, temp2, temp3, temp4
+         st64   88, 90, 92, 94, element4, element3, element2, element1
+         
+         
+         ;rol10 temp           ke
+         right_rotate1  temp3, temp2, temp1, temp4
+         right_rotate1  temp3, temp2, temp1, temp4
+         right_rotate1  temp3, temp2, temp1, temp4
+         right_rotate1  temp3, temp2, temp1, temp4
+         right_rotate1  temp3, temp2, temp1, temp4
+         right_rotate1  temp3, temp2, temp1, temp4
+         ld64   136, 138, 140, 142, element1,  element2,  element3,  element4
+         st64   136, 138, 140, 142, temp3, temp2, temp1, temp4
+         
+         ;rol15, element       mi
+         right_rotate1  element3, element2, element1, element4
+         ld64   144, 146, 148, 150, temp1, temp2, temp3, temp4
+         st64   144, 146, 148, 150, element3, element2, element1, element4
+         
+         
+         ;rol21 temp            mo
+         left_rotate1  temp3, temp2, temp1, temp4
+         left_rotate1  temp3, temp2, temp1, temp4
+         left_rotate1  temp3, temp2, temp1, temp4
+         left_rotate1  temp3, temp2, temp1, temp4
+         left_rotate1  temp3, temp2, temp1, temp4
+         ld64   24, 26, 28, 30, element1,  element2,  element3,  element4
+         st64   24, 26, 28, 30, temp3, temp2, temp1, temp4
+         
+         ;rol28, element       bo
+         right_rotate1  element2, element1, element4, element3
+         right_rotate1  element2, element1, element4, element3
+         right_rotate1  element2, element1, element4, element3
+         right_rotate1  element2, element1, element4, element3
+         ld64   40, 42, 44, 46, temp1, temp2, temp3, temp4
+         st64   40, 42, 44, 46, element2, element1, element4, element3
+         
+         
+         ;rol36 temp            ga
+         left_rotate1   temp2, temp1, temp4, temp3
+         left_rotate1   temp2, temp1, temp4, temp3
+         left_rotate1   temp2, temp1, temp4, temp3
+         left_rotate1   temp2, temp1, temp4, temp3
+         ld64   128, 130, 132, 134, element1,  element2,  element3,  element4
+         st64   128, 130, 132, 134, temp2, temp1, temp4, temp3
+         
+         ;rol45, element       me
+         right_rotate1  element1, element4, element3, element2
+         right_rotate1  element1, element4, element3, element2
+         right_rotate1  element1, element4, element3, element2
+         ld64   64, 66, 68, 70, temp1, temp2, temp3, temp4
+         st64   64, 66, 68, 70, element1, element4, element3, element2
+         
+         
+         ;rol55 temp            go
+         right_rotate8  temp4, temp3, temp2, temp1
+         right_rotate1  temp4, temp3, temp2, temp1
+         ld64   168, 170, 172, 174, element1,  element2,  element3,  element4
+         st64   168, 170, 172, 174, temp4, temp3, temp2, temp1
+         
+         ;rol2, element       se
+         left_rotate1   element4, element3, element2, element1
+         left_rotate1   element4, element3, element2, element1
+         ld64   192, 194, 196, 198, temp1, temp2, temp3, temp4
+         st64   192, 194, 196, 198, element4, element3, element2, element1
+         
+         
+         ;rol14  temp            su
+         right_rotate1  temp3, temp2, temp1, temp4
+         right_rotate1  temp3, temp2, temp1, temp4
+         ld64   32, 34, 36, 38, element1,  element2,  element3,  element4
+         st64   32, 34, 36, 38, temp3, temp2, temp1, temp4
+         
+         ;rol27, element       bu
+         right_rotate8  element2, element1, element4, element3
+         left_rotate1  element2, element1, element4, element3
+         left_rotate1  element2, element1, element4, element3
+         left_rotate1  element2, element1, element4, element3
+         ld64   120, 122, 124, 126, temp1, temp2, temp3, temp4
+         st64   120, 122, 124, 126, element2, element1, element4, element3
+         
+         
+         ;rol41 temp            ma
+         right_rotate8  temp1, temp4, temp3, temp2
+         left_rotate1  temp1, temp4, temp3, temp2
+         ld64   184, 186, 188, 190, element1,  element2,  element3,  element4
+         st64   184, 186, 188, 190, temp1, temp4, temp3, temp2
+         
+         ;rol56, element       so
+         right_rotate8  element4, element3, element2, element1
+         ld64   152, 154, 156, 158, temp1, temp2, temp3, temp4
+         st64   152, 154, 156, 158, element4, element3, element2, element1
+         
+         
+         ;rol8 temp            mu
+         right_rotate8  temp3, temp2, temp1, temp4
+         st64   104, 106, 108, 110, temp3, temp2, temp1, temp4
+         
+         
+         endm
+         
+chi      macro off1, off2, off3, off4, off5          
+;BIC(.B) src,dst .not.src .and. dst → dst
+
+
+         ;a e i o u
+         mov    off1(ptr), element1
+         mov    off2(ptr), element2
+         mov    off3(ptr), element3
+         mov    off4(ptr), element4
+         mov    off5(ptr), temp
+         
+         mov    element1, temp1
+         mov    element2, temp2
+         mov    element3, temp3
+         mov    element4, temp4
+         mov    temp, temp5
+         
+         bic    temp2, temp3
+         xor    temp1, temp3
+         mov    temp3, off1(ptr)
+         
+         bic    element3, temp4
+         xor    temp2, temp4
+         mov    temp4, off2(ptr)
+         
+         bic    element4, temp5
+         xor    element3, temp5
+         mov    temp5, off3(ptr)
+         
+         bic    temp, temp1
+         xor    element4, temp1
+         mov    temp1, off4(ptr)
+         
+         bic    element1, temp2
+         xor    temp, temp2
+         mov    temp2, off5(ptr)
+                         
+         endm
+
+first_chi      macro off1, off2, off3, off4, off5, rc          
+;BIC(.B) src,dst .not.src .and. dst → dst
+
+
+         ;a e i o u
+         mov    off1(ptr), element1
+         mov    off2(ptr), element2
+         mov    off3(ptr), element3
+         mov    off4(ptr), element4
+         mov    off5(ptr), temp
+         
+         mov    element1, temp1
+         mov    element2, temp2
+         mov    element3, temp3
+         mov    element4, temp4
+         mov    temp, temp5
+         
+         bic    temp2, temp3
+         xor    temp1, temp3
+         xor    rc, temp3
+         mov    temp3, off1(ptr)
+         
+         bic    element3, temp4
+         xor    temp2, temp4
+         mov    temp4, off2(ptr)
+         
+         bic    element4, temp5
+         xor    element3, temp5
+         mov    temp5, off3(ptr)
+         
+         bic    temp, temp1
+         xor    element4, temp1
+         mov    temp1, off4(ptr)
+         
+         bic    element1, temp2
+         xor    temp, temp2
+         mov    temp2, off5(ptr)
+         
+         ;add #2, ptr_RC
+                         
+         endm
+         
+chi_lota      macro             ;high: w4, low: w1  
+
+         first_chi 0, 8, 16, 24, 32, 0(ptr_RC)
+         first_chi 2, 10, 18, 26, 34, 2(ptr_RC)
+         first_chi 4, 12, 20, 28, 36, 4(ptr_RC)
+         first_chi 6, 14, 22, 30, 38, 6(ptr_RC)
+         
+         add    #8, ptr_RC
+         
+         chi 40, 48, 56, 64, 72
+         chi 42, 50, 58, 66, 74
+         chi 44, 52, 60, 68, 76
+         chi 46, 54, 62, 70, 78
+         
+         chi 80, 88, 96, 104, 112
+         chi 82, 90, 98, 106, 114
+         chi 84, 92, 100, 108, 116
+         chi 86, 94, 102, 110, 118
+         
+         chi 120, 128, 136, 144, 152
+         chi 122, 130, 138, 146, 154
+         chi 124, 132, 140, 148, 156
+         chi 126, 134, 142, 150, 158
+         
+         chi 160, 168, 176, 184, 192
+         chi 162, 170, 178, 186, 194
+         chi 164, 172, 180, 188, 196
+         chi 166, 174, 182, 190, 198
+         
+         
+         endm   
+         
+
+         
+asm_keccak1600:
+
+
+         push.w r4
+         push.w r5
+         push.w r6
+         push.w r7
+         push.w r8
+         push.w r9
+         push.w r10
+         push.w r11
+         
+       
+         
+    
+         
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+         theta
+         rho_phi
+         chi_lota
+
+         
+
+
+
+
+         pop    r11
+         pop    r10
+         pop    r9
+         pop    r8
+         pop    r7
+         pop    r6
+         pop    r5
+         pop    r4
+
+         
+         
+         RETA
+         
+END
+

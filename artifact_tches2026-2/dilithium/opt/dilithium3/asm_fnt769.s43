@@ -1,0 +1,252 @@
+#include <msp430.h>
+
+         
+         
+#define         a0              r4
+#define         a1              r5
+#define         a2              r6
+#define         a3              r7
+#define         a4              r8
+#define         a5              r9
+#define         a6              r10
+#define         a7              r11
+
+#define         zeta1      r8
+#define         zeta2      r9
+#define         zeta3      r10
+#define         forstop2        r11
+
+#define         ptr                 r12
+#define         ptr_zeta        r13
+#define         temp0           r14
+#define         temp1           r13
+#define         forstop         r15         
+
+         
+mont_fnt    macro  dst, src1, src2 
+                                                                                
+         mov src1, &MPYS
+         mov #-767, &OP2 //QinvR = 0xfd01 = -767
+         
+         mov &RESLO, &MPYS
+         mov #769, &OP2
+         
+         sub &RESHI, src2                                       
+         
+         mov src2, dst         
+                  
+         endm         
+         
+
+       
+         
+butterfly_fnt     macro   w0, w1, zeta
+
+         mov    w1, &MPYS         
+         mov    zeta, &OP2
+         mov    &RESLO, temp0
+         mov    &RESHI, w1
+         
+         mont_fnt    temp0, temp0, w1
+                                
+         mov    w0, w1         
+         
+         sub    temp0, w1             
+         add    temp0, w0   
+                  
+         endm                    
+     
+
+first_merging_3_fnt   macro   off1, off2, off3, off4, off5, off6, off7, off8
+
+         mov    off1(ptr), a0
+         mov    off2(ptr), a1
+         mov    off3(ptr), a2
+         mov    off4(ptr), a3
+         mov    off5(ptr), a4
+         mov    off6(ptr), a5
+         mov    off7(ptr), a6
+         mov    off8(ptr), a7
+          
+         butterfly_fnt    a0, a4, #-164 
+         butterfly_fnt    a1, a5, #-164
+         butterfly_fnt    a2, a6, #-164
+         butterfly_fnt    a3, a7, #-164
+         
+         butterfly_fnt    a0, a2, #-81   
+         butterfly_fnt    a1, a3, #-81
+         butterfly_fnt    a4, a6, #361  
+         butterfly_fnt    a5, a7, #361
+         
+         butterfly_fnt    a0, a1, #-186 
+         butterfly_fnt    a2, a3, #3   
+         butterfly_fnt    a4, a5, #250 
+         butterfly_fnt    a6, a7, #120 
+         
+         
+         mov     a7, off8(ptr)
+         mov     a6, off7(ptr)
+         mov     a5, off6(ptr)
+         mov     a4, off5(ptr)
+         mov     a3, off4(ptr)
+         mov     a2, off3(ptr)
+         mov     a1, off2(ptr)
+         mov     a0, off1(ptr)
+         
+         add    #4, ptr
+         endm
+
+second_merging_2_fnt   macro   off1, off2, off3, off4
+
+         mov    off1(ptr), a0
+         mov    off2(ptr), a1
+         mov    off3(ptr), a2
+         mov    off4(ptr), a3
+                           
+         ;4-layer
+         
+                       
+         butterfly_fnt    a0, a2, zeta1
+         butterfly_fnt    a1, a3, zeta1
+         
+         butterfly_fnt    a0, a1, zeta2
+         butterfly_fnt    a2, a3, zeta3
+         
+                  
+         mov     a3, off4(ptr)
+         mov     a2, off3(ptr)
+         mov     a1, off2(ptr)
+         mov     a0, off1(ptr)
+         
+         add    #4, ptr
+         endm
+         
+
+         
+         
+PUBLIC asm_fnt_merging       
+RSEG CODE              ; place program in 'CODE' segment
+
+
+        
+
+asm_fnt_merging:
+        
+         push.w r4
+         push.w r5
+         push.w r6
+         push.w r7
+         push.w r8
+         push.w r9
+         push.w r10         
+         push.w r11
+         push.w r12
+         push.w r13
+         push.w r14
+         push.w r15
+         
+         
+         push.w   ptr_zeta 
+                                            
+         push.w   ptr
+         mov    ptr, forstop
+         add    #128, forstop
+         
+        
+         ;layer 1~3
+layer13_merge:
+         
+         
+         first_merging_3_fnt  0, 128, 256, 384, 512, 640, 768, 896         
+         cmp    forstop, ptr
+         jn     layer13_merge
+         
+         pop    ptr
+         pop   ptr_zeta
+         push.w   ptr
+         mov    ptr, forstop                 
+         mov    ptr, forstop2
+         
+         add    #32, forstop
+         add    #1024, forstop2                      
+
+         ;layer 4~5
+         
+         
+          
+layer45_merge_out:         
+
+         mov    @ptr_zeta+, zeta1
+         mov    @ptr_zeta+, zeta2
+         mov    @ptr_zeta+, zeta3
+         
+
+layer45_merge_in:         
+
+         second_merging_2_fnt  0, 32, 64, 96
+         cmp    forstop, ptr
+         jn     layer45_merge_in
+         
+         add    #96, ptr
+         mov    ptr, forstop
+         add    #32, forstop
+         
+         cmp    forstop2, ptr
+         jn     layer45_merge_out
+                          
+         
+         pop    ptr         
+         push.w   ptr
+         mov    ptr, forstop                 
+         mov    ptr, forstop2
+         
+         add    #8, forstop
+         add    #1024, forstop2      
+         
+layer67_merge_out:         
+
+         mov    @ptr_zeta+, zeta1
+         mov    @ptr_zeta+, zeta2
+         mov    @ptr_zeta+, zeta3
+         
+
+layer67_merge_in:         
+
+         second_merging_2_fnt  0, 8, 16, 24
+         cmp    forstop, ptr
+         jn     layer67_merge_in
+         
+         add    #24, ptr
+         mov    ptr, forstop
+         add    #8, forstop
+         
+         cmp    forstop2, ptr
+         jn     layer67_merge_out
+         
+         
+         pop ptr         
+
+
+
+
+          pop    r15          
+          pop    r14          
+          pop    r13          
+          pop    r12          
+          pop    r11          
+          pop    r10
+          pop    r9
+          pop    r8
+          pop    r7
+          pop    r6
+          pop    r5
+          pop    r4
+
+
+          RETA
+          
+END          
+          
+          
+ 
+

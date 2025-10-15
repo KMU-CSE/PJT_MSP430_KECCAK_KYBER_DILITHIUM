@@ -1,0 +1,171 @@
+#include <msp430.h>
+
+#define         a0              r4
+#define         a1              r5
+#define         b0              r6
+#define         b1              r7
+
+#define         zeta            r9
+#define         temp0           r10
+#define         temp1          r11
+#define         ptr_C           r12
+#define         ptr_A           r13
+#define         ptr_B           r14
+#define         ptr_zeta        r15
+
+#define         forstop         r8
+
+mont_fnt_basemul    macro  src1, src2  ;input : temp1(src2)||temp0(src1)
+                                                                       
+         mov src1, &MPYS
+         mov #-767, &OP2 //QinvR = 0xfd01 = -767
+         
+         mov &RESLO, &MPYS
+         mov #769, &OP2
+         
+         sub &RESHI, src2        
+                              
+         endm
+         
+
+         
+PUBLIC asm_pointwise_fnt          ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+asm_pointwise_fnt:
+
+         push.w r4
+         push.w r5
+         push.w r6
+         push.w r7
+         push.w r8
+         push.w r9
+         push.w r10         
+         push.w r11
+         push.w r12
+         push.w r13
+         push.w r14
+         push.w r15
+         
+                
+         mov    ptr_A, forstop
+         add    #1024, forstop
+         
+round1:         
+
+         mov    0(ptr_A), a0
+         mov    4(ptr_A), a1
+         mov    0(ptr_B), b0
+         mov    4(ptr_B), b1
+         mov    0(ptr_zeta), zeta
+         
+         ;3
+         mov    a1, &MPYS
+         mov    b0, &OP2
+         
+         mov    a0, &MACS
+         mov    b1, &OP2         
+         
+         mov    &RESLO, temp0    
+         mov    &RESHI, temp1
+         
+         mont_fnt_basemul   temp0, temp1
+         
+         mov    temp1, 4(ptr_C)
+         
+         ;1
+         mov    a1, &MPYS
+         mov    b1, &OP2
+         
+         mov    &RESLO, temp0    
+         mov    &RESHI, temp1
+         
+         mont_fnt_basemul        temp0, temp1
+         
+         mov    temp1, &MPYS
+         mov    zeta, &OP2
+         
+         mov    a0, &MACS     
+         mov    b0, &OP2
+         
+         mov    &RESLO, temp0    
+         mov    &RESHI, temp1
+         
+         mont_fnt_basemul        temp0, temp1
+         
+         mov    temp1, 0(ptr_C)
+         ;1 end
+                          
+round2:
+         
+         mov    8(ptr_A), a0
+         mov    12(ptr_A), a1
+         mov    8(ptr_B), b0
+         mov    12(ptr_B), b1
+         inv    zeta
+         add    #1, zeta
+         
+         ;3
+         mov    a1, &MPYS
+         mov    b0, &OP2
+         
+         mov    a0, &MACS
+         mov    b1, &OP2         
+         
+         mov    &RESLO, temp0    
+         mov    &RESHI, temp1
+         
+         mont_fnt_basemul   temp0, temp1
+         
+         mov    temp1, 12(ptr_C)
+         
+         ;1
+         mov    a1, &MPYS
+         mov    b1, &OP2
+         
+         mov    &RESLO, temp0    
+         mov    &RESHI, temp1
+         
+         mont_fnt_basemul        temp0, temp1
+         
+         mov    temp1, &MPYS
+         mov    zeta, &OP2
+         
+         mov    a0, &MACS     
+         mov    b0, &OP2
+         
+         mov    &RESLO, temp0    
+         mov    &RESHI, temp1
+         
+         mont_fnt_basemul        temp0, temp1
+         
+         mov    temp1, 8(ptr_C)
+         ;1 end
+         
+         
+         add    #16, ptr_A
+         add    #16, ptr_B
+         add    #16, ptr_C
+         add    #2, ptr_zeta
+         
+         cmp    forstop, ptr_A
+         jn     round1
+         
+         pop    r15
+         pop    r14
+         pop    r13
+         pop    r12
+         pop    r11
+         pop    r10
+         pop    r9
+         pop    r8
+         pop    r7
+         pop    r6
+         pop    r5
+         pop    r4
+         
+         RETA
+
+
+END
+

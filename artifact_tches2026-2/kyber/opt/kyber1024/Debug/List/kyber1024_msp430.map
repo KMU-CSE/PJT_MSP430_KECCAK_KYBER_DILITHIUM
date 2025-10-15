@@ -1,0 +1,1390 @@
+###############################################################################
+#
+# IAR UBROF Linker V10.15.2.1487                          15/Oct/2025  14:31:14
+# Copyright 1987-2023 IAR Systems AB.
+#
+#    Target Cpu    =  MSP430
+#    Map file      =
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\List\kyber1024_msp430.map"
+#    Output file 1 =
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Exe\kyber1024_msp430.d43"
+#                  =  Format: debug
+#                  =  UBROF version 11.1.1
+#                  =  Using library modules for C-SPY (-rt)
+#    Command line  =
+#        -f "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Exe\kyber1024_msp430.d43.rsp"
+#        ("C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_basemul_kyber.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_intt_kyber.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_ntt_kyber.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_reduce_kyber.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\cbd.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\fips202.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\indcpa.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\kem.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\main.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\matacc.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\new_asm_sha3.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\ntt.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\poly.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\polyvec.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\randombytes.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\reduce.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\symmetric-shake.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\verify.r43"
+#        --output "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Exe\kyber1024_msp430.d43"
+#        -l "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\kyber\opt\kyber1024\Debug\List\kyber1024_msp430.map"
+#        -xams "-IC:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\430\LIB\\" --f "C:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\430\config\linker\lnk430f67791.xcl" (-cmsp430 -QCODE_I=CODE_ID
+#        -QTLS16_I=TLS16_ID -D__iar_HWMUL=4C0 "-Z(CONST)INFO=1800-19FF"
+#        "-Z(CONST)INFOA=1980-19FF" "-Z(CONST)INFOB=1900-197F"
+#        "-Z(CONST)INFOC=1880-18FF" "-Z(CONST)INFOD=1800-187F"
+#        "-Z(DATA)DATA16_I,DATA16_Z,DATA16_N,TLS16_I=1C00-9BFF"
+#        "-Z(DATA)DATA16_HEAP+_DATA16_HEAP_SIZE" "-Z(DATA)CODE_I"
+#        "-Z(DATA)DATA20_I,DATA20_Z,DATA20_N,DATA20_HEAP+_DATA20_HEAP_SIZE"
+#        "-Z(DATA)CSTACK+_STACK_SIZE#"
+#        "-Z(CONST)DATA16_C,DATA16_ID,TLS16_ID,DIFUNCT,CHECKSUM=C000-FF7F"
+#        "-Z(CODE)CSTART,ISR_CODE,CODE16=C000-FF7F"
+#        "-P(CODE)CODE=C000-FF7F,10000-8BFF7"
+#        "-Z(CONST)DATA20_C,DATA20_ID,CODE_ID=C000-FF7F,10040-8BFF7"
+#        "-Z(CODE)INTVEC=FF80-FFFF" "-Z(CODE)RESET=FFFE-FFFF") -f "C:\Program
+#        Files\IAR Systems\Embedded Workbench
+#        9.1\430\config\linker\multiplier32.xcl" (-e?Mul8Hw=?Mul8
+#        -e?Mul16Hw=?Mul16 -e?Mul16to32uHw=?Mul16to32u
+#        -e?Mul16to32sHw=?Mul16to32s -e?Mul32Hw32=?Mul32 -e?Mul64Hw32=_Mul64i
+#        -e?Mul32u32uto64iHw32=_Mul32u32uto64i -e?Mul32fHw32=_Mul32f
+#        -e_Mul64fHw32Ptr=_Mul64fPtr) -D_STACK_SIZE=7530 -rt "C:\Program
+#        Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430xlsfn.r43"
+#        -e_PrintfLarge=_Printf -e_ScanfLarge=_Scanf -D_DATA16_HEAP_SIZE=3E8
+#        --entry __program_start -D_DATA20_HEAP_SIZE=50 --text_out locale)
+#
+###############################################################################
+
+
+
+
+
+
+                ****************************************
+                *                                      *
+                *            PROGRAM ENTRY             *
+                *                                      *
+                ****************************************
+
+  ADDRESS  SPACE  TYPE         MODULE
+  -------  -----  ----         ------
+   0xC12E         Relocatable  ?cstart
+
+
+
+
+                ****************************************
+                *                                      *
+                *            RUNTIME MODEL             *
+                *                                      *
+                ****************************************
+
+  ATTRIBUTE                   VALUE
+  ---------                   -----
+  __Heap_Handler              Basic
+  __SystemLibrary             DLib
+  __code_model                large
+  __core                      430X
+  __data_model                small
+  __dlib_file_descriptor      0
+  __dlib_full_locale_support  0
+  __double_size               32
+  __pic                       no
+  __reg_r4                    free
+  __reg_r5                    free
+  __rt_version                3
+
+
+                ****************************************
+                *                                      *
+                *    AUTOMATIC SYMBOL REDIRECTIONS     *
+                *                                      *
+                ****************************************
+
+                   There are no automatic symbol redirections.
+
+
+
+                ****************************************
+                *                                      *
+                *              ENTRY LIST              *
+                *                                      *
+                ****************************************
+
+ENTRY                    SPACE  ADDRESS     KIND  TYPE  MODULE
+-----                    -----  -------     ----  ----  ------
+__MSP430F6745__                     0x0000  Loc         asm_basemul_kyber
+__MSP430F6745__                     0x0000  Loc         asm_intt_kyber
+__MSP430F6745__                     0x0000  Loc         asm_ntt_kyber
+__MSP430F6745__                     0x0000  Loc         asm_reduce_kyber
+__MSP430F6745__                     0x0000  Loc         asm_keccak1600 [0]
+_DATA20_HEAP_SIZE                   0x0050  Pub         ?ABS_ENTRY_MOD [1]
+_A_WDTCTL_L                         0x015C  Pub   Data  main
+WDTCTL                              0x015C  Loc         main
+WDTCTL_L                            0x015C  Loc         main
+WDTCTL_H                            0x015D  Loc         main
+_DATA16_HEAP_SIZE                   0x03E8  Pub         ?ABS_ENTRY_MOD [1]
+__iar_HWMUL                         0x04C0  Pub         ?ABS_ENTRY_MOD [1]
+_STACK_SIZE                         0x7530  Pub         ?ABS_ENTRY_MOD [1]
+zetas                               0xC000  Pub   Data  ntt
+__program_start                     0xC12E  Pub         ?cstart [2]
+?cstart_begin                       0xC12E  Pub         ?cstart [2]
+?cstart_call_main                   0xC132  Pub         ?cstart [2]
+cmp_poly_compress                   0xC13A  Pub   Code  poly
+?cstart_end                         0xC13A  Pub         ?cstart [2]
+?Subroutine1                        0xC2B0  Loc         poly
+cmp_poly_packcompress               0xC2B8  Pub   Code  poly
+poly_compress                       0xC4CE  Pub   Code  poly
+poly_decompress                     0xC63E  Pub   Code  poly
+poly_tobytes                        0xC732  Pub   Code  poly
+poly_frombytes                      0xC77C  Pub   Code  poly
+poly_frommsg                        0xC7DC  Pub   Code  poly
+poly_tomsg                          0xC894  Pub   Code  poly
+poly_addnoise_eta1                  0xC902  Pub   Code  poly
+poly_addnoise_eta2                  0xC91C  Pub   Code  poly
+?Subroutine3                        0xC934  Loc         poly
+?Subroutine0                        0xC93E  Loc         poly
+poly_getnoise_eta1                  0xC94E  Pub   Code  poly
+poly_ntt                            0xC96A  Pub   Code  poly
+poly_invntt_tomont                  0xC97C  Pub   Code  poly
+poly_basemul_montgomery             0xC980  Pub   Code  poly
+poly_frombytes_mul                  0xC988  Pub   Code  poly
+?Subroutine2                        0xCA16  Loc         poly
+poly_frombytes_mul_acc              0xCA1E  Pub   Code  poly
+poly_basemul_acc                    0xCACE  Pub   Code  poly
+LoadInt                             0xCB2A  Loc   Code  ?xprintflarge [2]
+_GenldLarge                         0xCBBC  Loc   Code  ?xprintflarge [2]
+scale                               0xCE36  Loc   Code  ?xprintflarge [2]
+_LdtobLarge                         0xCE78  Loc   Code  ?xprintflarge [2]
+_LitobLarge                         0xD0B6  Loc   Code  ?xprintflarge [2]
+_PrintfLarge                        0xD278  Pub   Code  ?xprintflarge [2]
+asm_poly_basemul                    0xD710  Pub   Code  asm_basemul_kyber
+round1                              0xD726  Loc         asm_basemul_kyber
+round2                              0xD7CA  Loc         asm_basemul_kyber
+asm_basemul                         0xD892  Pub   Code  asm_basemul_kyber
+keccak_absorb                       0xDA00  Loc   Code  fips202
+poly_unpackdecompress               0xDCD6  Pub   Code  poly
+indcpa_enc_cmp                      0xDFAC  Pub   Code  indcpa
+poly_packcompress                   0xE1B6  Pub   Code  poly
+matacc                              0xE3AE  Pub   Code  matacc
+indcpa_enc                          0xE56E  Pub   Code  indcpa
+shake128_absorb                     0xE724  Pub   Code  fips202
+shake128_squeezeblocks              0xE730  Pub   Code  fips202
+?Subroutine6                        0xE736  Loc         fips202
+?Subroutine3                        0xE73C  Loc         fips202
+shake256                            0xE748  Pub   Code  fips202
+sha3_256                            0xE7FC  Pub   Code  fips202
+sha3_512                            0xE85C  Pub   Code  fips202
+_Sub32f                             0xE8BC  Pub         _Add32f [2]
+_Add32f                             0xE8C0  Pub         _Add32f [2]
+indcpa_keypair                      0xEA20  Pub   Code  indcpa
+_Div32f                             0xEB7E  Pub         _Div32f [2]
+asm_poly_tomont                     0xECAE  Pub   Code  asm_reduce_kyber
+loop_mont                           0xECD0  Loc         asm_reduce_kyber
+asm_poly_barrett                    0xED10  Pub   Code  asm_reduce_kyber
+loop_barrett                        0xED34  Loc         asm_reduce_kyber
+asm_NTT_poly_barrett                0xED70  Pub         asm_reduce_kyber
+loop_barrett_NTT                    0xED8E  Loc         asm_reduce_kyber
+?Mul32fHw32                         0xEDCA  Pub         ?Mul32fHw32 [2]
+basemul                             0xEEE0  Pub   Code  ntt
+keccak_squeezeblocks                0xEF9E  Loc   Code  fips202
+basemul_OP                          0xF05A  Pub   Code  ntt
+indcpa_dec                          0xF116  Pub   Code  indcpa
+_Div64u                             0xF1CE  Pub   Code  ?div64i [2]
+crypto_kem_dec                      0xF270  Pub   Code  kem
+main                                0xF308  Pub   Code  main
+poly_cbd_eta1                       0xF39E  Pub   Code  cbd
+?Subroutine0                        0xF39E  Loc         cbd
+poly_cbd_eta2                       0xF426  Pub   Code  cbd
+crypto_kem_enc                      0xF42A  Pub   Code  kem
+_Cast32uto32f                       0xF4A8  Pub         ?Cast32f32i [2]
+kyber_shake128_absorb               0xF526  Pub   Code  symmetric-shake
+?Subroutine0                        0xF550  Loc         symmetric-shake
+kyber_shake256_prf                  0xF558  Pub   Code  symmetric-shake
+cmov                                0xF586  Pub   Code  verify
+?ShiftRight32u                      0xF5E4  Pub         ?ShiftRight32u [2]
+?ShiftRight32u_7                    0xF624  Pub         ?ShiftRight32u [2]
+?ShiftRight32u_6                    0xF628  Pub         ?ShiftRight32u [2]
+?ShiftRight32u_5                    0xF62C  Pub         ?ShiftRight32u [2]
+?ShiftRight32u_4                    0xF630  Pub         ?ShiftRight32u [2]
+?ShiftRight32u_3                    0xF634  Pub         ?ShiftRight32u [2]
+?ShiftRight32u_2                    0xF638  Pub         ?ShiftRight32u [2]
+crypto_kem_keypair                  0xF642  Pub   Code  kem
+?FLT_LT                             0xF694  Pub         ?FLT_LT [2]
+?FLT_Extract                        0xF6E6  Pub         ?FLT_Extract [2]
+__iar_Dunscale                      0xF732  Pub   Code  ?xdunscal [2]
+randombytes                         0xF778  Pub   Code  randombytes
+?DivMod32s                          0xF7BA  Pub         ?DivMod32s [2]
+polyvec_tobytes                     0xF838  Pub   Code  polyvec
+montgomery_reduce                   0xF876  Pub   Code  reduce
+pad                                 0xF8AE  Loc   Code  ?xprintflarge [2]
+poly_sub                            0xF8E4  Pub   Code  poly
+poly_add                            0xF916  Pub   Code  poly
+?DivMod16s                          0xF948  Pub         ?DivMod816s [2]
+?DivMod32u                          0xF978  Pub         ?DivMod32u [2]
+_PutcharsLarge                      0xF9A8  Loc   Code  ?xprintflarge [2]
+polyvec_ntt                         0xF9D4  Pub   Code  polyvec
+_PutcharLarge                       0xF9FE  Loc   Code  ?xprintflarge [2]
+putchar                             0xFA26  Pub   Code  ?putchar [2]
+printf                              0xFA4E  Pub   Code  ?printf [2]
+__dwrite                            0xFA74  Pub   Code  ?__dwrite [2]
+?Mul8Hw                             0xFABA  Pub         ?Mul8Hw [2]
+?Mul16Hw                            0xFABE  Pub         ?Mul8Hw [2]
+?Mul16to32uHw                       0xFABE  Pub         ?Mul8Hw [2]
+?ShiftLeft32_7                      0xFADA  Pub         ?ShiftLeft32 [2]
+?ShiftLeft32_6                      0xFADE  Pub         ?ShiftLeft32 [2]
+?ShiftLeft32_5                      0xFAE2  Pub         ?ShiftLeft32 [2]
+?ShiftLeft32_4                      0xFAE6  Pub         ?ShiftLeft32 [2]
+?ShiftLeft32_3                      0xFAEA  Pub         ?ShiftLeft32 [2]
+?Mul16to32sHw                       0xFAF8  Pub         ?Mul16to32sHw [2]
+?DivMod16u                          0xFB2E  Pub         ?DivMod816u [2]
+_Prout                              0xFB46  Pub   Code  ?xprout [2]
+div                                 0xFB5E  Pub   Code  ?div [2]
+__iar_Memchr                        0xFB74  Pub   Code  ?memchr [2]
+__exit                              0xFB88  Pub   Code  ?__exit [2]
+memcpy                              0xFB9C  Pub   Code  ?memcpy [2]
+strlen                              0xFBAE  Pub   Code  ?strlen [2]
+?ClearMemoryWords                   0xFBD2  Pub         ?ClearMemoryWords [2]
+__iar_Strchr                        0xFBF0  Pub   Code  ?strchr [2]
+__write                             0xFBFE  Pub   Code  ?__write [2]
+_Cast32fto32u                       0xFC0A  Pub         _Cast32fto32u [2]
+?ShiftRight16s_3                    0xFC20  Pub         ?ShiftRight16s_n [2]
+exit                                0xFC28  Pub   Code  ?exit [2]
+?IndCallR11                         0xFC2C  Pub         ?IndCallR11 [2]
+poly_reduce                         0xFC30  Pub   Code  poly
+_exit                               0xFC34  Pub   Code  ?_exit [2]
+__DebugBreak                        0xFC38  Pub   Code  ?__dbg_break [2]
+?reset_vector                       0xFFFE  Pub         ?reset_vector [2]
+asm_keccak1600                  0x00010000  Pub   Code  asm_keccak1600 [0]
+asm_invntt_merging              0x00023BB4  Pub   Code  asm_intt_kyber
+layer7_merge3                   0x00023BC4  Loc         asm_intt_kyber
+layer4_merge2                   0x00029918  Loc         asm_intt_kyber
+layer2_merge2                   0x0002CD5E  Loc         asm_intt_kyber
+last_fqmul                      0x0002CE6C  Loc         asm_intt_kyber
+asm_ntt_merging                 0x0002CEAE  Pub   Code  asm_ntt_kyber
+layer1_2merge                   0x0002CED8  Loc         asm_ntt_kyber
+layer3_2merge_1                 0x0002CFB4  Loc         asm_ntt_kyber
+layer3_2merge_2                 0x0002D090  Loc         asm_ntt_kyber
+layer3_2merge_3                 0x0002D16C  Loc         asm_ntt_kyber
+layer3_2merge_4                 0x0002D248  Loc         asm_ntt_kyber
+layer5_3merge                   0x0002D314  Loc         asm_ntt_kyber
+
+[0] = C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\new_asm_sha3.r43
+[1] = Command line (linker generated)
+[2] = C:\Program Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430xlsfn.r43
+
+
+                ****************************************
+                *                                      *
+                *              MODULE MAP              *
+                *                                      *
+                ****************************************
+
+Linker generated:
+  Module: ?FILLER_BYTES
+**************************************************************
+Linker generated:
+  Module: ?ABS_ENTRY_MOD
+
+      Absolute module symbols:
+        _DATA20_HEAP_SIZE  0x0050  Pub
+        _DATA16_HEAP_SIZE  0x03E8  Pub
+        _STACK_SIZE        0x7530  Pub
+        __iar_HWMUL        0x04C0  Pub
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_basemul_kyber.r43
+  Module: asm_basemul_kyber
+       Segment part 0, <CODE> 1 [root]
+                      (was CODE)
+       Address:  0xD710 Size: 0x182 Align: 2(1)
+      asm_poly_basemul     0xD710  Pub  Ref by:   poly_basemul_montgomery (poly)
+      round1               0xD726  Loc
+      round2               0xD7CA  Loc
+    --------------------------------------------------
+       Segment part 1, <CODE> 1 [root]
+                      (was CODE)
+       Address:  0xD892 Size: 0x16E Align: 2(1)
+      asm_basemul          0xD892  Pub  Ref by:   matacc (matacc)
+
+      Absolute module symbols:
+        __MSP430F6745__  0x0000  Loc
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_intt_kyber.r43
+  Module: asm_intt_kyber
+       Segment part 0, <CODE> 2 [root]
+                      (was CODE)
+       Address:  0x00023BB4 Size: 0x92FA Align: 2(1)
+      asm_invntt_merging   0x00023BB4  Pub  Ref by:   poly_invntt_tomont (poly)
+      layer7_merge3        0x00023BC4  Loc
+      layer4_merge2        0x00029918  Loc
+      layer2_merge2        0x0002CD5E  Loc
+      last_fqmul           0x0002CE6C  Loc
+
+      Absolute module symbols:
+        __MSP430F6745__  0x0000  Loc
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_ntt_kyber.r43
+  Module: asm_ntt_kyber
+       Segment part 0, <CODE> 2 [root]
+                      (was CODE)
+       Address:  0x0002CEAE Size: 0x53B4 Align: 2(1)
+      asm_ntt_merging      0x0002CEAE  Pub  Ref by:   poly_ntt (poly)
+      layer1_2merge        0x0002CED8  Loc
+      layer3_2merge_1      0x0002CFB4  Loc
+      layer3_2merge_2      0x0002D090  Loc
+      layer3_2merge_3      0x0002D16C  Loc
+      layer3_2merge_4      0x0002D248  Loc
+      layer5_3merge        0x0002D314  Loc
+
+      Absolute module symbols:
+        __MSP430F6745__  0x0000  Loc
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\asm_reduce_kyber.r43
+  Module: asm_reduce_kyber
+       Segment part 0, <CODE> 1 [root]
+                      (was CODE)
+       Address:  0xECAE Size: 0x62 Align: 2(1)
+      asm_poly_tomont      0xECAE  Pub
+      loop_mont            0xECD0  Loc
+    --------------------------------------------------
+       Segment part 1, <CODE> 1 [root]
+                      (was CODE)
+       Address:  0xED10 Size: 0x60 Align: 2(1)
+      asm_poly_barrett     0xED10  Pub  Ref by:   poly_reduce (poly)
+                                                  poly_frombytes_mul_acc (poly)
+                                                  poly_ntt (poly)
+      loop_barrett         0xED34  Loc
+    --------------------------------------------------
+       Segment part 2, <CODE> 1 [root]
+                      (was CODE)
+       Address:  0xED70 Size: 0x5A Align: 2(1)
+      asm_NTT_poly_barrett  0xED70  Pub
+      loop_barrett_NTT      0xED8E  Loc
+
+      Absolute module symbols:
+        __MSP430F6745__  0x0000  Loc
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\cbd.r43
+  Module: cbd
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF39E Size: 0x0 Align: 2(1)
+      poly_cbd_eta1        0xF39E  Pub  Ref by:   ?Subroutine0 (poly)
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xF39E Size: 0x88 Align: 2(1)
+       Ref by:   poly_cbd_eta2
+                 poly_cbd_eta1
+      ?Subroutine0         0xF39E  Loc
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xF426 Size: 0x4 Align: 2(1)
+      poly_cbd_eta2        0xF426  Pub  Ref by:   ?Subroutine3 (poly)
+
+      Absolute module symbols:
+        cbd2                 0x0000  Pub
+        load32_littleendian  0x0000  Pub
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\fips202.r43
+  Module: fips202
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xDA00 Size: 0x2D6 Align: 2(1)
+       Ref by:   sha3_512
+                 sha3_256
+                 shake256
+                 ?Subroutine3
+      keccak_absorb        0xDA00  Loc
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xEF9E Size: 0xBC Align: 2(1)
+       Ref by:   sha3_512
+                 sha3_256
+                 shake256
+                 ?Subroutine6
+      keccak_squeezeblocks  0xEF9E  Loc
+    --------------------------------------------------
+       Segment part 17, <CODE> 1
+                      (was CODE)
+       Address:  0xE724 Size: 0xC Align: 2(1)
+      shake128_absorb      0xE724  Pub  Ref by:   kyber_shake128_absorb (symmetric-shake)
+    --------------------------------------------------
+       Segment part 18, <CODE> 1
+                      (was CODE)
+       Address:  0xE730 Size: 0x6 Align: 2(1)
+      shake128_squeezeblocks  0xE730  Pub  Ref by:   matacc (matacc)
+    --------------------------------------------------
+       Segment part 19, <CODE> 1
+                      (was CODE)
+       Address:  0xE736 Size: 0x6 Align: 2(1)
+       Ref by:   shake128_squeezeblocks
+      ?Subroutine6         0xE736  Loc
+    --------------------------------------------------
+       Segment part 20, <CODE> 1
+                      (was CODE)
+       Address:  0xE73C Size: 0x6 Align: 2(1)
+       Ref by:   shake128_absorb
+      ?Subroutine3         0xE73C  Loc
+    --------------------------------------------------
+       Segment part 21, <CODE> 1
+                      (was CODE)
+       Address:  0xE742 Size: 0x6 Align: 2(1)
+       Ref by:   ?Subroutine3
+                 ?Subroutine6
+    --------------------------------------------------
+       Segment part 30, <CODE> 1
+                      (was CODE)
+       Address:  0xE748 Size: 0xB4 Align: 2(1)
+      shake256             0xE748  Pub  Ref by:   kyber_shake256_prf (symmetric-shake)
+                                                  crypto_kem_dec (kem)
+                                                  crypto_kem_enc (kem)
+    --------------------------------------------------
+       Segment part 38, <CODE> 1
+                      (was CODE)
+       Address:  0xE7FC Size: 0x60 Align: 2(1)
+      sha3_256             0xE7FC  Pub  Ref by:   crypto_kem_dec (kem)
+                                                  crypto_kem_enc (kem)
+                                                  crypto_kem_keypair (kem)
+    --------------------------------------------------
+       Segment part 52, <CODE> 1
+                      (was CODE)
+       Address:  0xE85C Size: 0x60 Align: 2(1)
+      sha3_512             0xE85C  Pub  Ref by:   crypto_kem_dec (kem)
+                                                  crypto_kem_enc (kem)
+                                                  indcpa_keypair (indcpa)
+
+      Absolute module symbols:
+        store64              0x0000  Pub
+        keccak_inc_init      0x0000  Pub
+        keccak_inc_absorb    0x0000  Pub
+        keccak_inc_finalize  0x0000  Pub
+        keccak_inc_squeeze   0x0000  Pub
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\indcpa.r43
+  Module: indcpa
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xEA20 Size: 0x15E Align: 2(1)
+      indcpa_keypair       0xEA20  Pub  Ref by:   crypto_kem_keypair (kem)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xE56E Size: 0x1B6 Align: 2(1)
+      indcpa_enc           0xE56E  Pub  Ref by:   crypto_kem_enc (kem)
+    --------------------------------------------------
+       Segment part 5, <CODE> 1
+                      (was CODE)
+       Address:  0xDFAC Size: 0x20A Align: 2(1)
+      indcpa_enc_cmp       0xDFAC  Pub  Ref by:   crypto_kem_dec (kem)
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xF116 Size: 0xB8 Align: 2(1)
+      indcpa_dec           0xF116  Pub  Ref by:   crypto_kem_dec (kem)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\kem.r43
+  Module: kem
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF642 Size: 0x52 Align: 2(1)
+      crypto_kem_keypair   0xF642  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xF42A Size: 0x7E Align: 2(1)
+      crypto_kem_enc       0xF42A  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xF270 Size: 0x98 Align: 2(1)
+      crypto_kem_dec       0xF270  Pub  Ref by:   main (main)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\main.r43
+  Module: main
+       Segment part 1, DATA16_AN [root]
+       Address:  0x015C Size: 0x2 Align: 1(0)
+       Ref by:   main
+      _A_WDTCTL_L          0x015C  Pub
+      WDTCTL               0x015C  Loc
+      WDTCTL_H             0x015D  Loc
+      WDTCTL_L             0x015C  Loc
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xF308 Size: 0x96 Align: 2(1)
+      main                 0xF308  Pub  Ref by:   Segment part 27 (?cstart)
+    --------------------------------------------------
+       Segment part 3, DATA16_C
+       Address:  0xC100 Size: 0x7 Align: 1(0)
+       Ref by:   main
+    --------------------------------------------------
+       Segment part 4, DATA16_C
+       Address:  0xC107 Size: 0x6 Align: 1(0)
+       Ref by:   main
+    --------------------------------------------------
+       Segment part 5, DATA16_C
+       Address:  0xC10D Size: 0x8 Align: 1(0)
+       Ref by:   main
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\matacc.r43
+  Module: matacc
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xE3AE Size: 0x1C0 Align: 2(1)
+      matacc               0xE3AE  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+                                                  indcpa_keypair (indcpa)
+
+      Absolute module symbols:
+        inner_matacc  0x0000    Pub
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\new_asm_sha3.r43
+  Module: asm_keccak1600
+       Segment part 0, <CODE> 2 [root]
+                      (was CODE)
+       Address:  0x00010000 Size: 0x13BB4 Align: 2(1)
+      asm_keccak1600       0x00010000  Pub  Ref by:   keccak_squeezeblocks (fips202)
+                                                      keccak_absorb (fips202)
+
+      Absolute module symbols:
+        __MSP430F6745__  0x0000  Loc
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\ntt.r43
+  Module: ntt
+       Segment part 2, DATA16_C
+       Address:  0xC000 Size: 0x100 Align: 2(1)
+      zetas                0xC000  Pub  Ref by:   poly_basemul_acc (poly)
+                                                  poly_frombytes_mul_acc (poly)
+                                                  poly_frombytes_mul (poly)
+                                                  poly_basemul_montgomery (poly)
+                                                  matacc (matacc)
+    --------------------------------------------------
+       Segment part 5, <CODE> 1
+                      (was CODE)
+       Address:  0xEEE0 Size: 0xBE Align: 2(1)
+      basemul              0xEEE0  Pub  Ref by:   poly_basemul_acc (poly)
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xF05A Size: 0xBC Align: 2(1)
+      basemul_OP           0xF05A  Pub  Ref by:   poly_frombytes_mul_acc (poly)
+                                                  poly_frombytes_mul (poly)
+
+      Absolute module symbols:
+        fqmul  0x0000           Pub
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\poly.r43
+  Module: poly
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xE1B6 Size: 0x1F8 Align: 2(1)
+      poly_packcompress    0xE1B6  Pub  Ref by:   indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xDCD6 Size: 0x2D6 Align: 2(1)
+      poly_unpackdecompress  0xDCD6  Pub  Ref by:   indcpa_dec (indcpa)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xC13A Size: 0x176 Align: 2(1)
+      cmp_poly_compress    0xC13A  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+    --------------------------------------------------
+       Segment part 5, <CODE> 1
+                      (was CODE)
+       Address:  0xC2B0 Size: 0x8 Align: 2(1)
+       Ref by:   poly_frombytes_mul_acc
+                 poly_compress
+                 cmp_poly_compress
+      ?Subroutine1         0xC2B0  Loc
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xC2B8 Size: 0x216 Align: 2(1)
+      cmp_poly_packcompress  0xC2B8  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+    --------------------------------------------------
+       Segment part 7, <CODE> 1
+                      (was CODE)
+       Address:  0xC4CE Size: 0x170 Align: 2(1)
+      poly_compress        0xC4CE  Pub  Ref by:   indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 8, <CODE> 1
+                      (was CODE)
+       Address:  0xC63E Size: 0xF4 Align: 2(1)
+      poly_decompress      0xC63E  Pub  Ref by:   indcpa_dec (indcpa)
+    --------------------------------------------------
+       Segment part 9, <CODE> 1
+                      (was CODE)
+       Address:  0xC732 Size: 0x4A Align: 2(1)
+      poly_tobytes         0xC732  Pub  Ref by:   polyvec_tobytes (polyvec)
+                                                  indcpa_keypair (indcpa)
+    --------------------------------------------------
+       Segment part 10, <CODE> 1
+                      (was CODE)
+       Address:  0xC77C Size: 0x60 Align: 2(1)
+      poly_frombytes       0xC77C  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 11, <CODE> 1
+                      (was CODE)
+       Address:  0xC7DC Size: 0xB8 Align: 2(1)
+      poly_frommsg         0xC7DC  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 12, <CODE> 1
+                      (was CODE)
+       Address:  0xC894 Size: 0x6E Align: 2(1)
+      poly_tomsg           0xC894  Pub  Ref by:   indcpa_dec (indcpa)
+    --------------------------------------------------
+       Segment part 13, <CODE> 1
+                      (was CODE)
+       Address:  0xC902 Size: 0x1A Align: 2(1)
+      poly_addnoise_eta1   0xC902  Pub  Ref by:   indcpa_keypair (indcpa)
+    --------------------------------------------------
+       Segment part 14, <CODE> 1
+                      (was CODE)
+       Address:  0xC91C Size: 0x18 Align: 2(1)
+      poly_addnoise_eta2   0xC91C  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 15, <CODE> 1
+                      (was CODE)
+       Address:  0xC934 Size: 0xA Align: 2(1)
+       Ref by:   poly_addnoise_eta2
+      ?Subroutine3         0xC934  Loc
+    --------------------------------------------------
+       Segment part 16, <CODE> 1
+                      (was CODE)
+       Address:  0xC93E Size: 0x8 Align: 2(1)
+       Ref by:   poly_getnoise_eta1
+                 poly_addnoise_eta1
+      ?Subroutine0         0xC93E  Loc
+    --------------------------------------------------
+       Segment part 17, <CODE> 1
+                      (was CODE)
+       Address:  0xC946 Size: 0x8 Align: 2(1)
+       Ref by:   ?Subroutine0
+                 ?Subroutine3
+    --------------------------------------------------
+       Segment part 18, <CODE> 1
+                      (was CODE)
+       Address:  0xC94E Size: 0x1C Align: 2(1)
+      poly_getnoise_eta1   0xC94E  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+                                                  indcpa_keypair (indcpa)
+    --------------------------------------------------
+       Segment part 20, <CODE> 1
+                      (was CODE)
+       Address:  0xC96A Size: 0x12 Align: 2(1)
+      poly_ntt             0xC96A  Pub  Ref by:   polyvec_ntt (polyvec)
+                                                  indcpa_dec (indcpa)
+                                                  indcpa_keypair (indcpa)
+    --------------------------------------------------
+       Segment part 21, <CODE> 1
+                      (was CODE)
+       Address:  0xC97C Size: 0x4 Align: 2(1)
+      poly_invntt_tomont   0xC97C  Pub  Ref by:   indcpa_dec (indcpa)
+                                                  indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+                                                  indcpa_keypair (indcpa)
+    --------------------------------------------------
+       Segment part 22, <CODE> 1
+                      (was CODE)
+       Address:  0xC980 Size: 0x8 Align: 2(1)
+      poly_basemul_montgomery  0xC980  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                      indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 23, <CODE> 1
+                      (was CODE)
+       Address:  0xC988 Size: 0x8E Align: 2(1)
+      poly_frombytes_mul   0xC988  Pub  Ref by:   indcpa_dec (indcpa)
+    --------------------------------------------------
+       Segment part 24, <CODE> 1
+                      (was CODE)
+       Address:  0xCA16 Size: 0x8 Align: 2(1)
+       Ref by:   poly_basemul_acc
+                 poly_frombytes_mul
+      ?Subroutine2         0xCA16  Loc
+    --------------------------------------------------
+       Segment part 25, <CODE> 1
+                      (was CODE)
+       Address:  0xCA1E Size: 0xB0 Align: 2(1)
+      poly_frombytes_mul_acc  0xCA1E  Pub  Ref by:   indcpa_dec (indcpa)
+    --------------------------------------------------
+       Segment part 26, <CODE> 1
+                      (was CODE)
+       Address:  0xCACE Size: 0x5C Align: 2(1)
+      poly_basemul_acc     0xCACE  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 28, <CODE> 1
+                      (was CODE)
+       Address:  0xFC30 Size: 0x4 Align: 2(1)
+      poly_reduce          0xFC30  Pub  Ref by:   matacc (matacc)
+                                                  indcpa_dec (indcpa)
+                                                  indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 29, <CODE> 1
+                      (was CODE)
+       Address:  0xF916 Size: 0x32 Align: 2(1)
+      poly_add             0xF916  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+    --------------------------------------------------
+       Segment part 30, <CODE> 1
+                      (was CODE)
+       Address:  0xF8E4 Size: 0x32 Align: 2(1)
+      poly_sub             0xF8E4  Pub  Ref by:   indcpa_dec (indcpa)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\polyvec.r43
+  Module: polyvec
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xF838 Size: 0x3E Align: 2(1)
+      polyvec_tobytes      0xF838  Pub  Ref by:   indcpa_keypair (indcpa)
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xF9D4 Size: 0x2A Align: 2(1)
+      polyvec_ntt          0xF9D4  Pub  Ref by:   indcpa_enc_cmp (indcpa)
+                                                  indcpa_enc (indcpa)
+                                                  indcpa_keypair (indcpa)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\randombytes.r43
+  Module: randombytes
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF778 Size: 0x42 Align: 2(1)
+      randombytes          0xF778  Pub  Ref by:   crypto_kem_enc (kem)
+                                                  crypto_kem_keypair (kem)
+                                                  indcpa_keypair (indcpa)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\reduce.r43
+  Module: reduce
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF876 Size: 0x38 Align: 2(1)
+      montgomery_reduce    0xF876  Pub  Ref by:   basemul_OP (ntt)
+                                                  basemul (ntt)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\symmetric-shake.r43
+  Module: symmetric-shake
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF526 Size: 0x2A Align: 2(1)
+      kyber_shake128_absorb  0xF526  Pub  Ref by:   matacc (matacc)
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xF550 Size: 0x8 Align: 2(1)
+       Ref by:   kyber_shake256_prf
+                 kyber_shake128_absorb
+      ?Subroutine0         0xF550  Loc
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xF558 Size: 0x2E Align: 2(1)
+      kyber_shake256_prf   0xF558  Pub  Ref by:   poly_getnoise_eta1 (poly)
+                                                  poly_addnoise_eta2 (poly)
+                                                  poly_addnoise_eta1 (poly)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\kyber\opt\kyber1024\Debug\Obj\verify.r43
+  Module: verify
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xF586 Size: 0x5E Align: 2(1)
+      cmov                 0xF586  Pub  Ref by:   crypto_kem_dec (kem)
+**************************************************************
+File: C:\Program Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430xlsfn.r43
+  Module: ?abort
+  ============================================================
+  Module: ?__dbg_break
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFC38 Size: 0x2 Align: 2(1)
+      __DebugBreak         0xFC38  Pub  Ref by:   __exit (?__exit)
+                                                  __dwrite (?__dwrite)
+  ============================================================
+  Module: ?__dwrite
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFA74 Size: 0x24 Align: 2(1)
+      __dwrite             0xFA74  Pub  Ref by:   __write (?__write)
+  ============================================================
+  Module: ?__exit
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFB88 Size: 0x14 Align: 2(1)
+      __exit               0xFB88  Pub  Ref by:   Segment part 6 (?_exit)
+                                                  _exit (?_exit)
+  ============================================================
+  Module: ?__write
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFBFE Size: 0xC Align: 2(1)
+      __write              0xFBFE  Pub  Ref by:   putchar (?putchar)
+  ============================================================
+  Module: ?_exit
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFC34 Size: 0x0 Align: 2(1)
+      _exit                0xFC34  Pub  Ref by:   exit (?exit)
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xFC34 Size: 0x4 Align: 2(1)
+       Ref by:   _exit
+  ============================================================
+  Module: ?cppinit
+  ============================================================
+  Module: ?cstart
+       Segment part 1, CSTACK
+       Address:  0x26D0 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 5, CODE_I
+       Address:  0x1C00 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 6, CODE_ID
+       Address:  0xFC3A Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 7, DATA20_Z
+       Address:  0x1C00 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 8, DATA20_I
+       Address:  0x1C00 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 9, DATA20_ID
+       Address:  0xFC3A Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 10, DATA20_C
+       Address:  0xFC3A Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 12, DATA20_N
+       Address:  0x1C00 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 15, CSTART
+       Address:  0xC12E Size: 0x4 Align: 2(1)
+      __program_start      0xC12E  Pub  Ref by:   ?reset_vector (?reset_vector)
+                                                  Absolute parts (?ABS_ENTRY_MOD)
+      ?cstart_begin        0xC12E  Pub
+    --------------------------------------------------
+       Segment part 27, CSTART
+       Address:  0xC132 Size: 0x8 Align: 2(1)
+       Ref by:   Segment part 15
+      ?cstart_call_main    0xC132  Pub
+      ?cstart_end          0xC13A  Pub
+  ============================================================
+  Module: lowinit
+  ============================================================
+  Module: ?reset_vector
+       Segment part 0, RESET
+       Address:  0xFFFE Size: 0x2 Align: 2(1)
+      ?reset_vector        0xFFFE  Pub  Ref by:   Segment part 15 (?cstart)
+  ============================================================
+  Module: ?div64i
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF1CE Size: 0xA2 Align: 2(1)
+      _Div64u              0xF1CE  Pub  Ref by:   _LitobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xFB14 Size: 0x1A Align: 2(1)
+       Ref by:   _Div64u
+  ============================================================
+  Module: ?div
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFB5E Size: 0x16 Align: 2(1)
+      div                  0xFB5E  Pub  Ref by:   _GenldLarge (?xprintflarge)
+  ============================================================
+  Module: ?exit
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFC28 Size: 0x4 Align: 2(1)
+      exit                 0xFC28  Pub  Ref by:   Segment part 27 (?cstart)
+  ============================================================
+  Module: ?Mul32fHw32
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xEDCA Size: 0x116 Align: 2(1)
+      ?Mul32fHw32          0xEDCA  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                  scale (?xprintflarge)
+  ============================================================
+  Module: ?FrwpInit
+  ============================================================
+  Module: ?Cast32f32i
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xF4A8 Size: 0x7E Align: 2(1)
+      _Cast32uto32f        0xF4A8  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Cast32fto32u
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFC0A Size: 0xC Align: 2(1)
+      _Cast32fto32u        0xFC0A  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?FLT_Extract
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xF6E6 Size: 0x4C Align: 2(1)
+      ?FLT_Extract         0xF6E6  Pub  Ref by:   _Cast32fto32u (_Cast32fto32u)
+  ============================================================
+  Module: ?FLT_LT
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xF694 Size: 0x52 Align: 2(1)
+      ?FLT_LT              0xF694  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Div32f
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xEB7E Size: 0x130 Align: 2(1)
+      _Div32f              0xEB7E  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Add32f
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xE8BC Size: 0x4 Align: 2(1)
+      _Sub32f              0xE8BC  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xE8C0 Size: 0x160 Align: 2(1)
+       Ref by:   _Sub32f
+      _Add32f              0xE8C0  Pub
+  ============================================================
+  Module: ?malloc
+  ============================================================
+  Module: ?DivMod816u
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xFB2E Size: 0x18 Align: 2(1)
+      ?DivMod16u           0xFB2E  Pub  Ref by:   ?DivMod16s (?DivMod816s)
+  ============================================================
+  Module: ?DivMod816s
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xF948 Size: 0x30 Align: 2(1)
+      ?DivMod16s           0xF948  Pub  Ref by:   div (?div)
+  ============================================================
+  Module: ?DivMod32u
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xF978 Size: 0x30 Align: 2(1)
+      ?DivMod32u           0xF978  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                  ?DivMod32s (?DivMod32s)
+  ============================================================
+  Module: ?DivMod32s
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xF7BA Size: 0x40 Align: 2(1)
+      ?DivMod32s           0xF7BA  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?ShiftLeft32
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xFADA Size: 0x4 Align: 2(1)
+      ?ShiftLeft32_7       0xFADA  Pub  Ref by:   poly_unpackdecompress (poly)
+    --------------------------------------------------
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFADE Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftLeft32_7
+      ?ShiftLeft32_6       0xFADE  Pub  Ref by:   poly_unpackdecompress (poly)
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xFAE2 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftLeft32_6
+      ?ShiftLeft32_5       0xFAE2  Pub  Ref by:   poly_compress (poly)
+                                                  cmp_poly_compress (poly)
+                                                  poly_unpackdecompress (poly)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xFAE6 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftLeft32_5
+      ?ShiftLeft32_4       0xFAE6  Pub
+    --------------------------------------------------
+       Segment part 5, <CODE> 1
+                      (was CODE)
+       Address:  0xFAEA Size: 0xE Align: 2(1)
+       Ref by:   ?ShiftLeft32_4
+      ?ShiftLeft32_3       0xFAEA  Pub
+  ============================================================
+  Module: ?ShiftLeft64
+  ============================================================
+  Module: ?ShiftLeft64_n
+  ============================================================
+  Module: ?ShiftRight16s_n
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xFC20 Size: 0x8 Align: 2(1)
+      ?ShiftRight16s_3     0xFC20  Pub  Ref by:   poly_tomsg (poly)
+  ============================================================
+  Module: ?ShiftRight32u
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xF5E4 Size: 0x40 Align: 2(1)
+      ?ShiftRight32u       0xF5E4  Pub  Ref by:   ?Subroutine0 (cbd)
+    --------------------------------------------------
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xF624 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u
+      ?ShiftRight32u_7     0xF624  Pub
+    --------------------------------------------------
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF628 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_7
+      ?ShiftRight32u_6     0xF628  Pub
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xF62C Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_6
+      ?ShiftRight32u_5     0xF62C  Pub  Ref by:   poly_decompress (poly)
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xF630 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_5
+      ?ShiftRight32u_4     0xF630  Pub
+    --------------------------------------------------
+       Segment part 5, <CODE> 1
+                      (was CODE)
+       Address:  0xF634 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_4
+      ?ShiftRight32u_3     0xF634  Pub
+    --------------------------------------------------
+       Segment part 6, <CODE> 1
+                      (was CODE)
+       Address:  0xF638 Size: 0xA Align: 2(1)
+       Ref by:   ?ShiftRight32u_3
+      ?ShiftRight32u_2     0xF638  Pub
+  ============================================================
+  Module: ?ShiftRight64u
+  ============================================================
+  Module: ?memchr
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFB74 Size: 0x14 Align: 2(1)
+      __iar_Memchr         0xFB74  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?memcpy
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFB9C Size: 0x12 Align: 2(1)
+      memcpy               0xFB9C  Pub  Ref by:   indcpa_keypair (indcpa)
+                                                  kyber_shake128_absorb (symmetric-shake)
+                                                  kyber_shake256_prf (symmetric-shake)
+                                                  _GenldLarge (?xprintflarge)
+                                                  Segment part 12 (?xprintflarge)
+                                                  _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?memmove
+  ============================================================
+  Module: ?ClearMemoryWords
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFBD2 Size: 0x10 Align: 2(1)
+      ?ClearMemoryWords    0xFBD2  Pub  Ref by:   indcpa_keypair (indcpa)
+  ============================================================
+  Module: ?memzero
+  ============================================================
+  Module: ?MpuInit
+  ============================================================
+  Module: ?Mul8Hw
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFABA Size: 0x4 Align: 2(1)
+      ?Mul8Hw              0xFABA  Pub  Ref by:   _LitobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xFABE Size: 0x1C Align: 2(1)
+       Ref by:   ?Mul8Hw
+      ?Mul16Hw             0xFABE  Pub
+      ?Mul16to32uHw        0xFABE  Pub
+  ============================================================
+  Module: ?Mul16to32sHw
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFAF8 Size: 0x1C Align: 2(1)
+      ?Mul16to32sHw        0xFAF8  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?printf
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFA4E Size: 0x26 Align: 2(1)
+      printf               0xFA4E  Pub  Ref by:   main (main)
+  ============================================================
+  Module: ?putchar
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFA26 Size: 0x28 Align: 2(1)
+      putchar              0xFA26  Pub  Ref by:   _Prout (?xprout)
+  ============================================================
+  Module: ?setjmp
+  ============================================================
+  Module: ?longjmp
+  ============================================================
+  Module: ?IndCallR11
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFC2C Size: 0x4 Align: 2(1)
+      ?IndCallR11          0xFC2C  Pub  Ref by:   _PutcharLarge (?xprintflarge)
+  ============================================================
+  Module: ?IndCallR15
+  ============================================================
+  Module: ?strchr
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFBF0 Size: 0xE Align: 2(1)
+      __iar_Strchr         0xFBF0  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?strlen
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFBAE Size: 0x12 Align: 2(1)
+      strlen               0xFBAE  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?xcloseall
+  ============================================================
+  Module: ?xdunscal
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF732 Size: 0x46 Align: 2(1)
+      __iar_Dunscale       0xF732  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?xgetmemchunk
+  ============================================================
+  Module: ?xprintflarge
+       Segment part 19, <CODE> 1
+                      (was CODE)
+       Address:  0xD278 Size: 0x498 Align: 2(1)
+      _PrintfLarge         0xD278  Pub  Ref by:   printf (?printf)
+    --------------------------------------------------
+       Segment part 23, <CODE> 1
+                      (was CODE)
+       Address:  0xFA98 Size: 0x8 Align: 2(1)
+       Ref by:   Segment part 26
+                 _PrintfLarge
+    --------------------------------------------------
+       Segment part 24, <CODE> 1
+                      (was CODE)
+       Address:  0xFAA0 Size: 0x8 Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 25, <CODE> 1
+                      (was CODE)
+       Address:  0xFAA8 Size: 0xC Align: 2(1)
+       Ref by:   Segment part 24
+                 Segment part 23
+    --------------------------------------------------
+       Segment part 26, <CODE> 1
+                      (was CODE)
+       Address:  0xFAB4 Size: 0x6 Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 8, <CODE> 1
+                      (was CODE)
+       Address:  0xCB2A Size: 0x84 Align: 2(1)
+       Ref by:   _PrintfLarge
+      LoadInt              0xCB2A  Loc
+    --------------------------------------------------
+       Segment part 9, <CODE> 1
+                      (was CODE)
+       Address:  0xCBAE Size: 0xE Align: 2(1)
+       Ref by:   LoadInt
+    --------------------------------------------------
+       Segment part 10, <CODE> 1
+                      (was CODE)
+       Address:  0xCBBC Size: 0x23E Align: 2(1)
+       Ref by:   _LdtobLarge
+      _GenldLarge          0xCBBC  Loc
+    --------------------------------------------------
+       Segment part 11, <CODE> 1
+                      (was CODE)
+       Address:  0xCDFA Size: 0x10 Align: 2(1)
+       Ref by:   _GenldLarge
+    --------------------------------------------------
+       Segment part 12, <CODE> 1
+                      (was CODE)
+       Address:  0xCE0A Size: 0xE Align: 2(1)
+       Ref by:   Segment part 11
+                 _GenldLarge
+    --------------------------------------------------
+       Segment part 13, <CODE> 1
+                      (was CODE)
+       Address:  0xCE18 Size: 0x1E Align: 2(1)
+       Ref by:   _GenldLarge
+    --------------------------------------------------
+       Segment part 14, <CODE> 1
+                      (was CODE)
+       Address:  0xCE36 Size: 0x42 Align: 2(1)
+       Ref by:   _LdtobLarge
+      scale                0xCE36  Loc
+    --------------------------------------------------
+       Segment part 15, <CODE> 1
+                      (was CODE)
+       Address:  0xCE78 Size: 0x23E Align: 2(1)
+       Ref by:   _PrintfLarge
+      _LdtobLarge          0xCE78  Loc
+    --------------------------------------------------
+       Segment part 16, <CODE> 1
+                      (was CODE)
+       Address:  0xD0B6 Size: 0x1A6 Align: 2(1)
+       Ref by:   _PrintfLarge
+      _LitobLarge          0xD0B6  Loc
+    --------------------------------------------------
+       Segment part 17, <CODE> 1
+                      (was CODE)
+       Address:  0xD25C Size: 0x12 Align: 2(1)
+       Ref by:   _LitobLarge
+    --------------------------------------------------
+       Segment part 18, <CODE> 1
+                      (was CODE)
+       Address:  0xD26E Size: 0xA Align: 2(1)
+       Ref by:   _LitobLarge
+                 LoadInt
+                 _PrintfLarge
+    --------------------------------------------------
+       Segment part 28, <CODE> 1
+                      (was CODE)
+       Address:  0xF8AE Size: 0x36 Align: 2(1)
+       Ref by:   Segment part 23
+      pad                  0xF8AE  Loc
+    --------------------------------------------------
+       Segment part 29, <CODE> 1
+                      (was CODE)
+       Address:  0xF9FE Size: 0x28 Align: 2(1)
+       Ref by:   _PutcharsLarge
+                 _PrintfLarge
+      _PutcharLarge        0xF9FE  Loc
+    --------------------------------------------------
+       Segment part 30, <CODE> 1
+                      (was CODE)
+       Address:  0xF9A8 Size: 0x2C Align: 2(1)
+       Ref by:   pad
+                 Segment part 24
+      _PutcharsLarge       0xF9A8  Loc
+    --------------------------------------------------
+       Segment part 20, <CODE> 1
+                      (was CODE)
+       Address:  0xFBE2 Size: 0xE Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 21, <CODE> 1
+                      (was CODE)
+       Address:  0xFC16 Size: 0xA Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 22, <CODE> 1
+                      (was CODE)
+       Address:  0xFBC0 Size: 0x12 Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 27, <CODE> 1
+                      (was CODE)
+       Address:  0xF7FA Size: 0x3E Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 2, DATA16_C
+       Address:  0xC115 Size: 0x7 Align: 1(0)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 3, DATA16_C
+       Address:  0xC11C Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 4, DATA16_C
+       Address:  0xC120 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 5, DATA16_C
+       Address:  0xC124 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 6, DATA16_C
+       Address:  0xC128 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 7, DATA16_C
+       Address:  0xC12C Size: 0x2 Align: 1(0)
+       Ref by:   _GenldLarge
+  ============================================================
+  Module: ?xprout
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFB46 Size: 0x18 Align: 2(1)
+      _Prout               0xFB46  Pub  Ref by:   printf (?printf)
+  ============================================================
+  Module: ?xxmemxfree
+  ============================================================
+  Module: ?xxmemxmalloc
+
+
+                ****************************************
+                *                                      *
+                *      SEGMENTS IN ADDRESS ORDER       *
+                *                                      *
+                ****************************************
+
+SEGMENT    SPACE     START/END ADDRESS        SIZE  TYPE  ALIGN
+-------    -----   ---------------------      ----  ----  -----
+DATA20_I                  0x1C00                     rel   2(1)
+DATA20_Z                  0x1C00                     rel   2(1)
+DATA20_N                  0x1C00                     rel   2(1)
+CODE_I                    0x1C00                     rel   2(1)
+CSTACK                0x26D0 - 0x9BFF       0x7530   rel   2(1)
+DATA16_C              0xC000 - 0xC12D        0x12E   rel   2(1)
+CSTART                0xC12E - 0xC139          0xC   rel   2(1)
+<CODE> 1              0xC13A - 0xFC39       0x3B00   rel   2(1)
+CODE_ID                   0xFC3A                     rel   2(1)
+DATA20_ID                 0xFC3A                     rel   2(1)
+DATA20_C                  0xFC3A                     rel   2(1)
+RESET                 0xFFFE - 0xFFFF          0x2   rel   2(1)
+<CODE> 2          0x00010000 - 0x00032261  0x22262   rel   2(1)
+DATA16_AN             0x015C - 0x015D          0x2   abs   1(0)
+
+ 154'992 bytes of CODE  memory
+  30'000 bytes of DATA  memory (+ 2 absolute )
+     302 bytes of CONST memory
+
+Errors: none
+Warnings: none

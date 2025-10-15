@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>5</fileVersion>
+    <fileChecksum>1566879146</fileChecksum>
+    <configuration>
+        <name>Debug</name>
+        <outputs>
+            <file>$PROJ_DIR$\api.h</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\symmetric-shake.r43</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\poly.r43</file>
+            <file>$PROJ_DIR$\Debug\Obj\verify.r43</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\fips202.r43</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\ystdio.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\reduce.r43</file>
+            <file>$PROJ_DIR$\Debug\Obj\indcpa.r43</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\stdlib.h</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
+            <file>$TOOLKIT_DIR$\config\linker\lnk430f67791.xcl</file>
+            <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+            <file>$PROJ_DIR$\Debug\Exe\kyber768_ref.d43</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\ntt.r43</file>
+            <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+            <file>$TOOLKIT_DIR$\inc\io430f67791.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\cbd.r43</file>
+            <file>$PROJ_DIR$\Debug\Obj\kem.r43</file>
+            <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsff.r43</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\stdint.h</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
+            <file>$PROJ_DIR$\Debug\Exe\kyber768_ref.ulp</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
+            <file>$TOOLKIT_DIR$\lib\dlib\dl430xlsff.h</file>
+            <file>$TOOLKIT_DIR$\inc\dlib\c\stddef.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\polyvec.r43</file>
+            <file>$PROJ_DIR$\Debug\List\kyber768_ref.map</file>
+            <file>$TOOLKIT_DIR$\inc\io430.h</file>
+            <file>$PROJ_DIR$\cbd.h</file>
+            <file>$PROJ_DIR$\ntt.h</file>
+            <file>$PROJ_DIR$\indcpa.c</file>
+            <file>$PROJ_DIR$\params.h</file>
+            <file>$PROJ_DIR$\reduce.c</file>
+            <file>$PROJ_DIR$\symmetric-shake.c</file>
+            <file>$PROJ_DIR$\kem.h</file>
+            <file>$PROJ_DIR$\poly.h</file>
+            <file>$PROJ_DIR$\cbd.c</file>
+            <file>$PROJ_DIR$\symmetric.h</file>
+            <file>$PROJ_DIR$\kem.c</file>
+            <file>$PROJ_DIR$\main.c</file>
+            <file>$PROJ_DIR$\polyvec.c</file>
+            <file>$PROJ_DIR$\fips202.c</file>
+            <file>$PROJ_DIR$\reduce.h</file>
+            <file>$PROJ_DIR$\fips202.h</file>
+            <file>$PROJ_DIR$\polyvec.h</file>
+            <file>$PROJ_DIR$\ntt.c</file>
+            <file>$PROJ_DIR$\verify.c</file>
+            <file>$PROJ_DIR$\verify.h</file>
+            <file>$PROJ_DIR$\indcpa.h</file>
+            <file>$PROJ_DIR$\poly.c</file>
+            <file>$TOOLKIT_DIR$\src\lib\dlib\__dbg_break.c</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>XLINK</name>
+                    <file> 16 32</file>
+                </tool>
+                <tool>
+                    <name>ULP430</name>
+                    <file> 27</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Debug\Exe\kyber768_ref.d43</name>
+            <outputs>
+                <tool>
+                    <name>XLINK</name>
+                    <file> 32</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>XLINK</name>
+                    <file> 14 22 7 10 23 20 19 4 31 9 2 5 24</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\indcpa.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 10</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 54 37 50 41 25 11 13 17 29 1 28 18 35 43 49 30 3</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\reduce.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 9</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 37 48 25 11 13 17 29 1 28 18</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\symmetric-shake.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 49 30 11 13 17 29 1 28 18 3 25 37 43 26</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\cbd.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 22</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 34 37 41 25 11 13 17 29 1 28 18</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\kem.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 23</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 54 37 50 41 25 11 13 17 29 1 28 18 40 43 49 30 3 53</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 20</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 33 21 15 0 25 11 13 17 29 1 28 18 40 37 35 41 50 43 49 30 3 6 8</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\polyvec.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 31</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 37 41 25 11 13 17 29 1 28 18 50</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\fips202.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 7</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 30 11 13 17 29 1 28 18 3 25 12 26 49</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\ntt.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 19</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 35 37 25 11 13 17 29 1 28 18 48</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\verify.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 5</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 53 37 30 11 13 17 29 1 28 18 3 25</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\poly.c</name>
+            <outputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 4</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICC430</name>
+                    <file> 34 37 41 25 11 13 17 29 1 28 18 35 48 43 49 30 3</file>
+                </tool>
+            </inputs>
+        </file>
+        <forcedrebuild>
+            <name>[REBUILD_ALL]</name>
+        </forcedrebuild>
+    </configuration>
+    <configuration>
+        <name>Release</name>
+        <outputs />
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>XLINK</tool>
+        </forcedrebuild>
+    </configuration>
+</project>

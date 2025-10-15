@@ -1,0 +1,123 @@
+#include <msp430.h>
+
+#define         mul_res0 r4
+#define         mul_res1 r5
+#define         mul_res2 r6
+#define         mul_res3 r7
+
+#define         Dilithium_Q0 r8
+#define         Dilithium_Q1 r9
+#define         QINV0        r10
+#define         QINV1        r11
+
+#define         ptr_dst     r12
+#define         ptr_A       r13
+#define         ptr_s       r14
+#define         forstop     r15
+
+basemul_mont      macro   
+                       
+         mov mul_res0, &MPYS32L
+         mov mul_res1, &MPYS32H
+         mov QINV0, &OP2L
+         mov QINV1, &OP2H   
+         
+         mov &RES0, &MPYS32L
+         mov &RES1, &MPYS32H
+         mov Dilithium_Q0, &OP2L
+         mov Dilithium_Q1, &OP2H         
+         
+         sub &RES2, mul_res2
+         subc &RES3, mul_res3        
+         
+         endm
+         
+Load_and_mul      macro   
+         
+         mov    0(ptr_A), &MPYS32L              
+         mov    2(ptr_A), &MPYS32H              
+                  
+         mov    0(ptr_s), &OP2L 
+         mov    2(ptr_s), &OP2H          
+         
+         mov    &RES0, mul_res0
+         mov    &RES1, mul_res1
+         mov    &RES2, mul_res2
+         mov    &RES3, mul_res3
+         
+         endm
+         
+STORE      macro   
+         
+         mov    mul_res2, 0(ptr_dst)              
+         mov    mul_res3, 2(ptr_dst)
+         
+         add    #4, ptr_A         
+         add    #4, ptr_s         
+         add    #4, ptr_dst
+        
+         endm
+               
+PUBLIC asm_poly_pointwise_mont          ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+
+
+
+asm_poly_pointwise_mont:
+         
+         push r4
+         push r5
+         push r6
+         push r7
+         push r8
+         push r9
+         push r10
+         push r11
+         push r12
+         push r13
+         push r14
+         push r15
+         
+         mov    #0xe001, Dilithium_Q0
+         mov    #0x7f, Dilithium_Q1
+         mov    #0x2001, QINV0
+         mov    #0x380, QINV1
+
+         
+         mov    ptr_dst, forstop       
+         add    #1024, forstop
+         
+
+ 
+f_start:  
+
+         Load_and_mul
+         basemul_mont
+         STORE
+         
+         cmp    forstop, ptr_dst
+          jn     f_start    
+         
+         pop    r15
+         pop    r14
+         pop    r13
+         pop    r12
+         pop    r11
+         pop    r10
+         pop    r9
+         pop    r8
+         pop    r7
+         pop    r6
+         pop    r5
+         pop    r4
+         
+         RETA
+
+END
+         
+         
+         
+         
+         
+ 

@@ -1,0 +1,209 @@
+#include <msp430.h>
+
+#define         KYBER_Q r4
+#define         QINV        r5
+#define         f               r6
+#define         v               r7
+
+
+#define         res_lo     r8
+#define         res_hi     r9
+
+#define         zero    r10
+#define         word    r11
+
+#define         ptr     r12
+#define         forstop     r13
+#define         a     r14
+
+montmul_str   macro
+                                                                                        
+         mov    @ptr, &MPYS
+         mov    f, &OP2
+                  
+         mov    &RESHI, res_hi 
+         
+         mov    &RESLO, &MPYS              
+         mov    QINV, &OP2 
+                  
+         mov    &RESLO, &MPYS 
+         mov    KYBER_Q, &OP2
+                  
+         sub   &RESHI, res_hi 
+         
+         mov    res_hi, 0(ptr)        
+         
+         add    #2, ptr
+         endm
+         
+
+PUBLIC asm_poly_tomont          ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+
+
+asm_poly_tomont:
+         ;input :  int16_t  a, b
+         ;f = 1353 = (1ULL << 32) % Q
+         ;Q = 3329
+         ;QINV = -3327
+
+         push r4
+         push r5
+         push r6
+         push r7
+         push r8
+         push r9
+         push r10
+         push r11
+
+         mov    #1353, f    
+         mov    #3329, KYBER_Q
+         mov    #-3327, QINV
+         
+         mov    ptr, forstop
+         add    #512, forstop
+         
+loop_mont:         
+         montmul_str
+         cmp    forstop, ptr
+         jn     loop_mont
+          
+          pop    r11
+          pop    r10
+          pop    r9
+          pop    r8
+          pop    r7
+          pop    r6
+          pop    r5
+          pop    r4
+          
+         RETA
+
+
+
+origin_barrett   macro
+                                                                                
+         mov    @ptr, &MPYS 
+         mov    v,  &OP2 
+         
+         mov    &RESHI, r5
+         add    word, r5         
+                  
+         swpb   r5
+         sxt    r5
+         rra    r5
+         rra    r5                  
+         
+         mov    r5, &MPYS
+         mov   KYBER_Q, &OP2 ; 
+         
+         sub    &RESLO, 0(ptr) 
+         
+         add    #2, ptr
+         endm
+
+
+PUBLIC asm_poly_barrett         ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+
+
+
+
+asm_poly_barrett:
+         ;v = 20 = ((1 << 16) + KYBER_Q / 2) / KYBER_Q;
+         ;Q = 3329
+         
+
+         push r4
+         push r5
+         push r6
+         push r7
+         push r8
+         push r9
+         push r10
+         push r11
+                           
+         
+         mov    #0x4ebf, v
+         mov    #3329, KYBER_Q         
+         mov    #0x200, word 
+         clr    zero
+         
+         mov    ptr, forstop
+         add    #512, forstop
+         
+loop_barrett:         
+         origin_barrett
+         cmp    forstop, ptr
+         jn     loop_barrett
+          
+          pop    r11
+          pop    r10
+          pop    r9
+          pop    r8
+          pop    r7
+          pop    r6
+          pop    r5
+          pop    r4
+
+     
+         
+         RETA
+         
+         
+PUBLIC asm_NTT_poly_barrett         ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+
+
+
+
+asm_NTT_poly_barrett:
+         ;v = 20 = ((1 << 16) + KYBER_Q / 2) / KYBER_Q;
+         ;Q = 3329
+         
+
+         push r4
+         push r5
+         push r6
+         push r7
+         push r8
+         push r9
+         push r10
+         push r11
+                           
+         
+         mov    #20, v
+         mov    #3329, KYBER_Q                  
+         
+         mov    ptr, forstop
+         add    #512, forstop
+         
+loop_barrett_NTT:         
+         origin_barrett
+         cmp    forstop, ptr
+         jn     loop_barrett_NTT
+          
+          pop    r11
+          pop    r10
+          pop    r9
+          pop    r8
+          pop    r7
+          pop    r6
+          pop    r5
+          pop    r4
+
+     
+         
+         RETA
+                 
+        
+END
+
+
+
+
+
+

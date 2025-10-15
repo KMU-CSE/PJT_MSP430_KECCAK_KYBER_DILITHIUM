@@ -1,0 +1,364 @@
+#include <msp430.h>
+
+         
+         
+#define         a0              r4
+#define         a1              r5
+#define         a2              r6
+#define         a3              r7
+#define         a4              r8
+#define         a5              r9
+#define         a6              r10
+#define         a7              r11
+
+#define         zeta1      r8
+#define         zeta2      r9
+#define         zeta3      r10
+#define         forstop2        r11
+
+#define         ptr                 r12
+#define         temp0           r13
+#define         temp1           r14
+#define         ptr_zeta        r14
+#define         forstop         r15         
+         
+         
+prime_fnt    macro  dst, src1, src2, tmp          
+         
+         mov.b src1, tmp
+         swpb  src1         
+         and.b   src1, src1 
+         sub   src1, tmp
+         
+         mov.b src2, src1
+         add   tmp, src1
+         
+         swpb  src2
+         sxt   src2
+         sub   src2, src1                                   
+         
+         endm
+
+
+         
+mont_fnt    macro  dst, src1, src2 
+                                                                                
+         mov src1, &MPYS
+         mov #-255, &OP2 
+         
+         mov &RESLO, &MPYS
+         mov #257, &OP2
+
+         sub &RESHI, src2                                       
+         
+         mov src2, dst         
+                  
+         endm
+              
+         
+shift_butterfly_fnt     macro   w0, w1
+         
+         mov  w1, temp0         
+         
+         mov    w0, w1         
+         
+         sub    temp0, w1                
+         add    temp0, w0    
+                  
+         endm      
+         
+butterfly_fnt     macro   w0, w1, zeta
+
+         mov    w1, &MPYS         
+         mov    zeta, &OP2
+         mov    &RESLO, temp0
+         mov    &RESHI, w1
+         
+         prime_fnt    temp0, temp0, w1, temp1     
+                                
+         mov    w0, w1         
+         
+         sub    temp0, w1            
+         add    temp0, w0     
+                  
+         endm             
+         
+
+         
+     
+
+first_merging_3_fnt   macro   off1, off2, off3, off4, off5, off6, off7, off8
+
+         mov    off1(ptr), a0
+         mov    off2(ptr), a1
+         mov    off3(ptr), a2
+         mov    off4(ptr), a3
+         mov    off5(ptr), a4
+         mov    off6(ptr), a5
+         mov    off7(ptr), a6
+         mov    off8(ptr), a7
+          
+         ;1-layer
+         rla    a4         
+         rla    a4         
+         rla    a4         
+         rla    a4                  
+         shift_butterfly_fnt     a0, a4
+         
+         rla    a5         
+         rla    a5         
+         rla    a5         
+         rla    a5                  
+         shift_butterfly_fnt     a1, a5
+         
+         rla    a6         
+         rla    a6         
+         rla    a6         
+         rla    a6                  
+         shift_butterfly_fnt     a2, a6
+         
+         rla    a7         
+         rla    a7         
+         rla    a7         
+         rla    a7                  
+         shift_butterfly_fnt     a3, a7
+         
+         ;2-layer
+         
+         rla    a2         
+         rla    a2              
+         shift_butterfly_fnt    a0, a2
+         
+         rla    a3         
+         rla    a3              
+         shift_butterfly_fnt    a1, a3
+         
+         rla    a6         
+         rla    a6
+         rla    a6         
+         rla    a6
+         rla    a6         
+         rla    a6
+         shift_butterfly_fnt    a4, a6
+         
+         rla    a7         
+         rla    a7
+         rla    a7         
+         rla    a7
+         rla    a7         
+         rla    a7
+         shift_butterfly_fnt    a5, a7
+         
+         
+         ;3-layer               ;rla, rlc         
+         ;2^1
+         rla    a1                                   
+         shift_butterfly_fnt    a0, a1
+         
+         ;2^5
+         rla    a3
+         rla    a3
+         rla    a3
+         rla    a3
+         rla    a3                           
+         shift_butterfly_fnt    a2, a3
+         
+         ;2^3
+         clr    temp0
+         mov    a5, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0         
+         
+         rla    a5
+         rlc    temp1         
+         rla    a5
+         rlc    temp1
+         rla    a5
+         rlc    temp1
+                  
+         prime_fnt    a5, a5, temp1, temp0
+         shift_butterfly_fnt    a4, a5
+         
+         ;2^7
+         clr    temp0
+         mov    a7, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0 
+
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         
+         prime_fnt    a7, a7, temp1, temp0
+         shift_butterfly_fnt    a6, a7
+         
+         mov     a7, off8(ptr)
+         mov     a6, off7(ptr)
+         mov     a5, off6(ptr)
+         mov     a4, off5(ptr)
+         mov     a3, off4(ptr)
+         mov     a2, off3(ptr)
+         mov     a1, off2(ptr)
+         mov     a0, off1(ptr)
+         
+         add    #4, ptr
+         endm
+
+second_merging_2_fnt   macro   off1, off2, off3, off4
+
+         mov    off1(ptr), a0
+         mov    off2(ptr), a1
+         mov    off3(ptr), a2
+         mov    off4(ptr), a3
+                                                    
+         butterfly_fnt    a0, a2, zeta1
+         butterfly_fnt    a1, a3, zeta1
+         
+         butterfly_fnt    a0, a1, zeta2
+         butterfly_fnt    a2, a3, zeta3
+                  
+         mov     a3, off4(ptr)
+         mov     a2, off3(ptr)
+         mov     a1, off2(ptr)
+         mov     a0, off1(ptr)
+         
+         add    #4, ptr
+         endm
+         
+
+         
+         
+PUBLIC asm_fnt_merging       
+RSEG CODE              ; place program in 'CODE' segment
+
+
+        
+
+asm_fnt_merging:
+        
+         push.w r4
+         push.w r5
+         push.w r6
+         push.w r7
+         push.w r8
+         push.w r9
+         push.w r10         
+         push.w r11
+                  
+
+         
+         push.w   r13 ;&zeta
+                                            
+         push.w   ptr
+         mov    ptr, forstop
+         add    #128, forstop
+         
+         
+         ;layer 1~3
+layer13_merge:
+         
+         
+         first_merging_3_fnt  0, 128, 256, 384, 512, 640, 768, 896         
+         cmp    forstop, ptr
+         jn     layer13_merge
+         
+         pop    ptr
+         pop   ptr_zeta
+         push.w   ptr
+         mov    ptr, forstop                 
+         mov    ptr, forstop2
+         
+         add    #32, forstop
+         add    #1024, forstop2                      
+
+         ;layer 4~5
+                  
+         push   ptr_zeta 
+         
+layer45_merge_out:         
+         pop    ptr_zeta
+         mov    @ptr_zeta+, zeta1
+         mov    @ptr_zeta+, zeta2
+         mov    @ptr_zeta+, zeta3
+         push   ptr_zeta
+
+layer45_merge_in:         
+
+         second_merging_2_fnt  0, 32, 64, 96
+         cmp    forstop, ptr
+         jn     layer45_merge_in
+         
+         add    #96, ptr
+         mov    ptr, forstop
+         add    #32, forstop
+         
+         cmp    forstop2, ptr
+         jn     layer45_merge_out
+         
+         
+         pop    ptr_zeta
+         
+         pop    ptr                  
+         mov    ptr, forstop                 
+         mov    ptr, forstop2
+         
+         add    #8, forstop
+         add    #1024, forstop2      
+         
+         push   ptr_zeta
+         
+layer67_merge_out:         
+         pop    ptr_zeta
+         mov    @ptr_zeta+, zeta1
+         mov    @ptr_zeta+, zeta2
+         mov    @ptr_zeta+, zeta3
+         push   ptr_zeta
+
+layer67_merge_in:         
+
+         second_merging_2_fnt  0, 8, 16, 24
+         cmp    forstop, ptr
+         jn     layer67_merge_in
+         
+         add    #24, ptr
+         mov    ptr, forstop
+         add    #8, forstop
+         
+         cmp    forstop2, ptr
+         jn     layer67_merge_out
+         
+
+          pop   ptr_zeta
+          pop    r11
+          
+          pop    r10
+          pop    r9
+          pop    r8
+          pop    r7
+          pop    r6
+          pop    r5
+          pop    r4
+
+
+          RETA
+          
+END          
+          
+          
+ 
+

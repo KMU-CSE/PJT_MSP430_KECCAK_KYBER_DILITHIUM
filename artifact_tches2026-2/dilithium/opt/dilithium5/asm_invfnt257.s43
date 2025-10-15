@@ -1,0 +1,668 @@
+#include <msp430.h>
+
+         
+         
+#define         a0              r4
+#define         a1              r5
+#define         a2              r6
+#define         a3              r7
+#define         a4              r8
+#define         a5              r9
+#define         a6              r10
+#define         a7              r11
+
+#define         zeta1      r8
+#define         zeta2      r9
+#define         zeta3      r10
+#define         forstop2        r11
+
+#define         ptr                 r12
+#define         temp1           r13
+#define         temp0           r14
+#define         ptr_zeta        r13
+#define         forstop         r15         
+
+prime_fnt    macro  dst, src1, src2          
+         
+         
+         mov.b src1, temp0
+         swpb  src1
+         and.b   src1, src1 
+         sub   src1, temp0
+         
+         mov.b src2, src1
+         add   temp0, src1
+         
+         swpb  src2
+         sxt   src2
+         sub   src2, src1                                   
+         
+         endm
+
+prime_invfnt    macro  dst, src1, src2          
+         
+         
+         mov.b src2, temp1
+         swpb  src2
+         sxt   src2
+         sub   src2, temp1
+         
+         
+         mov.b src1, src2
+         swpb  src1
+         and   #255, src1 
+         sub   src1, src2
+                  
+         add   temp1, src2
+         
+                                                              
+         
+         endm
+         
+mont_invfnt    macro  dst, src1, src2 
+                                                                                
+         mov src1, &MPYS
+         mov #-255, &OP2 
+         
+         mov &RESLO, &MPYS
+         mov #257, &OP2
+         
+         sub &RESHI, src2                                       
+         
+         mov src2, dst         
+                  
+         endm 
+
+
+final_barrett    macro  src1, src2 
+         
+         ;input mul
+         mov src1, &MPYS
+         mov temp1, &OP2
+         mov &RESLO, src1
+         mov &RESHI, src2
+         
+         ;reduction
+         mov src1, &MPYS32L
+         mov src2, &MPYS32H
+         mov #0x00ff, &OP2L                
+         mov #0x00ff, &OP2H                 
+         
+         add   #0x8000, &RES1         
+         addc  #0, &RES2
+         addc  #0, &RES3
+         
+         mov &RES2, &MPYS32L
+         mov &RES3, &MPYS32H
+         mov #257, &OP2L
+         mov #0, &OP2H                              
+         
+         sub &RES0, src1
+         subc &RES1, src2
+                                   
+         endm
+
+final_mont_invfnt    macro  dst, src1, src2 
+                                                                                
+         mov src1, &MPYS
+         mov #-255, &OP2 
+         
+         mov &RESLO, &MPYS
+         mov #257, &OP2
+         
+         sub &RESHI, src2                                       
+         
+         mov src2, dst         
+                  
+         endm 
+         
+final_red    macro  src1, src2 
+         
+         ;input mul
+         mov src1, &MPYS
+         mov temp1, &OP2
+         mov &RESLO, src1
+         mov &RESHI, src2
+         
+         ;reduction
+         mov src1, &MPYS32L
+         mov src2, &MPYS32H
+         mov #0x00ff, &OP2L                
+         mov #0x00ff, &OP2H                 
+         
+         add   #0x8000, &RES1         
+         addc  #0, &RES2
+         addc  #0, &RES3
+         
+         mov &RES2, &MPYS32L
+         mov &RES3, &MPYS32H
+         mov #257, &OP2L
+         mov #0, &OP2H                              
+         
+         sub &RES0, src1
+         subc &RES1, src2
+                                   
+         endm
+
+butterfly_invfnt     macro   w0, w1, zeta
+
+         mov    w0, temp0      
+         
+         add    w1, w0         
+         sub    temp0, w1      
+         
+         mov    w1, &MPYS         
+         mov    zeta, &OP2
+         mov    &RESLO, temp0
+         mov    &RESHI, w1
+         
+         prime_invfnt   w1, temp0, w1                                                                                                                                             
+
+         endm 
+         
+shift_butterfly_invfnt     macro   w0, w1
+         
+         mov  w0, temp0         
+         
+         add    w1, w0         
+         sub    temp0, w1     
+                  
+         endm        
+         
+
+first_merging_2_invfnt   macro   off1, off2, off3, off4
+
+         mov    off1(ptr), a0
+         mov    off2(ptr), a1
+         mov    off3(ptr), a2
+         mov    off4(ptr), a3
+                           
+         ;4-layer
+             
+         butterfly_invfnt    a0, a1, zeta1         
+         butterfly_invfnt    a2, a3, zeta2
+         
+         butterfly_invfnt    a0, a2, zeta3
+         butterfly_invfnt    a1, a3, zeta3
+                  
+         mov     a3, off4(ptr)
+         mov     a2, off3(ptr)
+         mov     a1, off2(ptr)
+         mov     a0, off1(ptr)
+         
+         add    #4, ptr
+         endm
+         
+second_merging_3_invfnt_top   macro   off1, off2, off3, off4, off5, off6, off7, off8
+
+         mov    off1(ptr), a0
+         mov    off2(ptr), a1
+         mov    off3(ptr), a2
+         mov    off4(ptr), a3
+         mov    off5(ptr), a4
+         mov    off6(ptr), a5
+         mov    off7(ptr), a6
+         mov    off8(ptr), a7
+          
+
+         ;1-layer               
+         shift_butterfly_invfnt    a0, a1
+         
+         clr    temp0
+         mov    a1, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0   
+
+         rla    a1
+         rlc    temp1
+         rla    a1
+         rlc    temp1
+         rla    a1
+         rlc    temp1
+         rla    a1
+         rlc    temp1
+         rla    a1
+         rlc    temp1
+         rla    a1
+         rlc    temp1
+         rla    a1
+         rlc    temp1
+         
+         prime_fnt    a1, a1, temp1
+         
+         
+         ;2^3
+         shift_butterfly_invfnt    a2, a3
+
+         clr    temp0
+         mov    a3, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0
+
+         rla    a3
+         rlc    temp1
+         rla    a3
+         rlc    temp1
+         rla    a3
+         rlc    temp1
+
+         prime_fnt    a3, a3, temp1
+         
+         
+         ;2^5
+         shift_butterfly_invfnt    a4, a5
+         
+         clr    temp0
+         mov    a5, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0         
+         
+         rla    a5
+         rlc    temp1         
+         rla    a5
+         rlc    temp1
+         rla    a5
+         rlc    temp1
+         rla    a5
+         rlc    temp1
+         rla    a5
+         rlc    temp1
+                  
+         prime_fnt    a5, a5, temp1
+         
+         
+         ;2^1
+         shift_butterfly_invfnt    a6, a7
+         
+         clr    temp0
+         mov    a7, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0 
+
+         rla    a7
+         rlc    temp1
+
+         
+         prime_fnt    a7, a7, temp1
+         
+         
+
+
+
+         ;2-layer-----------------------------------------------------------------------
+         
+         shift_butterfly_invfnt    a0, a2
+         
+         clr    temp0
+         mov    a2, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a2
+         rlc    temp1
+         rla    a2
+         rlc    temp1
+         rla    a2
+         rlc    temp1
+         rla    a2
+         rlc    temp1
+         rla    a2
+         rlc    temp1
+         rla    a2
+         rlc    temp1
+         prime_fnt    a2, a2, temp1
+         
+         
+         
+         
+         shift_butterfly_invfnt    a1, a3
+         
+         clr    temp0
+         mov    a3, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a3
+         rlc    temp1
+         rla    a3
+         rlc    temp1
+         rla    a3
+         rlc    temp1
+         rla    a3
+         rlc    temp1
+         rla    a3
+         rlc    temp1
+         rla    a3
+         rlc    temp1
+         prime_fnt    a3, a3, temp1
+         
+         
+         
+         shift_butterfly_invfnt    a4, a6
+         
+         clr    temp0
+         mov    a6, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a6
+         rlc    temp1
+         rla    a6
+         rlc    temp1
+
+         prime_fnt    a6, a6, temp1
+         
+         
+         shift_butterfly_invfnt    a5, a7
+         
+         clr    temp0
+         mov    a7, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+
+         prime_fnt    a7, a7, temp1
+         
+         endm
+
+second_merging_3_invfnt_bot   macro   off1, off2, off3, off4, off5, off6, off7, off8
+
+
+         
+
+//         ;last-layer 
+         shift_butterfly_invfnt    a0, a4
+         
+         clr    temp0
+         mov    a4, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a4
+         rlc    temp1
+         rla    a4
+         rlc    temp1
+         rla    a4
+         rlc    temp1
+         rla    a4
+         rlc    temp1
+
+         prime_fnt    a4, a4, temp1
+         
+         
+         
+         shift_butterfly_invfnt    a1, a5
+         
+         clr    temp0
+         mov    a5, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a5
+         rlc    temp1
+         rla    a5
+         rlc    temp1
+         rla    a5
+         rlc    temp1
+         rla    a5
+         rlc    temp1
+
+         prime_fnt    a5, a5, temp1
+         
+         
+         shift_butterfly_invfnt    a2, a6
+         
+         clr    temp0
+         mov    a6, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a6
+         rlc    temp1
+         rla    a6
+         rlc    temp1
+         rla    a6
+         rlc    temp1
+         rla    a6
+         rlc    temp1
+
+         prime_fnt    a6, a6, temp1
+         
+         
+         shift_butterfly_invfnt    a3, a7
+         
+         clr    temp0
+         mov    a7, temp1
+         rla    temp1
+         rlc    temp0   ;temp0 is msb
+         clr    temp1
+         sub    temp0, temp1 ; temp1 is all 1 or all 0       
+
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+         rla    a7
+         rlc    temp1
+
+         prime_fnt    a7, a7, temp1
+         
+         endm
+ 
+ 
+final_barrett_invfnt   macro   off1, off2, off3, off4, off5, off6, off7, off8      
+         
+         ;final barrett(poly[i]*f), with f = 255 = 2^-7 mod 257
+
+         mov    #255, temp1
+         
+         final_barrett    a7, temp0
+         mov     a7, off8(ptr)
+         mov     temp0, off8+2(ptr)
+                  
+         final_barrett    a6, temp0
+         mov     a6, off7(ptr)
+         mov     temp0, off7+2(ptr)         
+                  
+         final_barrett    a5, temp0
+         mov     a5, off6(ptr)
+         mov     temp0, off6+2(ptr)
+                  
+         final_barrett    a4, temp0
+         mov     a4, off5(ptr)
+         mov     temp0, off5+2(ptr)
+                  
+         final_barrett    a3, temp0
+         mov     a3, off4(ptr)
+         mov     temp0, off4+2(ptr)
+                  
+         final_barrett    a2, temp0
+         mov     a2, off3(ptr)
+         mov     temp0, off3+2(ptr)
+                  
+         final_barrett    a1, temp0
+         mov     a1, off2(ptr)
+         mov     temp0, off2+2(ptr)
+                  
+         final_barrett    a0, temp0
+         mov     a0, off1(ptr)
+         mov     temp0, off1+2(ptr)
+         
+
+         add    #4, ptr
+         endm 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+PUBLIC asm_invfnt_merging       
+RSEG CODE              ; place program in 'CODE' segment
+
+
+        
+
+asm_invfnt_merging:
+        
+         push.w r4
+         push.w r5
+         push.w r6
+         push.w r7
+         push.w r8
+         push.w r9
+         push.w r10
+         
+         push.w r11
+             
+        
+         push.w   ptr
+         
+         
+         mov    ptr, forstop                 
+         mov    ptr, forstop2
+         
+         add    #8, forstop
+         add    #1024, forstop2
+         
+         ;layer 1~3
+         push   ptr_zeta
+         
+layer12_merge_out:         
+         pop    ptr_zeta
+         mov    @ptr_zeta, zeta1         
+         decd   ptr_zeta
+         mov    @ptr_zeta, zeta2
+         decd   ptr_zeta
+         mov    @ptr_zeta, zeta3
+         decd   ptr_zeta
+        push    ptr_zeta                                                      
+
+layer12_merge_in:         
+
+         first_merging_2_invfnt  0, 8, 16, 24
+         cmp    forstop, ptr
+         jn     layer12_merge_in
+         
+         add    #24, ptr
+         mov    ptr, forstop
+         add    #8, forstop
+         
+         cmp    forstop2, ptr
+         jn     layer12_merge_out
+         
+         
+         pop    ptr_zeta
+         pop    ptr         
+         push.w   ptr
+         mov    ptr, forstop                 
+         mov    ptr, forstop2
+         
+         add    #32, forstop
+         add    #1024, forstop2                      
+
+         push   ptr_zeta
+         
+         
+          
+layer34_merge_out:         
+         pop    ptr_zeta
+         mov    @ptr_zeta, zeta1
+         decd   ptr_zeta
+         mov    @ptr_zeta, zeta2
+         decd   ptr_zeta
+         mov    @ptr_zeta, zeta3
+         decd   ptr_zeta
+         push   ptr_zeta
+
+layer34_merge_in:         
+
+         first_merging_2_invfnt  0, 32, 64, 96
+         cmp    forstop, ptr
+         jn     layer34_merge_in
+         
+         add    #96, ptr
+         mov    ptr, forstop
+         add    #32, forstop
+         
+         cmp    forstop2, ptr
+         jn     layer34_merge_out
+         
+         
+         
+         pop    ptr_zeta
+         pop    ptr                  
+         mov    ptr, forstop
+         add    #128, forstop                  
+         
+layer57_merge:
+                           
+         second_merging_3_invfnt_top  0, 128, 256, 384, 512, 640, 768, 896
+         
+         mov forstop, temp0
+         
+layer57_merge2:         
+         cmp    forstop, temp0
+         jn     layer57_merge
+         
+         second_merging_3_invfnt_bot   0, 128, 256, 384, 512, 640, 768, 896      
+
+         mov forstop, temp0
+         
+final_barrett_reduction:
+         cmp    forstop, temp0
+         jn     layer57_merge2
+         final_barrett_invfnt   0, 128, 256, 384, 512, 640, 768, 896      
+
+         clr    temp0
+         cmp    forstop, ptr
+         jn     final_barrett_reduction
+                                        
+
+          pop    r11
+          
+          pop    r10
+          pop    r9
+          pop    r8
+          pop    r7
+          pop    r6
+          pop    r5
+          pop    r4
+
+
+          RETA
+          
+END          
+

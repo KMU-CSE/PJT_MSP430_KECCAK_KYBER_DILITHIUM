@@ -1,0 +1,105 @@
+#include <msp430.h>
+
+#define         Dilithium_Q0 r8
+#define         Dilithium_Q1 r9
+
+#define         a0      r10
+#define         a1      r11
+
+#define         ptr_dst     r12
+#define         forstop     r13
+
+#define         reduce32_constant    r14
+#define         temp1    r15
+
+reduce32   macro
+                                                     
+         mov    0(ptr_dst), a0
+         mov    2(ptr_dst), a1
+         mov    a1, temp1
+         
+         add reduce32_constant, temp1     
+         
+         rra    temp1
+         rra    temp1
+         rra    temp1
+         rra    temp1
+         rra    temp1
+         
+         rra    temp1
+         rra    temp1  
+         
+         mov    temp1, &OP2L
+         
+         rla      temp1
+         subc  temp1, temp1
+         inv      temp1
+         mov    temp1, &OP2H          
+
+         
+         sub    &RES0, a0
+         subc    &RES1, a1
+         
+         mov    a0, 0(ptr_dst)
+         mov    a1, 2(ptr_dst)
+         
+         add    #4, ptr_dst
+         
+         endm
+
+
+PUBLIC asm_poly_reduce32       ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+
+asm_poly_reduce32:
+                                  
+          
+         push r4
+         push r5
+         push r6
+         push r7
+         push r8
+         push r9
+         push r10
+         
+         push r11
+         push r12
+         push r13
+         push r14
+         push r15
+         
+         mov    #0x40, reduce32_constant
+         
+         mov    ptr_dst, forstop       
+         add    #1024, forstop
+         
+         mov    #0xe001, &MPYS32L
+         mov    #0x007f, &MPYS32H
+reduce32_start:
+        
+          reduce32
+          cmp    forstop, ptr_dst
+          jn     reduce32_start    
+          
+          pop    r15
+          pop    r14
+          pop    r13
+          pop    r12
+          pop    r11
+          pop    r10
+          pop    r9
+          pop    r8
+          pop    r7
+          pop    r6
+          pop    r5
+          pop    r4
+       
+          RETA
+                      
+  
+END          
+          
+          
+ 
+

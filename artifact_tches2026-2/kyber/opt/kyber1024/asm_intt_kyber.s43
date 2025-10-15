@@ -1,0 +1,489 @@
+#include <msp430.h>
+
+#define         KYBER_Q       r10
+#define         QINV             r11
+#define         ptr                 r12
+#define         mul_res_lo      r13
+#define         mul_res_hi      r14
+#define         forstop         r15
+
+inv_barrett      macro   arg
+         mov  arg, &MPYS 
+         mov #20,  &OP2 
+         
+         mov  &RESHI, &MPYS
+         mov   KYBER_Q, &OP2 
+         
+         sub &RESLO, arg 
+
+         endm
+         
+inv_barrett_imd      macro   arg
+
+         mov  arg, &MPYS 
+         mov #20,  &OP2 
+                           
+         mov  &RESHI, &MPYS
+         mov   #3329, &OP2 
+         
+         sub &RESLO, arg 
+
+         endm
+
+inv_mont      macro   mul_low, mul_hi
+                                                              
+         mov    mul_low, &MPYS              
+         mov    QINV, &OP2 
+                  
+         mov    &RESLO, &MPYS
+         mov    KYBER_Q, &OP2
+                  
+         sub   &RESHI, mul_hi 
+         
+         endm
+         
+inv_mont_imd      macro   mul_low, mul_hi
+                                                     
+               
+         mov    mul_low, &MPYS              
+         mov    #-3327, &OP2
+                  
+         mov    &RESLO, &MPYS 
+         mov    #3329, &OP2
+                  
+         sub   &RESHI, mul_hi 
+         
+         endm
+
+inv_butter_fly      macro   src1, src2, zeta
+
+         mov    src1, r13
+         add    src2, src1
+         sub    r13, src2
+         
+         inv_barrett    src1
+
+         mov    zeta, &MPYS 
+         mov    src2, &OP2         
+         
+         mov    &RESHI, src2  
+         
+         mov    &RESLO, &MPYS              
+         mov    QINV, &OP2
+                  
+         mov    &RESLO, &MPYS 
+         mov    KYBER_Q, &OP2
+                  
+         sub   &RESHI, src2 
+
+         endm
+
+inv_butter_fly_      macro   src1, src2, zeta
+
+         mov    src1, r13
+         add    src2, src1
+         sub    r13, src2
+         
+         ;inv_barrett    src1
+
+         mov    zeta, &MPYS 
+         mov    src2, &OP2         
+         mov    &RESLO, mul_res_lo
+         mov    &RESHI, src2  
+
+         inv_mont   mul_res_lo, src2          
+
+         endm
+         
+inv_butter_fly_imd      macro   src1, src2, zeta
+
+
+         mov    src1, r13
+         add    src2, src1
+         sub    r13, src2       
+         
+         inv_barrett_imd    src1              
+
+         mov    zeta, &MPYS 
+         mov    src2, &OP2         
+         
+         mov    &RESHI, src2  
+         
+         mov    &RESLO, &MPYS              
+         mov    #-3327, &OP2 
+                  
+         mov    &RESLO, &MPYS 
+         mov    #3329, &OP2
+                  
+         sub   &RESHI, src2 
+
+         endm
+
+inv_butter_fly_imd_      macro   src1, src2, zeta
+
+
+         mov    src1, r13
+         add    src2, src1
+         sub    r13, src2       
+         
+         ;inv_barrett2    src1              
+
+         mov    zeta, &MPYS ; zetas[1]
+         mov    src2, &OP2         
+         
+         mov    &RESHI, src2       ; zetas * arr[128]****************
+
+         ;mont      
+         mov    &RESLO, &MPYS              
+         mov    #-3327, &OP2 ; a*QINV
+                  
+         mov    &RESLO, &MPYS ; t*q
+         mov    #3329, &OP2
+         
+         ;sub    &RESLO, mul_low
+         sub   &RESHI, src2 ;  a - t*q          
+
+         endm
+
+inv_merging_2  macro   zeta1, zeta2, zeta3, off1, off2, off3, off4
+
+         mov    off1(ptr), r4
+         mov    off2(ptr), r5
+         mov    off3(ptr), r6
+         mov    off4(ptr), r7
+
+         inv_butter_fly     r4, r5, zeta1
+         inv_butter_fly     r6, r7, zeta2
+         
+         inv_butter_fly_     r4, r6, zeta3
+         inv_butter_fly_     r5, r7, zeta3
+         
+         mov    r4, off1(ptr)
+         mov    r5, off2(ptr)
+         mov    r6, off3(ptr)
+         mov    r7, off4(ptr)
+         
+         add    #2, ptr
+         endm
+
+inv_merging_22  macro   zeta1, zeta2, zeta3, off1, off2, off3, off4
+
+         mov    off1(ptr), r4
+         mov    off2(ptr), r5
+         mov    off3(ptr), r6
+         mov    off4(ptr), r7
+
+         inv_butter_fly_     r4, r5, zeta1
+         inv_butter_fly_     r6, r7, zeta2
+         
+         inv_butter_fly_     r4, r6, zeta3
+         inv_butter_fly_     r5, r7, zeta3
+         
+         mov    r4, off1(ptr)
+         mov    r5, off2(ptr)
+         mov    r6, off3(ptr)
+         mov    r7, off4(ptr)
+         
+         add    #2, ptr
+         endm
+         
+         
+inv_merging_3  macro   zeta1, zeta2, zeta3, zeta4, zeta5, zeta6, zeta7 
+
+         mov    0(ptr), r4
+         mov    4(ptr), r5
+         mov    8(ptr), r6
+         mov    12(ptr), r7
+         
+         mov    16(ptr), r8
+         mov    20(ptr), r9
+         mov    24(ptr), r10
+         mov    28(ptr), r11
+         
+         
+         inv_butter_fly_imd_     r4, r5, zeta1
+         inv_butter_fly_imd_     r6, r7, zeta2
+         inv_butter_fly_imd_     r8, r9, zeta3
+         inv_butter_fly_imd_     r10, r11, zeta4
+         
+         inv_butter_fly_imd_     r4, r6, zeta5
+         inv_butter_fly_imd_     r5, r7, zeta5
+         inv_butter_fly_imd_     r8, r10, zeta6
+         inv_butter_fly_imd_     r9, r11, zeta6
+         
+         inv_butter_fly_imd     r4, r8, zeta7
+         inv_butter_fly_imd     r5, r9, zeta7
+         inv_butter_fly_imd     r6, r10, zeta7
+         inv_butter_fly_imd     r7, r11, zeta7
+         
+    
+         
+         mov    r4, 0(ptr)
+         mov    r5, 4(ptr)
+         mov    r6, 8(ptr)
+         mov    r7, 12(ptr)
+         
+         mov    r8, 16(ptr)
+         mov    r9, 20(ptr)
+         mov    r10, 24(ptr)
+         mov    r11, 28(ptr)
+         
+         
+         add    #2, ptr
+         endm
+         
+la_fqmul      macro   
+
+         mov    r5, &MPYS
+         mov    0(ptr), &OP2
+        
+         mov    &RESLO, mul_res_lo
+         mov    &RESHI, mul_res_hi
+         
+         inv_mont       mul_res_lo, mul_res_hi      
+         
+         mov    mul_res_hi, 0(ptr)
+         
+         add    #2, ptr
+         endm
+         
+
+PUBLIC asm_invntt_merging       ; make the main label vissible outside this module
+RSEG CODE              ; place program in 'CODE' segment
+
+
+asm_invntt_merging:
+
+         push r4
+         push r5
+         push r6
+         push r7
+         push r8
+         push r9
+         push r10
+         push r11
+
+        ;layer 7-5
+layer7_merge3:
+
+      
+                               
+         inv_merging_3        #1628, #1522, #-1460, #958, #-1275, #677, #-1571
+         inv_merging_3        #1628, #1522, #-1460, #958, #-1275, #677, #-1571
+         add    #28, ptr
+         
+         inv_merging_3        #991, #996, #-308, #-108, #-1065, #448, #-205
+         inv_merging_3        #991, #996, #-308, #-108, #-1065, #448, #-205
+         add    #28, ptr
+         
+         inv_merging_3        #478, #-870, #-854, #-1510, #-725, #-1508, #411
+         inv_merging_3        #478, #-870, #-854, #-1510, #-725, #-1508, #411
+         add    #28, ptr
+         
+         inv_merging_3        #794, #-1278, #-1530, #-1185, #961, #-398, #-1542
+         inv_merging_3        #794, #-1278, #-1530, #-1185, #961, #-398, #-1542
+         add    #28, ptr
+         
+         inv_merging_3        #-1659, #-1187, #220, #-874, #-951, #-247, #608
+         inv_merging_3        #-1659, #-1187, #220, #-874, #-951, #-247, #608
+         add    #28, ptr
+         
+         inv_merging_3        #-1335, #1218, #-136, #-1215, #-1421, #107, #732
+         inv_merging_3        #-1335, #1218, #-136, #-1215, #-1421, #107, #732
+         add    #28, ptr
+         
+         inv_merging_3        #384, #-1465, #-1285, #1322, #830, #-271, #1017
+         inv_merging_3        #384, #-1465, #-1285, #1322, #830, #-271, #1017
+         add    #28, ptr
+         
+         inv_merging_3        #610, #603, #1097, #817, #-90, #-853, #-681
+         inv_merging_3        #610, #603, #1097, #817, #-90, #-853, #-681
+         add    #28, ptr
+         
+         inv_merging_3        #-75, #-156, #329, #418, #1469, #126, #-130
+         inv_merging_3        #-75, #-156, #329, #418, #1469, #126, #-130
+         add    #28, ptr
+         
+         inv_merging_3        #349, #-872, #644, #-1590, #-1162, #-1618, #-1602
+         inv_merging_3        #349, #-872, #644, #-1590, #-1162, #-1618, #-1602
+         add    #28, ptr
+         
+         inv_merging_3        #1119, #-602, #1483, #-777, #-666, #-320, #1458
+         inv_merging_3        #1119, #-602, #1483, #-777, #-666, #-320, #1458
+         add    #28, ptr
+         
+         inv_merging_3        #-147, #1159, #778, #-246, #-8, #516, #-829
+         inv_merging_3        #-147, #1159, #778, #-246, #-8, #516, #-829
+         add    #28, ptr
+         
+         inv_merging_3        #1653, #1574, #-460, #-291, #-1544, #-282, #383
+         inv_merging_3        #1653, #1574, #-460, #-291, #-1544, #-282, #383
+         add    #28, ptr
+         
+         inv_merging_3        #-235, #177, #587, #422, #1491, #-1293, #264
+         inv_merging_3        #-235, #177, #587, #422, #1491, #-1293, #264
+         add    #28, ptr
+         
+         inv_merging_3        #105, #1550, #871, #-1251, #1015, #-552, #-1325
+         inv_merging_3        #105, #1550, #871, #-1251, #1015, #-552, #-1325
+         add    #28, ptr
+         
+         inv_merging_3        #843, #555, #430, #-1103, #652, #1223, #573
+         inv_merging_3        #843, #555, #430, #-1103, #652, #1223, #573
+
+
+
+         sub     #484, ptr
+         
+         mov    #3329,  KYBER_Q
+         mov    #-3327, QINV
+         
+         mov    #1468, r8
+         mov    #-1474, r9
+         mov    #202, r14
+         
+         ;layer 4-3
+layer4_merge2:
+        
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         add    #96, ptr
+         
+         mov    #-1202, r8
+         mov    #962, r9
+         mov    #287, r14
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         add    #96, ptr
+         
+         mov    #182, r8
+         mov    #1577, r9
+         mov    #1422, r14
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         add    #96, ptr
+         
+         mov    #622, r8
+         mov    #-171, r9
+         mov    #1493, r14
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+         inv_merging_22        r8, r9, r14, 0, 32, 64, 96
+                  
+         
+         sub    #416, ptr
+         mov    ptr, forstop
+         add    #128, forstop
+         
+         mov    #-1517, r8
+         mov    #-359, r9
+         mov    #-758, r14
+         
+         ;layer 2-1
+layer2_merge2:
+             
+         inv_merging_2        r8, r9, r14, 0, 128, 256, 384          
+
+         cmp    forstop, ptr
+         jn     layer2_merge2
+                
+         
+         sub    #128, ptr
+         mov    ptr, forstop
+         add    #512, forstop
+         
+         mov    #1441, r5
+         
+         
+last_fqmul:
+         la_fqmul
+         
+         cmp    forstop, ptr
+         jn     last_fqmul
+        
+         pop    r11
+         pop    r10
+         pop    r9
+         pop    r8
+         pop    r7
+         pop    r6
+         pop    r5
+         pop    r4
+
+         RETA
+
+END
+

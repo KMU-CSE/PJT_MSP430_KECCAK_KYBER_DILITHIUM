@@ -1,0 +1,1972 @@
+###############################################################################
+#
+# IAR UBROF Linker V10.15.2.1487                          15/Oct/2025  12:32:28
+# Copyright 1987-2023 IAR Systems AB.
+#
+#    Target Cpu    =  MSP430
+#    Map file      =
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\List\dilithium5_ref.map"
+#    Output file 1 =
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Exe\dilithium5_ref.d43"
+#                  =  Format: debug
+#                  =  UBROF version 11.1.1
+#                  =  Using library modules for C-SPY (-rt)
+#    Command line  =
+#        -f "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Exe\dilithium5_ref.d43.rsp"
+#        ("C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\fips202.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\main.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\ntt.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\packing.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\poly.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\polyvec.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\randombytes.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\reduce.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\rounding.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\sign.r43"
+#        "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\symmetric-shake.r43"
+#        --output "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Exe\dilithium5_ref.d43"
+#        -l "C:\Users\dong\Desktop\MSP430
+#        Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\List\dilithium5_ref.map"
+#        -xams "-IC:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\430\LIB\\" --f "C:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\430\config\linker\lnk430f67791.xcl" (-cmsp430 -QCODE_I=CODE_ID
+#        -QTLS16_I=TLS16_ID -D__iar_HWMUL=4C0 "-Z(CONST)INFO=1800-19FF"
+#        "-Z(CONST)INFOA=1980-19FF" "-Z(CONST)INFOB=1900-197F"
+#        "-Z(CONST)INFOC=1880-18FF" "-Z(CONST)INFOD=1800-187F"
+#        "-Z(DATA)DATA16_I,DATA16_Z,DATA16_N,TLS16_I=1C00-9BFF"
+#        "-Z(DATA)DATA16_HEAP+_DATA16_HEAP_SIZE" "-Z(DATA)CODE_I"
+#        "-Z(DATA)DATA20_I,DATA20_Z,DATA20_N,DATA20_HEAP+_DATA20_HEAP_SIZE"
+#        "-Z(DATA)CSTACK+_STACK_SIZE#"
+#        "-Z(CONST)DATA16_C,DATA16_ID,TLS16_ID,DIFUNCT,CHECKSUM=C000-FF7F"
+#        "-Z(CODE)CSTART,ISR_CODE,CODE16=C000-FF7F"
+#        "-P(CODE)CODE=C000-FF7F,10000-8BFF7"
+#        "-Z(CONST)DATA20_C,DATA20_ID,CODE_ID=C000-FF7F,10040-8BFF7"
+#        "-Z(CODE)INTVEC=FF80-FFFF" "-Z(CODE)RESET=FFFE-FFFF") -f "C:\Program
+#        Files\IAR Systems\Embedded Workbench
+#        9.1\430\config\linker\multiplier32.xcl" (-e?Mul8Hw=?Mul8
+#        -e?Mul16Hw=?Mul16 -e?Mul16to32uHw=?Mul16to32u
+#        -e?Mul16to32sHw=?Mul16to32s -e?Mul32Hw32=?Mul32 -e?Mul64Hw32=_Mul64i
+#        -e?Mul32u32uto64iHw32=_Mul32u32uto64i -e?Mul32fHw32=_Mul32f
+#        -e_Mul64fHw32Ptr=_Mul64fPtr) -D_STACK_SIZE=7530 -rt "C:\Program
+#        Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430xlmff.r43"
+#        -e_PrintfLarge=_Printf -e_ScanfLarge=_Scanf -D_DATA16_HEAP_SIZE=3E8
+#        --entry __program_start -D_DATA20_HEAP_SIZE=50 --text_out locale)
+#
+###############################################################################
+
+
+
+
+
+
+                ****************************************
+                *                                      *
+                *            PROGRAM ENTRY             *
+                *                                      *
+                ****************************************
+
+  ADDRESS  SPACE  TYPE         MODULE
+  -------  -----  ----         ------
+   0xC5C8         Relocatable  ?cstart
+
+
+
+
+                ****************************************
+                *                                      *
+                *            RUNTIME MODEL             *
+                *                                      *
+                ****************************************
+
+  ATTRIBUTE                   VALUE
+  ---------                   -----
+  __Heap_Handler              Basic
+  __SystemLibrary             DLib
+  __code_model                large
+  __core                      430X
+  __data_model                medium
+  __dlib_file_descriptor      1
+  __dlib_full_locale_support  1
+  __double_size               32
+  __pic                       no
+  __reg_r4                    free
+  __reg_r5                    free
+  __rt_version                3
+
+
+                ****************************************
+                *                                      *
+                *    AUTOMATIC SYMBOL REDIRECTIONS     *
+                *                                      *
+                ****************************************
+
+                   There are no automatic symbol redirections.
+
+
+
+                ****************************************
+                *                                      *
+                *              ENTRY LIST              *
+                *                                      *
+                ****************************************
+
+ENTRY                           SPACE  ADDRESS     KIND  TYPE  MODULE
+-----                           -----  -------     ----  ----  ------
+_DATA20_HEAP_SIZE                          0x0050  Pub         ?ABS_ENTRY_MOD [0]
+_A_WDTCTL                                  0x015C  Pub   Data  main
+WDTCTL                                     0x015C  Loc         main
+WDTCTL_L                                   0x015C  Loc         main
+WDTCTL_bit                                 0x015C  Loc         main
+WDTCTL_H                                   0x015D  Loc         main
+_DATA16_HEAP_SIZE                          0x03E8  Pub         ?ABS_ENTRY_MOD [0]
+__iar_HWMUL                                0x04C0  Pub         ?ABS_ENTRY_MOD [0]
+_Locale_lconv                              0x1C00  Pub   Data  ?localeconv [1]
+__iar_Stdin                                0x1C2E  Pub   Data  ?xfiles [1]
+__iar_Stdout                               0x1C56  Pub   Data  ?xfiles [1]
+__iar_Stderr                               0x1C7E  Pub   Data  ?xfiles [1]
+_Files                                     0x1CA6  Pub   Data  ?xfiles [1]
+ret                                        0x1CB6  Pub   Data  main
+__iar_Errno                                0x1CB8  Pub   Data  ?errno [1]
+__iar_Tls_setup__Locale_lconv              0x1CBA  Pub   Data  ?localeconv [1]
+_Locale_Profile                            0x1CBE  Pub   Data  ?setlocale [1]
+__iar_Tls_setup__Locale_Profile
+                                           0x1CCC  Pub   Data  ?setlocale [1]
+__data16_Aldata                            0x1CD2  Pub   Data  ?xxmemxmalloc [1]
+_STACK_SIZE                                0x7530  Pub         ?ABS_ENTRY_MOD [0]
+KeccakF_RoundConstants                     0xC000  Loc   Data  fips202
+zetas                                      0xC0C0  Loc   Data  ntt
+__program_start                            0xC5C8  Pub         ?cstart [1]
+?cstart_begin                              0xC5C8  Pub         ?cstart [1]
+?cstart_init_zero                          0xC5CC  Pub         ?cstart [1]
+?cstart_init_copy                          0xC5D8  Pub         ?cstart [1]
+?cstart_call_main                          0xC5E8  Pub         ?cstart [1]
+keccak_absorb                              0xC5F0  Loc   Code  fips202
+?cstart_end                                0xC5F0  Pub         ?cstart [1]
+crypto_sign_signature                      0xEC40  Pub   Code  sign
+_PrintfLarge                               0xF460  Pub   Code  ?xprintflarge [1]
+crypto_sign_keypair                        0xF976  Pub   Code  sign
+_Sub32f                                    0xFDF4  Pub         _Add32f [1]
+_Add32f                                    0xFDF8  Pub         _Add32f [1]
+_Close_all                                 0xFF58  Pub   Code  ?xcloseall [1]
+?reset_vector                              0xFFFE  Pub         ?reset_vector [1]
+KeccakF1600_StatePermute               0x00010000  Loc   Code  fips202
+crypto_sign_verify                     0x0001237C  Pub   Code  sign
+pad                                    0x000127E8  Loc   Code  ?xprintflarge [1]
+_PutstrLarge                           0x00012818  Loc   Code  ?xprintflarge [1]
+polyt0_unpack                          0x00012A52  Pub   Code  poly
+_LdtobLarge                            0x00012C9E  Loc   Code  ?xprintflarge [1]
+_GenldLarge                            0x00012EDC  Loc   Code  ?xprintflarge [1]
+shake128_inc_init                      0x00013112  Pub   Code  fips202
+shake128_inc_absorb                    0x00013114  Pub   Code  fips202
+?Subroutine2                           0x0001311C  Loc         fips202
+shake128_inc_finalize                  0x0001312C  Pub   Code  fips202
+?Subroutine1                           0x00013168  Loc         fips202
+shake128_inc_squeeze                   0x0001317C  Pub   Code  fips202
+?Subroutine6                           0x00013182  Loc         fips202
+shake128_inc_ctx_release               0x00013188  Pub   Code  fips202
+shake256_inc_init                      0x0001318A  Pub   Code  fips202
+shake256_inc_absorb                    0x0001318C  Pub   Code  fips202
+shake256_inc_finalize                  0x00013190  Pub   Code  fips202
+shake256_inc_squeeze                   0x000131D0  Pub   Code  fips202
+shake256_inc_ctx_release               0x000131E0  Pub   Code  fips202
+shake256                               0x000131E2  Pub   Code  fips202
+?Subroutine0                           0x000132A4  Loc         fips202
+?Subroutine1                           0x000132F0  Loc         polyvec
+polyvecl_ntt                           0x000132FA  Pub   Code  polyvec
+?Subroutine4                           0x00013338  Loc         polyvec
+?Subroutine5                           0x00013342  Loc         polyvec
+polyvecl_chknorm                       0x0001334C  Pub   Code  polyvec
+polyveck_reduce                        0x000133D2  Pub   Code  polyvec
+polyveck_caddq                         0x0001341E  Pub   Code  polyvec
+polyveck_invntt_tomont                 0x00013470  Pub   Code  polyvec
+ntt                                    0x000134BC  Pub   Code  ntt
+?Subroutine0                           0x00013564  Loc         ntt
+invntt_tomont                          0x0001356C  Pub   Code  ntt
+_LitobLarge                            0x00013684  Loc   Code  ?xprintflarge [1]
+polyt0_pack                            0x0001382E  Pub   Code  poly
+polyeta_unpack                         0x000139C8  Pub   Code  poly
+poly_challenge                         0x00013B1E  Pub   Code  poly
+keccak_inc_absorb                      0x00013C68  Loc   Code  fips202
+keccak_inc_squeeze                     0x00013DAA  Loc   Code  fips202
+poly_uniform                           0x00013EE8  Pub   Code  poly
+_Div32f                                0x0001401C  Pub         _Div32f [1]
+?Mul32fHw32                            0x0001414C  Pub         ?Mul32fHw32 [1]
+_Fspos                                 0x00014262  Pub   Code  ?xfspos [1]
+rej_eta                                0x00014368  Loc   Code  poly
+poly_chknorm                           0x00014468  Pub   Code  poly
+_Fwprep                                0x00014540  Pub   Code  ?xfwprep [1]
+use_hint                               0x0001460C  Pub   Code  rounding
+keccak_squeezeblocks                   0x000146C4  Loc   Code  fips202
+main                                   0x00014778  Pub   Code  main
+poly_shiftl                            0x0001482A  Pub   Code  poly
+pack_pk                                0x000148DA  Pub   Code  packing
+_Div64u                                0x0001497E  Pub   Code  ?div64i [1]
+unpack_sk_rho_tr_key                   0x00014A20  Pub   Code  packing
+pack_sig_setup                         0x00014A80  Pub   Code  packing
+unpack_sig_c_z                         0x00014ABE  Pub   Code  packing
+polyz_unpack                           0x00014B50  Pub   Code  poly
+decompose                              0x00014BE0  Pub   Code  rounding
+LoadInt                                0x00014C6E  Loc   Code  ?xprintflarge [1]
+polyt1_unpack                          0x00014CF8  Pub   Code  poly
+__data16_free                          0x00014D82  Pub   Code  ?xxmemxfree [1]
+unpack_pk_rho                          0x00014E08  Pub   Code  packing
+pack_sk_rho_tr_key                     0x00014E26  Pub   Code  packing
+_Cast32uto32f                          0x00014E8C  Pub         ?Cast32f32i [1]
+polyeta_pack                           0x00014F0A  Pub   Code  poly
+fclose                                 0x00014F88  Pub   Code  ?fclose [1]
+poly_uniform_eta                       0x00015006  Pub   Code  poly
+fflushOne                              0x00015080  Loc   Code  ?fflush [1]
+__data16_malloc                        0x000150F6  Pub   Code  ?xxmemxmalloc [1]
+polyz_pack                             0x00015168  Pub   Code  poly
+dilithium_shake128_stream_init         0x000151D6  Pub   Code  symmetric-shake
+?Subroutine0                           0x00015208  Loc         symmetric-shake
+dilithium_shake256_stream_init         0x0001520E  Pub   Code  symmetric-shake
+__data16_findmem                       0x00015244  Loc   Code  ?xxmemxmalloc [1]
+rej_uniform                            0x000152A8  Loc   Code  poly
+power2round                            0x0001530A  Pub   Code  rounding
+montgomery_reduce                      0x0001536C  Pub   Code  reduce
+polyt1_pack                            0x000153CA  Pub   Code  poly
+fputc                                  0x00015426  Pub   Code  ?fputc [1]
+_Fofree                                0x00015480  Pub   Code  ?xfofind [1]
+poly_sub                               0x000154D8  Pub   Code  poly
+poly_add                               0x0001552C  Pub   Code  poly
+?FLT_LT                                0x00015580  Pub         ?FLT_LT [1]
+reduce32                               0x000155D2  Pub   Code  reduce
+poly_pointwise_montgomery              0x00015622  Pub   Code  poly
+?FLT_Extract                           0x00015670  Pub         ?FLT_Extract [1]
+polyw1_pack                            0x000156BC  Pub   Code  poly
+__iar_Dunscale                         0x00015704  Pub   Code  ?xdunscal [1]
+scale                                  0x0001574A  Loc   Code  ?xprintflarge [1]
+randombytes                            0x0001578C  Pub   Code  randombytes
+?DivMod32s                             0x000157CE  Pub         ?DivMod32s [1]
+?ShiftLeft64_7                         0x0001580E  Pub         ?ShiftLeft64_n [1]
+?ShiftLeft64_6                         0x00015816  Pub         ?ShiftLeft64_n [1]
+?ShiftLeft64_5                         0x0001581E  Pub         ?ShiftLeft64_n [1]
+?ShiftLeft64_4                         0x00015826  Pub         ?ShiftLeft64_n [1]
+?ShiftLeft64_3                         0x0001582E  Pub         ?ShiftLeft64_n [1]
+?ShiftRight64u_7                       0x00015848  Pub         ?ShiftRight64u_n [1]
+?ShiftRight64u_6                       0x00015850  Pub         ?ShiftRight64u_n [1]
+?ShiftRight64u_5                       0x00015858  Pub         ?ShiftRight64u_n [1]
+?ShiftRight64u_4                       0x00015860  Pub         ?ShiftRight64u_n [1]
+?ShiftRight64u_3                       0x00015868  Pub         ?ShiftRight64u_n [1]
+?ShiftRight64u_2                       0x00015870  Pub         ?ShiftRight64u_n [1]
+make_hint                              0x00015882  Pub   Code  rounding
+poly_uniform_gamma1                    0x000158BA  Pub   Code  poly
+poly_make_hint                         0x000158F2  Pub   Code  poly
+fflush                                 0x00015926  Pub   Code  ?fflush [1]
+_EncodingSb_Mbtowc                     0x00015958  Pub   Code  ?xencoding_sb [1]
+_PutcharsLarge                         0x0001598A  Loc   Code  ?xprintflarge [1]
+poly_decompose_a1                      0x000159BA  Pub   Code  poly
+?DivMod32u                             0x000159EA  Pub         ?DivMod32u [1]
+?DivMod16s                             0x00015A1A  Pub         ?DivMod816s [1]
+caddq                                  0x00015A4A  Pub   Code  reduce
+poly_use_hint                          0x00015A78  Pub   Code  poly
+poly_power2round                       0x00015AA4  Pub   Code  poly
+__lseek                                0x00015AD0  Pub   Code  ?__lseek [1]
+?ShiftRight64u                         0x00015AFC  Pub         ?ShiftRight64u [1]
+poly_caddq                             0x00015B22  Pub   Code  poly
+poly_reduce                            0x00015B48  Pub   Code  poly
+?ShiftLeft64                           0x00015B6E  Pub         ?ShiftLeft64 [1]
+__dwrite                               0x00015B94  Pub   Code  ?__dwrite [1]
+?Mul8Hw                                0x00015BB8  Pub         ?Mul8Hw [1]
+?Mul16Hw                               0x00015BBC  Pub         ?Mul8Hw [1]
+?Mul16to32uHw                          0x00015BBC  Pub         ?Mul8Hw [1]
+poly_decompose_a0                      0x00015BD8  Pub   Code  poly
+?ShiftRight32u_7                       0x00015BF8  Pub         ?ShiftRight32u [1]
+?ShiftRight32u_6                       0x00015BFC  Pub         ?ShiftRight32u [1]
+?ShiftRight32u_5                       0x00015C00  Pub         ?ShiftRight32u [1]
+?ShiftRight32u_4                       0x00015C04  Pub         ?ShiftRight32u [1]
+?ShiftRight32u_3                       0x00015C08  Pub         ?ShiftRight32u [1]
+?ShiftRight32u_2                       0x00015C0C  Pub         ?ShiftRight32u [1]
+__data16_GetMemChunk                   0x00015C34  Pub   Code  ?xgetmemchunk [1]
+?ShiftRight32s_7                       0x00015C52  Pub         ?ShiftRight32s [1]
+?ShiftRight32s_6                       0x00015C56  Pub         ?ShiftRight32s [1]
+?ShiftRight32s_5                       0x00015C5A  Pub         ?ShiftRight32s [1]
+?ShiftRight32s_4                       0x00015C5E  Pub         ?ShiftRight32s [1]
+?ShiftRight32s_3                       0x00015C62  Pub         ?ShiftRight32s [1]
+?ShiftRight32s_2                       0x00015C66  Pub         ?ShiftRight32s [1]
+printf                                 0x00015C70  Pub   Code  ?printf [1]
+_Mbtowc                                0x00015C8E  Pub   Code  ?xmbtowc [1]
+?ShiftLeft32_7                         0x00015CAC  Pub         ?ShiftLeft32 [1]
+?ShiftLeft32_6                         0x00015CB0  Pub         ?ShiftLeft32 [1]
+?ShiftLeft32_5                         0x00015CB4  Pub         ?ShiftLeft32 [1]
+?ShiftLeft32_4                         0x00015CB8  Pub         ?ShiftLeft32 [1]
+?ShiftLeft32_3                         0x00015CBC  Pub         ?ShiftLeft32 [1]
+?Mul16to32sHw                          0x00015CCA  Pub         ?Mul16to32sHw [1]
+remove                                 0x00015CE6  Pub   Code  ?remove [1]
+_Wctomb                                0x00015D02  Pub   Code  ?xwctomb [1]
+__close                                0x00015D36  Pub   Code  ?__close [1]
+_EncodingSb_Wctomb                     0x00015D50  Pub   Code  ?xencoding_sb [1]
+?DivMod16u                             0x00015D68  Pub         ?DivMod816u [1]
+_Prout                                 0x00015D80  Pub   Code  ?xprout [1]
+_LocaleEncoding                        0x00015DA4  Pub   Code  ?setlocale [1]
+div                                    0x00015DAE  Pub   Code  ?div [1]
+__iar_Memchr                           0x00015DC4  Pub   Code  ?memchr [1]
+__exit                                 0x00015DD8  Pub   Code  ?__exit [1]
+memcpy                                 0x00015DFE  Pub   Code  ?memcpy [1]
+strlen                                 0x00015E10  Pub   Code  ?strlen [1]
+__data16_memzero                       0x00015E22  Pub   Code  ?memzero [1]
+?CopyMemoryBytes                       0x00015E32  Pub         ?CopyMemoryBytes [1]
+?ClearMemoryWords                      0x00015E42  Pub         ?ClearMemoryWords [1]
+localeconv                             0x00015E52  Pub   Code  ?localeconv [1]
+?ClearMemoryBytes                      0x00015E72  Pub         ?ClearMemoryBytes [1]
+_Nnl                                   0x00015E90  Pub   Code  ?xfgpos [1]
+__iar_Strchr                           0x00015EAC  Pub   Code  ?strchr [1]
+__write                                0x00015ED6  Pub   Code  ?__write [1]
+fseek                                  0x00015EEE  Pub   Code  ?fseek [1]
+_Cast32fto32u                          0x00015EFA  Pub         _Cast32fto32u [1]
+_exit                                  0x00015F06  Pub   Code  ?_exit [1]
+__cstart_closeall                      0x00015F08  Pub   Data  ?_exit [1]
+__iar_Mbcurmax                         0x00015F26  Pub   Code  ?xmbcurmax [1]
+putchar                                0x00015F2E  Pub   Code  ?putchar [1]
+free                                   0x00015F36  Pub   Code  ?free [1]
+poly_invntt_tomont                     0x00015F3A  Pub   Code  poly
+exit                                   0x00015F3E  Pub   Code  ?exit [1]
+__data16_memcpy                        0x00015F42  Pub   Code  ?memzero [1]
+poly_ntt                               0x00015F46  Pub   Code  poly
+malloc                                 0x00015F4A  Pub   Code  ?malloc [1]
+__DebugBreak                           0x00015F4E  Pub   Code  ?__dbg_break [1]
+
+[0] = Command line (linker generated)
+[1] = C:\Program Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430xlmff.r43
+
+
+                ****************************************
+                *                                      *
+                *              MODULE MAP              *
+                *                                      *
+                ****************************************
+
+Linker generated:
+  Module: ?FILLER_BYTES
+**************************************************************
+Linker generated:
+  Module: ?ABS_ENTRY_MOD
+
+      Absolute module symbols:
+        _DATA20_HEAP_SIZE  0x0050  Pub
+        _DATA16_HEAP_SIZE  0x03E8  Pub
+        _STACK_SIZE        0x7530  Pub
+        __iar_HWMUL        0x04C0  Pub
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\fips202.r43
+  Module: fips202
+       Segment part 2, DATA16_C
+       Address:  0xC000 Size: 0xC0 Align: 2(1)
+       Ref by:   keccak_absorb
+                 KeccakF1600_StatePermute
+      KeccakF_RoundConstants  0xC000  Loc
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00010000 Size: 0x237C Align: 2(1)
+       Ref by:   keccak_inc_squeeze
+                 keccak_inc_absorb
+                 keccak_squeezeblocks
+      KeccakF1600_StatePermute  0x00010000  Loc
+    --------------------------------------------------
+       Segment part 4, <CODE> 1
+                      (was CODE)
+       Address:  0xC5F0 Size: 0x2650 Align: 2(1)
+       Ref by:   shake256
+      keccak_absorb        0xC5F0  Loc
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x000146C4 Size: 0xB4 Align: 2(1)
+       Ref by:   shake256
+      keccak_squeezeblocks  0x000146C4  Loc
+    --------------------------------------------------
+       Segment part 6, <CODE> 2
+                      (was CODE)
+       Address:  0x00013C68 Size: 0x142 Align: 2(1)
+       Ref by:   Segment part 11
+      keccak_inc_absorb    0x00013C68  Loc
+    --------------------------------------------------
+       Segment part 7, <CODE> 2
+                      (was CODE)
+       Address:  0x00013DAA Size: 0x13E Align: 2(1)
+       Ref by:   ?Subroutine6
+      keccak_inc_squeeze   0x00013DAA  Loc
+    --------------------------------------------------
+       Segment part 8, <CODE> 2
+                      (was CODE)
+       Address:  0x00013112 Size: 0x2 Align: 2(1)
+      shake128_inc_init    0x00013112  Pub  Ref by:   dilithium_shake128_stream_init (symmetric-shake)
+    --------------------------------------------------
+       Segment part 9, <CODE> 2
+                      (was CODE)
+       Address:  0x00013114 Size: 0x8 Align: 2(1)
+      shake128_inc_absorb  0x00013114  Pub  Ref by:   dilithium_shake128_stream_init (symmetric-shake)
+    --------------------------------------------------
+       Segment part 10, <CODE> 2
+                      (was CODE)
+       Address:  0x0001311C Size: 0x6 Align: 2(1)
+       Ref by:   shake256_inc_absorb
+      ?Subroutine2         0x0001311C  Loc
+    --------------------------------------------------
+       Segment part 11, <CODE> 2
+                      (was CODE)
+       Address:  0x00013122 Size: 0xA Align: 2(1)
+       Ref by:   ?Subroutine2
+                 shake128_inc_absorb
+    --------------------------------------------------
+       Segment part 12, <CODE> 2
+                      (was CODE)
+       Address:  0x0001312C Size: 0x3C Align: 2(1)
+      shake128_inc_finalize  0x0001312C  Pub  Ref by:   dilithium_shake128_stream_init (symmetric-shake)
+    --------------------------------------------------
+       Segment part 13, <CODE> 2
+                      (was CODE)
+       Address:  0x00013168 Size: 0x14 Align: 2(1)
+       Ref by:   shake256_inc_finalize
+                 shake128_inc_finalize
+      ?Subroutine1         0x00013168  Loc
+    --------------------------------------------------
+       Segment part 14, <CODE> 2
+                      (was CODE)
+       Address:  0x0001317C Size: 0x6 Align: 2(1)
+      shake128_inc_squeeze  0x0001317C  Pub  Ref by:   poly_uniform (poly)
+    --------------------------------------------------
+       Segment part 15, <CODE> 2
+                      (was CODE)
+       Address:  0x00013182 Size: 0x6 Align: 2(1)
+       Ref by:   shake256_inc_squeeze
+                 shake128_inc_squeeze
+      ?Subroutine6         0x00013182  Loc
+    --------------------------------------------------
+       Segment part 17, <CODE> 2
+                      (was CODE)
+       Address:  0x00013188 Size: 0x2 Align: 2(1)
+      shake128_inc_ctx_release  0x00013188  Pub  Ref by:   poly_uniform (poly)
+    --------------------------------------------------
+       Segment part 18, <CODE> 2
+                      (was CODE)
+       Address:  0x0001318A Size: 0x2 Align: 2(1)
+      shake256_inc_init    0x0001318A  Pub  Ref by:   dilithium_shake256_stream_init (symmetric-shake)
+                                                      crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      poly_challenge (poly)
+    --------------------------------------------------
+       Segment part 19, <CODE> 2
+                      (was CODE)
+       Address:  0x0001318C Size: 0x4 Align: 2(1)
+      shake256_inc_absorb  0x0001318C  Pub  Ref by:   dilithium_shake256_stream_init (symmetric-shake)
+                                                      crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      poly_challenge (poly)
+    --------------------------------------------------
+       Segment part 20, <CODE> 2
+                      (was CODE)
+       Address:  0x00013190 Size: 0x40 Align: 2(1)
+      shake256_inc_finalize  0x00013190  Pub  Ref by:   dilithium_shake256_stream_init (symmetric-shake)
+                                                        crypto_sign_verify (sign)
+                                                        crypto_sign_signature (sign)
+                                                        poly_challenge (poly)
+    --------------------------------------------------
+       Segment part 21, <CODE> 2
+                      (was CODE)
+       Address:  0x000131D0 Size: 0xA Align: 2(1)
+      shake256_inc_squeeze  0x000131D0  Pub  Ref by:   crypto_sign_verify (sign)
+                                                       crypto_sign_signature (sign)
+                                                       poly_challenge (poly)
+                                                       poly_uniform_gamma1 (poly)
+                                                       poly_uniform_eta (poly)
+    --------------------------------------------------
+       Segment part 23, <CODE> 2
+                      (was CODE)
+       Address:  0x000131DA Size: 0x6 Align: 2(1)
+       Ref by:   ?Subroutine6
+    --------------------------------------------------
+       Segment part 25, <CODE> 2
+                      (was CODE)
+       Address:  0x000131E0 Size: 0x2 Align: 2(1)
+      shake256_inc_ctx_release  0x000131E0  Pub  Ref by:   crypto_sign_verify (sign)
+                                                           crypto_sign_signature (sign)
+                                                           poly_challenge (poly)
+                                                           poly_uniform_gamma1 (poly)
+                                                           poly_uniform_eta (poly)
+    --------------------------------------------------
+       Segment part 37, <CODE> 2
+                      (was CODE)
+       Address:  0x000131E2 Size: 0xC2 Align: 2(1)
+      shake256             0x000131E2  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 39, <CODE> 2
+                      (was CODE)
+       Address:  0x000132A4 Size: 0x4C Align: 2(1)
+       Ref by:   shake256_inc_init
+                 shake128_inc_init
+      ?Subroutine0         0x000132A4  Loc
+
+      Absolute module symbols:
+        store64              0x0000  Pub
+        keccak_inc_init      0x0000  Pub
+        keccak_inc_finalize  0x0000  Pub
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\main.r43
+  Module: main
+       Segment part 1, DATA16_AN [root]
+       Address:  0x015C Size: 0x2 Align: 1(0)
+       Ref by:   main
+      _A_WDTCTL            0x015C  Pub
+      WDTCTL               0x015C  Loc
+      WDTCTL_H             0x015D  Loc
+      WDTCTL_L             0x015C  Loc
+      WDTCTL_bit           0x015C  Loc
+    --------------------------------------------------
+       Segment part 8, DATA16_Z
+       Address:  0x1CB6 Size: 0x2 Align: 2(1)
+       Ref by:   main
+      ret                  0x1CB6  Pub
+    --------------------------------------------------
+       Segment part 9, <CODE> 2
+                      (was CODE)
+       Address:  0x00014778 Size: 0xB2 Align: 2(1)
+      main                 0x00014778  Pub  Ref by:   Segment part 27 (?cstart)
+    --------------------------------------------------
+       Segment part 5, DATA16_C
+       Address:  0xC4C0 Size: 0x20 Align: 1(0)
+       Ref by:   main
+    --------------------------------------------------
+       Segment part 7, DATA16_C
+       Address:  0xC4E0 Size: 0xA Align: 1(0)
+       Ref by:   main
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\ntt.r43
+  Module: ntt
+       Segment part 2, DATA16_C
+       Address:  0xC0C0 Size: 0x400 Align: 2(1)
+       Ref by:   invntt_tomont
+                 ntt
+      zetas                0xC0C0  Loc
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x000134BC Size: 0xA8 Align: 2(1)
+      ntt                  0x000134BC  Pub  Ref by:   poly_ntt (poly)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00013564 Size: 0x8 Align: 2(1)
+       Ref by:   invntt_tomont
+                 ntt
+      ?Subroutine0         0x00013564  Loc
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x0001356C Size: 0x118 Align: 2(1)
+      invntt_tomont        0x0001356C  Pub  Ref by:   poly_invntt_tomont (poly)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\packing.r43
+  Module: packing
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x000148DA Size: 0xA4 Align: 2(1)
+      pack_pk              0x000148DA  Pub  Ref by:   crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x00014E08 Size: 0x1E Align: 2(1)
+      unpack_pk_rho        0x00014E08  Pub  Ref by:   crypto_sign_verify (sign)
+    --------------------------------------------------
+       Segment part 8, <CODE> 2
+                      (was CODE)
+       Address:  0x00014E26 Size: 0x66 Align: 2(1)
+      pack_sk_rho_tr_key   0x00014E26  Pub  Ref by:   crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 12, <CODE> 2
+                      (was CODE)
+       Address:  0x00014A20 Size: 0x60 Align: 2(1)
+      unpack_sk_rho_tr_key  0x00014A20  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 15, <CODE> 2
+                      (was CODE)
+       Address:  0x00014A80 Size: 0x3E Align: 2(1)
+      pack_sig_setup       0x00014A80  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 19, <CODE> 2
+                      (was CODE)
+       Address:  0x00014ABE Size: 0x92 Align: 2(1)
+      unpack_sig_c_z       0x00014ABE  Pub  Ref by:   crypto_sign_verify (sign)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\poly.r43
+  Module: poly
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015B48 Size: 0x26 Align: 2(1)
+      poly_reduce          0x00015B48  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      polyveck_reduce (polyvec)
+                                                      ?Subroutine1 (polyvec)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015B22 Size: 0x26 Align: 2(1)
+      poly_caddq           0x00015B22  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_keypair (sign)
+                                                      polyveck_caddq (polyvec)
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x0001552C Size: 0x54 Align: 2(1)
+      poly_add             0x0001552C  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 6, <CODE> 2
+                      (was CODE)
+       Address:  0x000154D8 Size: 0x54 Align: 2(1)
+      poly_sub             0x000154D8  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 7, <CODE> 2
+                      (was CODE)
+       Address:  0x0001482A Size: 0xB0 Align: 2(1)
+      poly_shiftl          0x0001482A  Pub  Ref by:   crypto_sign_verify (sign)
+    --------------------------------------------------
+       Segment part 8, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F46 Size: 0x4 Align: 2(1)
+      poly_ntt             0x00015F46  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      crypto_sign_keypair (sign)
+                                                      ?Subroutine4 (polyvec)
+                                                      polyvecl_ntt (polyvec)
+    --------------------------------------------------
+       Segment part 9, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F3A Size: 0x4 Align: 2(1)
+      poly_invntt_tomont   0x00015F3A  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      polyveck_invntt_tomont (polyvec)
+                                                      ?Subroutine5 (polyvec)
+    --------------------------------------------------
+       Segment part 10, <CODE> 2
+                      (was CODE)
+       Address:  0x00015622 Size: 0x4E Align: 2(1)
+      poly_pointwise_montgomery  0x00015622  Pub  Ref by:   crypto_sign_verify (sign)
+                                                            crypto_sign_signature (sign)
+                                                            crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 11, <CODE> 2
+                      (was CODE)
+       Address:  0x00015AA4 Size: 0x2C Align: 2(1)
+      poly_power2round     0x00015AA4  Pub  Ref by:   crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 13, <CODE> 2
+                      (was CODE)
+       Address:  0x000159BA Size: 0x30 Align: 2(1)
+      poly_decompose_a1    0x000159BA  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 14, <CODE> 2
+                      (was CODE)
+       Address:  0x00015BD8 Size: 0x20 Align: 2(1)
+      poly_decompose_a0    0x00015BD8  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 15, <CODE> 2
+                      (was CODE)
+       Address:  0x000158F2 Size: 0x34 Align: 2(1)
+      poly_make_hint       0x000158F2  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 16, <CODE> 2
+                      (was CODE)
+       Address:  0x00015A78 Size: 0x2C Align: 2(1)
+      poly_use_hint        0x00015A78  Pub  Ref by:   crypto_sign_verify (sign)
+    --------------------------------------------------
+       Segment part 17, <CODE> 2
+                      (was CODE)
+       Address:  0x00014468 Size: 0xD8 Align: 2(1)
+      poly_chknorm         0x00014468  Pub  Ref by:   crypto_sign_signature (sign)
+                                                      polyvecl_chknorm (polyvec)
+    --------------------------------------------------
+       Segment part 18, <CODE> 2
+                      (was CODE)
+       Address:  0x000152A8 Size: 0x62 Align: 2(1)
+       Ref by:   poly_uniform
+      rej_uniform          0x000152A8  Loc
+    --------------------------------------------------
+       Segment part 19, <CODE> 2
+                      (was CODE)
+       Address:  0x00013EE8 Size: 0x134 Align: 2(1)
+      poly_uniform         0x00013EE8  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+                                                      crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 20, <CODE> 2
+                      (was CODE)
+       Address:  0x00014368 Size: 0x100 Align: 2(1)
+       Ref by:   poly_uniform_eta
+      rej_eta              0x00014368  Loc
+    --------------------------------------------------
+       Segment part 21, <CODE> 2
+                      (was CODE)
+       Address:  0x00015006 Size: 0x7A Align: 2(1)
+      poly_uniform_eta     0x00015006  Pub  Ref by:   crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 23, <CODE> 2
+                      (was CODE)
+       Address:  0x000158BA Size: 0x38 Align: 2(1)
+      poly_uniform_gamma1  0x000158BA  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 24, <CODE> 2
+                      (was CODE)
+       Address:  0x00013B1E Size: 0x14A Align: 2(1)
+      poly_challenge       0x00013B1E  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 25, <CODE> 2
+                      (was CODE)
+       Address:  0x00014F0A Size: 0x7E Align: 2(1)
+      polyeta_pack         0x00014F0A  Pub  Ref by:   crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 26, <CODE> 2
+                      (was CODE)
+       Address:  0x000139C8 Size: 0x156 Align: 2(1)
+      polyeta_unpack       0x000139C8  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 27, <CODE> 2
+                      (was CODE)
+       Address:  0x000153CA Size: 0x5C Align: 2(1)
+      polyt1_pack          0x000153CA  Pub  Ref by:   pack_pk (packing)
+    --------------------------------------------------
+       Segment part 28, <CODE> 2
+                      (was CODE)
+       Address:  0x00014CF8 Size: 0x8A Align: 2(1)
+      polyt1_unpack        0x00014CF8  Pub  Ref by:   crypto_sign_verify (sign)
+    --------------------------------------------------
+       Segment part 29, <CODE> 2
+                      (was CODE)
+       Address:  0x0001382E Size: 0x19A Align: 2(1)
+      polyt0_pack          0x0001382E  Pub  Ref by:   crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 30, <CODE> 2
+                      (was CODE)
+       Address:  0x00012A52 Size: 0x24C Align: 2(1)
+      polyt0_unpack        0x00012A52  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 31, <CODE> 2
+                      (was CODE)
+       Address:  0x00015168 Size: 0x6E Align: 2(1)
+      polyz_pack           0x00015168  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 22, <CODE> 2
+                      (was CODE)
+       Address:  0x00014B50 Size: 0x90 Align: 2(1)
+       Ref by:   poly_uniform_gamma1
+      polyz_unpack         0x00014B50  Pub  Ref by:   unpack_sig_c_z (packing)
+    --------------------------------------------------
+       Segment part 32, <CODE> 2
+                      (was CODE)
+       Address:  0x000156BC Size: 0x48 Align: 2(1)
+      polyw1_pack          0x000156BC  Pub  Ref by:   crypto_sign_verify (sign)
+                                                      crypto_sign_signature (sign)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\polyvec.r43
+  Module: polyvec
+       Segment part 9, <CODE> 2
+                      (was CODE)
+       Address:  0x000132F0 Size: 0xA Align: 2(1)
+       Ref by:   polyveck_reduce
+      ?Subroutine1         0x000132F0  Loc
+    --------------------------------------------------
+       Segment part 14, <CODE> 2
+                      (was CODE)
+       Address:  0x000132FA Size: 0x3E Align: 2(1)
+      polyvecl_ntt         0x000132FA  Pub  Ref by:   crypto_sign_verify (sign)
+    --------------------------------------------------
+       Segment part 15, <CODE> 2
+                      (was CODE)
+       Address:  0x00013338 Size: 0xA Align: 2(1)
+       Ref by:   polyvecl_ntt
+      ?Subroutine4         0x00013338  Loc
+    --------------------------------------------------
+       Segment part 17, <CODE> 2
+                      (was CODE)
+       Address:  0x00013342 Size: 0xA Align: 2(1)
+       Ref by:   polyveck_invntt_tomont
+      ?Subroutine5         0x00013342  Loc
+    --------------------------------------------------
+       Segment part 21, <CODE> 2
+                      (was CODE)
+       Address:  0x0001334C Size: 0x86 Align: 2(1)
+      polyvecl_chknorm     0x0001334C  Pub  Ref by:   crypto_sign_verify (sign)
+    --------------------------------------------------
+       Segment part 23, <CODE> 2
+                      (was CODE)
+       Address:  0x000133D2 Size: 0x4C Align: 2(1)
+      polyveck_reduce      0x000133D2  Pub  Ref by:   crypto_sign_signature (sign)
+                                                      crypto_sign_keypair (sign)
+    --------------------------------------------------
+       Segment part 24, <CODE> 2
+                      (was CODE)
+       Address:  0x0001341E Size: 0x52 Align: 2(1)
+      polyveck_caddq       0x0001341E  Pub  Ref by:   crypto_sign_signature (sign)
+    --------------------------------------------------
+       Segment part 30, <CODE> 2
+                      (was CODE)
+       Address:  0x00013470 Size: 0x4C Align: 2(1)
+      polyveck_invntt_tomont  0x00013470  Pub  Ref by:   crypto_sign_signature (sign)
+                                                         crypto_sign_keypair (sign)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\randombytes.r43
+  Module: randombytes
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x0001578C Size: 0x42 Align: 2(1)
+      randombytes          0x0001578C  Pub  Ref by:   crypto_sign_keypair (sign)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\reduce.r43
+  Module: reduce
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x0001536C Size: 0x5E Align: 2(1)
+      montgomery_reduce    0x0001536C  Pub  Ref by:   poly_pointwise_montgomery (poly)
+                                                      invntt_tomont (ntt)
+                                                      ntt (ntt)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x000155D2 Size: 0x50 Align: 2(1)
+      reduce32             0x000155D2  Pub  Ref by:   poly_reduce (poly)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015A4A Size: 0x2E Align: 2(1)
+      caddq                0x00015A4A  Pub  Ref by:   poly_caddq (poly)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\rounding.r43
+  Module: rounding
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x0001530A Size: 0x62 Align: 2(1)
+      power2round          0x0001530A  Pub  Ref by:   poly_power2round (poly)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00014BE0 Size: 0x8E Align: 2(1)
+      decompose            0x00014BE0  Pub  Ref by:   poly_decompose_a0 (poly)
+                                                      poly_decompose_a1 (poly)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015882 Size: 0x38 Align: 2(1)
+      make_hint            0x00015882  Pub  Ref by:   poly_make_hint (poly)
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x0001460C Size: 0xB8 Align: 2(1)
+      use_hint             0x0001460C  Pub  Ref by:   poly_use_hint (poly)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\sign.r43
+  Module: sign
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xF976 Size: 0x47E Align: 2(1)
+      crypto_sign_keypair  0xF976  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 3, <CODE> 1
+                      (was CODE)
+       Address:  0xEC40 Size: 0x820 Align: 2(1)
+      crypto_sign_signature  0xEC40  Pub  Ref by:   main (main)
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x0001237C Size: 0x40A Align: 2(1)
+      crypto_sign_verify   0x0001237C  Pub  Ref by:   main (main)
+**************************************************************
+File: C:\Users\dong\Desktop\MSP430 Code\2025ches_msp430\dilithium\ref\dilithium5\Debug\Obj\symmetric-shake.r43
+  Module: symmetric-shake
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x000151D6 Size: 0x32 Align: 2(1)
+      dilithium_shake128_stream_init  0x000151D6  Pub  Ref by:   poly_uniform (poly)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015208 Size: 0x6 Align: 2(1)
+       Ref by:   dilithium_shake256_stream_init
+                 dilithium_shake128_stream_init
+      ?Subroutine0         0x00015208  Loc
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x0001520E Size: 0x36 Align: 2(1)
+      dilithium_shake256_stream_init  0x0001520E  Pub  Ref by:   poly_uniform_gamma1 (poly)
+                                                                 poly_uniform_eta (poly)
+**************************************************************
+File: C:\Program Files\IAR Systems\Embedded Workbench 9.1\430\lib\dlib\dl430xlmff.r43
+  Module: ?abort
+  ============================================================
+  Module: ?__dbg_break
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F4E Size: 0x2 Align: 2(1)
+      __DebugBreak         0x00015F4E  Pub  Ref by:   __lseek (?__lseek)
+                                                      __exit (?__exit)
+                                                      __dwrite (?__dwrite)
+                                                      __close (?__close)
+                                                      remove (?remove)
+  ============================================================
+  Module: ?remove
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015CE6 Size: 0x1C Align: 2(1)
+      remove               0x00015CE6  Pub  Ref by:   fclose (?fclose)
+  ============================================================
+  Module: ?__close
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D36 Size: 0x1A Align: 2(1)
+      __close              0x00015D36  Pub  Ref by:   fclose (?fclose)
+  ============================================================
+  Module: ?__dwrite
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015B94 Size: 0x24 Align: 2(1)
+      __dwrite             0x00015B94  Pub  Ref by:   __write (?__write)
+  ============================================================
+  Module: ?__exit
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015DD8 Size: 0x14 Align: 2(1)
+      __exit               0x00015DD8  Pub  Ref by:   Segment part 6 (?_exit)
+                                                      _exit (?_exit)
+  ============================================================
+  Module: ?__lseek
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015AD0 Size: 0x2C Align: 2(1)
+      __lseek              0x00015AD0  Pub  Ref by:   _Fspos (?xfspos)
+  ============================================================
+  Module: ?__write
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015ED6 Size: 0xC Align: 2(1)
+      __write              0x00015ED6  Pub  Ref by:   _Close_all (?xcloseall)
+                                                      fflushOne (?fflush)
+  ============================================================
+  Module: ?_exit
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F06 Size: 0x0 Align: 2(1)
+      _exit                0x00015F06  Pub  Ref by:   exit (?exit)
+    --------------------------------------------------
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F06 Size: 0x2 Align: 2(1)
+       Ref by:   __cstart_closeall
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F08 Size: 0x4 Align: 2(1)
+      __cstart_closeall    0x00015F08  Pub  Ref by:   _Fwprep (?xfwprep)
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F0C Size: 0x2 Align: 2(1)
+       Ref by:   Segment part 1
+    --------------------------------------------------
+       Segment part 6, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F0E Size: 0x4 Align: 2(1)
+       Ref by:   _exit
+  ============================================================
+  Module: ?cppinit
+  ============================================================
+  Module: ?cstart
+       Segment part 1, CSTACK
+       Address:  0x26D0 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 2, DATA16_Z
+       Address:  0x1CB8 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 3, DATA16_I
+       Address:  0x1C00 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 4, DATA16_ID
+       Address:  0xC512 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 5, CODE_I
+       Address:  0x215E Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 6, CODE_ID
+       Address:  0x00015F50 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 7, DATA20_Z
+       Address:  0x215E Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 8, DATA20_I
+       Address:  0x215E Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 9, DATA20_ID
+       Address:  0x00015F50 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 10, DATA20_C
+       Address:  0x00015F50 Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 12, DATA20_N
+       Address:  0x215E Size: 0x0 Align: 2(1)
+    --------------------------------------------------
+       Segment part 15, CSTART
+       Address:  0xC5C8 Size: 0x4 Align: 2(1)
+      __program_start      0xC5C8  Pub  Ref by:   ?reset_vector (?reset_vector)
+                                                  Absolute parts (?ABS_ENTRY_MOD)
+      ?cstart_begin        0xC5C8  Pub
+    --------------------------------------------------
+       Segment part 20, CSTART
+       Address:  0xC5CC Size: 0xC Align: 2(1)
+      ?cstart_init_zero    0xC5CC  Pub  Ref by:   __data16_Aldata (?xxmemxmalloc)
+                                                  Segment part 2 (?xgetmemchunk)
+                                                  Segment part 3 (?xfiles)
+                                                  ret (main)
+                                                  __iar_Errno (?errno)
+                                                  __iar_Tls_setup__Locale_lconv (?localeconv)
+                                                  _Locale_Profile (?setlocale)
+                                                  __iar_Tls_setup__Locale_Profile (?setlocale)
+                                                  Segment part 2 (?xfiles)
+    --------------------------------------------------
+       Segment part 21, CSTART
+       Address:  0xC5D8 Size: 0x10 Align: 2(1)
+      ?cstart_init_copy    0xC5D8  Pub  Ref by:   _Files (?xfiles)
+                                                  __iar_Stderr (?xfiles)
+                                                  __iar_Stdout (?xfiles)
+                                                  __iar_Stdin (?xfiles)
+                                                  _Locale_lconv (?localeconv)
+    --------------------------------------------------
+       Segment part 27, CSTART
+       Address:  0xC5E8 Size: 0x8 Align: 2(1)
+       Ref by:   Segment part 15
+      ?cstart_call_main    0xC5E8  Pub
+      ?cstart_end          0xC5F0  Pub
+  ============================================================
+  Module: lowinit
+  ============================================================
+  Module: ?reset_vector
+       Segment part 0, RESET
+       Address:  0xFFFE Size: 0x2 Align: 2(1)
+      ?reset_vector        0xFFFE  Pub  Ref by:   Segment part 15 (?cstart)
+  ============================================================
+  Module: ?div64i
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x0001497E Size: 0xA2 Align: 2(1)
+      _Div64u              0x0001497E  Pub  Ref by:   _LitobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D1C Size: 0x1A Align: 2(1)
+       Ref by:   _Div64u
+  ============================================================
+  Module: ?div
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015DAE Size: 0x16 Align: 2(1)
+      div                  0x00015DAE  Pub  Ref by:   _GenldLarge (?xprintflarge)
+  ============================================================
+  Module: ?errno
+       Segment part 2, DATA16_Z
+       Address:  0x1CB8 Size: 0x2 Align: 2(1)
+      __iar_Errno          0x1CB8  Pub  Ref by:   _Fspos (?xfspos)
+  ============================================================
+  Module: ?exit
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F3E Size: 0x4 Align: 2(1)
+      exit                 0x00015F3E  Pub  Ref by:   Segment part 27 (?cstart)
+  ============================================================
+  Module: ?fclose
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00014F88 Size: 0x7E Align: 2(1)
+      fclose               0x00014F88  Pub  Ref by:   _Close_all (?xcloseall)
+  ============================================================
+  Module: ?fflush
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015080 Size: 0x76 Align: 2(1)
+       Ref by:   fflush
+      fflushOne            0x00015080  Loc
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015926 Size: 0x32 Align: 2(1)
+      fflush               0x00015926  Pub  Ref by:   _Fwprep (?xfwprep)
+                                                      _Fspos (?xfspos)
+                                                      fputc (?fputc)
+                                                      fclose (?fclose)
+  ============================================================
+  Module: ?Mul32fHw32
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x0001414C Size: 0x116 Align: 2(1)
+      ?Mul32fHw32          0x0001414C  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                      scale (?xprintflarge)
+  ============================================================
+  Module: ?fputc
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015426 Size: 0x5A Align: 2(1)
+      fputc                0x00015426  Pub  Ref by:   putchar (?putchar)
+  ============================================================
+  Module: ?free
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F36 Size: 0x4 Align: 2(1)
+      free                 0x00015F36  Pub  Ref by:   _Fofree (?xfofind)
+  ============================================================
+  Module: ?FrwpInit
+  ============================================================
+  Module: ?fseek
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015EEE Size: 0xC Align: 2(1)
+      fseek                0x00015EEE  Pub  Ref by:   _Fwprep (?xfwprep)
+  ============================================================
+  Module: ?Cast32f32i
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00014E8C Size: 0x7E Align: 2(1)
+      _Cast32uto32f        0x00014E8C  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Cast32fto32u
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015EFA Size: 0xC Align: 2(1)
+      _Cast32fto32u        0x00015EFA  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?FLT_Extract
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015670 Size: 0x4C Align: 2(1)
+      ?FLT_Extract         0x00015670  Pub  Ref by:   _Cast32fto32u (_Cast32fto32u)
+  ============================================================
+  Module: ?FLT_LT
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015580 Size: 0x52 Align: 2(1)
+      ?FLT_LT              0x00015580  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Div32f
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x0001401C Size: 0x130 Align: 2(1)
+      _Div32f              0x0001401C  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: _Add32f
+       Segment part 0, <CODE> 1
+                      (was CODE)
+       Address:  0xFDF4 Size: 0x4 Align: 2(1)
+      _Sub32f              0xFDF4  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 1, <CODE> 1
+                      (was CODE)
+       Address:  0xFDF8 Size: 0x160 Align: 2(1)
+       Ref by:   _Sub32f
+      _Add32f              0xFDF8  Pub
+  ============================================================
+  Module: ?isdigit
+  ============================================================
+  Module: ?localeconv
+       Segment part 6, DATA16_I
+       Address:  0x1C00 Size: 0x2E Align: 2(1)
+       Ref by:   localeconv
+      _Locale_lconv        0x1C00  Pub
+    --------------------------------------------------
+       Segment part 8, DATA16_Z
+       Address:  0x1CBA Size: 0x4 Align: 2(1)
+       Ref by:   localeconv
+      __iar_Tls_setup__Locale_lconv  0x1CBA  Pub
+    --------------------------------------------------
+       Segment part 9, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E52 Size: 0x10 Align: 2(1)
+      localeconv           0x00015E52  Pub  Ref by:   _GenldLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 7, DATA16_ID
+       Address:  0xC512 Size: 0x2E Align: 2(1)
+       Ref by:   _Locale_lconv
+    --------------------------------------------------
+       Segment part 2, DATA16_C
+       Address:  0xC4EA Size: 0x1 Align: 1(0)
+       Ref by:   Segment part 7
+    --------------------------------------------------
+       Segment part 3, DATA16_C
+       Address:  0xC4EB Size: 0x2 Align: 1(0)
+       Ref by:   Segment part 7
+    --------------------------------------------------
+       Segment part 4, DATA16_C
+       Address:  0xC4ED Size: 0x6 Align: 1(0)
+       Ref by:   Segment part 7
+    --------------------------------------------------
+       Segment part 5, DATA16_C
+       Address:  0xC4F3 Size: 0x5 Align: 1(0)
+       Ref by:   Segment part 7
+  ============================================================
+  Module: ?malloc
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F4A Size: 0x4 Align: 2(1)
+      malloc               0x00015F4A  Pub  Ref by:   _Fwprep (?xfwprep)
+  ============================================================
+  Module: ?DivMod816u
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D68 Size: 0x18 Align: 2(1)
+      ?DivMod16u           0x00015D68  Pub  Ref by:   ?DivMod16s (?DivMod816s)
+  ============================================================
+  Module: ?DivMod816s
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015A1A Size: 0x30 Align: 2(1)
+      ?DivMod16s           0x00015A1A  Pub  Ref by:   div (?div)
+  ============================================================
+  Module: ?DivMod32u
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x000159EA Size: 0x30 Align: 2(1)
+      ?DivMod32u           0x000159EA  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+                                                      ?DivMod32s (?DivMod32s)
+  ============================================================
+  Module: ?DivMod32s
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x000157CE Size: 0x40 Align: 2(1)
+      ?DivMod32s           0x000157CE  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?ShiftLeft32
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015CAC Size: 0x4 Align: 2(1)
+      ?ShiftLeft32_7       0x00015CAC  Pub  Ref by:   polyt0_unpack (poly)
+                                                      keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015CB0 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftLeft32_7
+      ?ShiftLeft32_6       0x00015CB0  Pub  Ref by:   polyt0_unpack (poly)
+                                                      polyt1_unpack (poly)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015CB4 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftLeft32_6
+      ?ShiftLeft32_5       0x00015CB4  Pub  Ref by:   polyt0_unpack (poly)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015CB8 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftLeft32_5
+      ?ShiftLeft32_4       0x00015CB8  Pub
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x00015CBC Size: 0xE Align: 2(1)
+       Ref by:   ?ShiftLeft32_4
+      ?ShiftLeft32_3       0x00015CBC  Pub
+  ============================================================
+  Module: ?ShiftLeft64
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015B6E Size: 0x26 Align: 2(1)
+      ?ShiftLeft64         0x00015B6E  Pub  Ref by:   shake256_inc_finalize (fips202)
+                                                      shake128_inc_finalize (fips202)
+                                                      keccak_inc_absorb (fips202)
+  ============================================================
+  Module: ?ShiftLeft64_n
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x0001580E Size: 0x8 Align: 2(1)
+      ?ShiftLeft64_7       0x0001580E  Pub  Ref by:   keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015816 Size: 0x8 Align: 2(1)
+       Ref by:   ?ShiftLeft64_7
+      ?ShiftLeft64_6       0x00015816  Pub  Ref by:   keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x0001581E Size: 0x8 Align: 2(1)
+       Ref by:   ?ShiftLeft64_6
+      ?ShiftLeft64_5       0x0001581E  Pub  Ref by:   keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015826 Size: 0x8 Align: 2(1)
+       Ref by:   ?ShiftLeft64_5
+      ?ShiftLeft64_4       0x00015826  Pub  Ref by:   keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x0001582E Size: 0x1A Align: 2(1)
+       Ref by:   ?ShiftLeft64_4
+      ?ShiftLeft64_3       0x0001582E  Pub
+  ============================================================
+  Module: ?ShiftRight32s
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C52 Size: 0x4 Align: 2(1)
+      ?ShiftRight32s_7     0x00015C52  Pub  Ref by:   use_hint (rounding)
+                                                      decompose (rounding)
+    --------------------------------------------------
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C56 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32s_7
+      ?ShiftRight32s_6     0x00015C56  Pub
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C5A Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32s_6
+      ?ShiftRight32s_5     0x00015C5A  Pub
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C5E Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32s_5
+      ?ShiftRight32s_4     0x00015C5E  Pub
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C62 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32s_4
+      ?ShiftRight32s_3     0x00015C62  Pub
+    --------------------------------------------------
+       Segment part 6, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C66 Size: 0xA Align: 2(1)
+       Ref by:   ?ShiftRight32s_3
+      ?ShiftRight32s_2     0x00015C66  Pub
+  ============================================================
+  Module: ?ShiftRight32u
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015BF8 Size: 0x4 Align: 2(1)
+      ?ShiftRight32u_7     0x00015BF8  Pub  Ref by:   keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015BFC Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_7
+      ?ShiftRight32u_6     0x00015BFC  Pub  Ref by:   keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C00 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_6
+      ?ShiftRight32u_5     0x00015C00  Pub  Ref by:   keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C04 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_5
+      ?ShiftRight32u_4     0x00015C04  Pub
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C08 Size: 0x4 Align: 2(1)
+       Ref by:   ?ShiftRight32u_4
+      ?ShiftRight32u_3     0x00015C08  Pub
+    --------------------------------------------------
+       Segment part 6, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C0C Size: 0xA Align: 2(1)
+       Ref by:   ?ShiftRight32u_3
+      ?ShiftRight32u_2     0x00015C0C  Pub
+  ============================================================
+  Module: ?ShiftRight64u
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015AFC Size: 0x26 Align: 2(1)
+      ?ShiftRight64u       0x00015AFC  Pub  Ref by:   keccak_inc_squeeze (fips202)
+  ============================================================
+  Module: ?ShiftRight64u_n
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015848 Size: 0x8 Align: 2(1)
+      ?ShiftRight64u_7     0x00015848  Pub  Ref by:   reduce32 (reduce)
+                                                      keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015850 Size: 0x8 Align: 2(1)
+       Ref by:   ?ShiftRight64u_7
+      ?ShiftRight64u_6     0x00015850  Pub
+    --------------------------------------------------
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015858 Size: 0x8 Align: 2(1)
+       Ref by:   ?ShiftRight64u_6
+      ?ShiftRight64u_5     0x00015858  Pub  Ref by:   power2round (rounding)
+                                                      keccak_absorb (fips202)
+                                                      KeccakF1600_StatePermute (fips202)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015860 Size: 0x8 Align: 2(1)
+       Ref by:   ?ShiftRight64u_5
+      ?ShiftRight64u_4     0x00015860  Pub
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015868 Size: 0x8 Align: 2(1)
+       Ref by:   ?ShiftRight64u_4
+      ?ShiftRight64u_3     0x00015868  Pub
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x00015870 Size: 0x12 Align: 2(1)
+       Ref by:   ?ShiftRight64u_3
+      ?ShiftRight64u_2     0x00015870  Pub
+  ============================================================
+  Module: ?memchr
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015DC4 Size: 0x14 Align: 2(1)
+      __iar_Memchr         0x00015DC4  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?memcpy
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015DFE Size: 0x12 Align: 2(1)
+      memcpy               0x00015DFE  Pub  Ref by:   Segment part 16 (?xprintflarge)
+                                                      _GenldLarge (?xprintflarge)
+                                                      _LdtobLarge (?xprintflarge)
+                                                      _PutstrLarge (?xprintflarge)
+                                                      __data16_memcpy (?memzero)
+  ============================================================
+  Module: ?memmove
+  ============================================================
+  Module: ?CopyMemoryBytes
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E32 Size: 0x10 Align: 2(1)
+      ?CopyMemoryBytes     0x00015E32  Pub  Ref by:   main (main)
+  ============================================================
+  Module: ?CopyMemoryWords
+  ============================================================
+  Module: ?ClearMemoryBytes
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E72 Size: 0x10 Align: 2(1)
+      ?ClearMemoryBytes    0x00015E72  Pub  Ref by:   main (main)
+  ============================================================
+  Module: ?ClearMemoryWords
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E42 Size: 0x10 Align: 2(1)
+      ?ClearMemoryWords    0x00015E42  Pub  Ref by:   main (main)
+  ============================================================
+  Module: ?memzero
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E22 Size: 0x10 Align: 2(1)
+      __data16_memzero     0x00015E22  Pub  Ref by:   ?cstart_init_zero (?cstart)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F42 Size: 0x4 Align: 2(1)
+      __data16_memcpy      0x00015F42  Pub  Ref by:   ?cstart_init_copy (?cstart)
+  ============================================================
+  Module: ?MpuInit
+  ============================================================
+  Module: ?Mul8Hw
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015BB8 Size: 0x4 Align: 2(1)
+      ?Mul8Hw              0x00015BB8  Pub  Ref by:   _LitobLarge (?xprintflarge)
+    --------------------------------------------------
+       Segment part 1, <CODE> 2
+                      (was CODE)
+       Address:  0x00015BBC Size: 0x1C Align: 2(1)
+       Ref by:   ?Mul8Hw
+      ?Mul16Hw             0x00015BBC  Pub
+      ?Mul16to32uHw        0x00015BBC  Pub
+  ============================================================
+  Module: ?Mul16to32sHw
+       Segment part 0, <CODE> 2
+                      (was CODE)
+       Address:  0x00015CCA Size: 0x1C Align: 2(1)
+      ?Mul16to32sHw        0x00015CCA  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?printf
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C70 Size: 0x1E Align: 2(1)
+      printf               0x00015C70  Pub  Ref by:   main (main)
+  ============================================================
+  Module: ?putchar
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F2E Size: 0x8 Align: 2(1)
+      putchar              0x00015F2E  Pub  Ref by:   _Prout (?xprout)
+  ============================================================
+  Module: ?setjmp
+  ============================================================
+  Module: ?longjmp
+  ============================================================
+  Module: ?setlocale
+       Segment part 13, DATA16_Z
+       Address:  0x1CBE Size: 0xE Align: 2(1)
+       Ref by:   _LocaleEncoding
+      _Locale_Profile      0x1CBE  Pub
+    --------------------------------------------------
+       Segment part 14, DATA16_Z
+       Address:  0x1CCC Size: 0x4 Align: 2(1)
+       Ref by:   Segment part 25
+      __iar_Tls_setup__Locale_Profile  0x1CCC  Pub
+    --------------------------------------------------
+       Segment part 25, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D98 Size: 0x4 Align: 2(1)
+       Ref by:   _LocaleEncoding
+    --------------------------------------------------
+       Segment part 26, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D9C Size: 0x8 Align: 2(1)
+       Ref by:   Segment part 25
+    --------------------------------------------------
+       Segment part 21, <CODE> 2
+                      (was CODE)
+       Address:  0x00015DA4 Size: 0xA Align: 2(1)
+      _LocaleEncoding      0x00015DA4  Pub  Ref by:   _Wctomb (?xwctomb)
+                                                      _Mbtowc (?xmbtowc)
+                                                      __iar_Mbcurmax (?xmbcurmax)
+  ============================================================
+  Module: ?strcat
+  ============================================================
+  Module: ?strchr
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015EAC Size: 0xE Align: 2(1)
+      __iar_Strchr         0x00015EAC  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?strcmp
+  ============================================================
+  Module: ?strcpy
+  ============================================================
+  Module: ?strlen
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E10 Size: 0x12 Align: 2(1)
+      strlen               0x00015E10  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?strncmp
+  ============================================================
+  Module: ?strpbrk
+  ============================================================
+  Module: ?xcloseall
+       Segment part 2, <CODE> 1
+                      (was CODE)
+       Address:  0xFF58 Size: 0x28 Align: 2(1)
+      _Close_all           0xFF58  Pub  Ref by:   __cstart_closeall (?_exit)
+  ============================================================
+  Module: ?xdunscal
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015704 Size: 0x46 Align: 2(1)
+      __iar_Dunscale       0x00015704  Pub  Ref by:   _LdtobLarge (?xprintflarge)
+  ============================================================
+  Module: ?xencoding_sb
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D50 Size: 0x18 Align: 2(1)
+      _EncodingSb_Wctomb   0x00015D50  Pub  Ref by:   _Wctomb (?xwctomb)
+    --------------------------------------------------
+       Segment part 5, <CODE> 2
+                      (was CODE)
+       Address:  0x00015958 Size: 0x32 Align: 2(1)
+      _EncodingSb_Mbtowc   0x00015958  Pub  Ref by:   _Mbtowc (?xmbtowc)
+  ============================================================
+  Module: ?xfgpos
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E90 Size: 0xE Align: 2(1)
+      _Nnl                 0x00015E90  Pub  Ref by:   Segment part 3 (?xfspos)
+                                                      _Fspos (?xfspos)
+  ============================================================
+  Module: ?xfiles
+       Segment part 2, DATA16_Z
+       Address:  0x1CD6 Size: 0x50 Align: 1(0)
+       Ref by:   Segment part 9
+    --------------------------------------------------
+       Segment part 3, DATA16_Z
+       Address:  0x1D26 Size: 0x50 Align: 1(0)
+       Ref by:   Segment part 7
+    --------------------------------------------------
+       Segment part 4, DATA16_I
+       Address:  0x1C2E Size: 0x28 Align: 2(1)
+       Ref by:   Segment part 11
+                 Segment part 5
+      __iar_Stdin          0x1C2E  Pub
+    --------------------------------------------------
+       Segment part 6, DATA16_I
+       Address:  0x1C56 Size: 0x28 Align: 2(1)
+       Ref by:   Segment part 11
+                 Segment part 7
+      __iar_Stdout         0x1C56  Pub  Ref by:   putchar (?putchar)
+    --------------------------------------------------
+       Segment part 8, DATA16_I
+       Address:  0x1C7E Size: 0x28 Align: 2(1)
+       Ref by:   Segment part 11
+                 Segment part 9
+      __iar_Stderr         0x1C7E  Pub
+    --------------------------------------------------
+       Segment part 10, DATA16_I
+       Address:  0x1CA6 Size: 0x10 Align: 2(1)
+      _Files               0x1CA6  Pub  Ref by:   _Fofree (?xfofind)
+                                                  _Close_all (?xcloseall)
+                                                  fflush (?fflush)
+    --------------------------------------------------
+       Segment part 5, DATA16_ID
+       Address:  0xC540 Size: 0x28 Align: 2(1)
+       Ref by:   __iar_Stdin
+    --------------------------------------------------
+       Segment part 7, DATA16_ID
+       Address:  0xC568 Size: 0x28 Align: 2(1)
+       Ref by:   __iar_Stdout
+    --------------------------------------------------
+       Segment part 9, DATA16_ID
+       Address:  0xC590 Size: 0x28 Align: 2(1)
+       Ref by:   __iar_Stderr
+    --------------------------------------------------
+       Segment part 11, DATA16_ID
+       Address:  0xC5B8 Size: 0x10 Align: 2(1)
+       Ref by:   _Files
+  ============================================================
+  Module: ?xfofind
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015480 Size: 0x58 Align: 2(1)
+      _Fofree              0x00015480  Pub  Ref by:   fclose (?fclose)
+  ============================================================
+  Module: ?xfspos
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00014262 Size: 0x106 Align: 2(1)
+      _Fspos               0x00014262  Pub  Ref by:   fseek (?fseek)
+    --------------------------------------------------
+       Segment part 3, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E9E Size: 0xE Align: 2(1)
+       Ref by:   _Fspos
+  ============================================================
+  Module: ?xfwprep
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00014540 Size: 0xCC Align: 2(1)
+      _Fwprep              0x00014540  Pub  Ref by:   fputc (?fputc)
+  ============================================================
+  Module: ?xgetmemchunk
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C34 Size: 0x1E Align: 2(1)
+      __data16_GetMemChunk  0x00015C34  Pub  Ref by:   __data16_findmem (?xxmemxmalloc)
+    --------------------------------------------------
+       Segment part 2, DATA16_Z
+       Address:  0x1CD0 Size: 0x2 Align: 2(1)
+       Ref by:   __data16_GetMemChunk
+    --------------------------------------------------
+       Segment part 6, DATA16_HEAP
+       Address:  0x1D76 Size: 0x0 Align: 2(1)
+  ============================================================
+  Module: ?xgetptime
+  ============================================================
+  Module: ?xlocale_c
+  ============================================================
+  Module: ?xmbcurmax
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F26 Size: 0x8 Align: 2(1)
+      __iar_Mbcurmax       0x00015F26  Pub  Ref by:   _PutstrLarge (?xprintflarge)
+  ============================================================
+  Module: ?xmbtowc
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C8E Size: 0x1E Align: 2(1)
+      _Mbtowc              0x00015C8E  Pub  Ref by:   _PrintfLarge (?xprintflarge)
+  ============================================================
+  Module: ?xprintflarge
+       Segment part 22, <CODE> 1
+                      (was CODE)
+       Address:  0xF460 Size: 0x516 Align: 2(1)
+      _PrintfLarge         0xF460  Pub  Ref by:   printf (?printf)
+    --------------------------------------------------
+       Segment part 23, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E82 Size: 0xE Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 24, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F1C Size: 0xA Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 25, <CODE> 2
+                      (was CODE)
+       Address:  0x00012786 Size: 0x6 Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 26, <CODE> 2
+                      (was CODE)
+       Address:  0x0001278C Size: 0xC Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 27, <CODE> 2
+                      (was CODE)
+       Address:  0x00012798 Size: 0x12 Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 28, <CODE> 2
+                      (was CODE)
+       Address:  0x000127AA Size: 0x3E Align: 2(1)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 29, <CODE> 2
+                      (was CODE)
+       Address:  0x000127E8 Size: 0x30 Align: 2(1)
+       Ref by:   _PutstrLarge
+                 Segment part 26
+      pad                  0x000127E8  Loc
+    --------------------------------------------------
+       Segment part 30, <CODE> 2
+                      (was CODE)
+       Address:  0x00012818 Size: 0x206 Align: 2(1)
+       Ref by:   _PrintfLarge
+      _PutstrLarge         0x00012818  Loc
+    --------------------------------------------------
+       Segment part 31, <CODE> 2
+                      (was CODE)
+       Address:  0x00012A1E Size: 0xC Align: 2(1)
+       Ref by:   _PutstrLarge
+    --------------------------------------------------
+       Segment part 32, <CODE> 2
+                      (was CODE)
+       Address:  0x00012A2A Size: 0x4 Align: 2(1)
+       Ref by:   Segment part 36
+                 Segment part 31
+                 _PutstrLarge
+    --------------------------------------------------
+       Segment part 33, <CODE> 2
+                      (was CODE)
+       Address:  0x00012A2E Size: 0x8 Align: 2(1)
+       Ref by:   Segment part 32
+                 Segment part 25
+    --------------------------------------------------
+       Segment part 34, <CODE> 2
+                      (was CODE)
+       Address:  0x00012A36 Size: 0x8 Align: 2(1)
+       Ref by:   _PutstrLarge
+    --------------------------------------------------
+       Segment part 35, <CODE> 2
+                      (was CODE)
+       Address:  0x00012A3E Size: 0xA Align: 2(1)
+       Ref by:   Segment part 34
+                 _PutstrLarge
+    --------------------------------------------------
+       Segment part 36, <CODE> 2
+                      (was CODE)
+       Address:  0x00012A48 Size: 0xA Align: 2(1)
+       Ref by:   _PutstrLarge
+    --------------------------------------------------
+       Segment part 10, <CODE> 2
+                      (was CODE)
+       Address:  0x00014C6E Size: 0x8A Align: 2(1)
+       Ref by:   _PrintfLarge
+      LoadInt              0x00014C6E  Loc
+    --------------------------------------------------
+       Segment part 11, <CODE> 2
+                      (was CODE)
+       Address:  0x00015EC8 Size: 0xE Align: 2(1)
+       Ref by:   LoadInt
+    --------------------------------------------------
+       Segment part 20, <CODE> 2
+                      (was CODE)
+       Address:  0x00013684 Size: 0x1AA Align: 2(1)
+       Ref by:   _PrintfLarge
+      _LitobLarge          0x00013684  Loc
+    --------------------------------------------------
+       Segment part 21, <CODE> 2
+                      (was CODE)
+       Address:  0x00015DEC Size: 0x12 Align: 2(1)
+       Ref by:   _LitobLarge
+    --------------------------------------------------
+       Segment part 18, <CODE> 2
+                      (was CODE)
+       Address:  0x0001574A Size: 0x42 Align: 2(1)
+       Ref by:   _LdtobLarge
+      scale                0x0001574A  Loc
+    --------------------------------------------------
+       Segment part 19, <CODE> 2
+                      (was CODE)
+       Address:  0x00012C9E Size: 0x23E Align: 2(1)
+       Ref by:   _PrintfLarge
+      _LdtobLarge          0x00012C9E  Loc
+    --------------------------------------------------
+       Segment part 12, <CODE> 2
+                      (was CODE)
+       Address:  0x00012EDC Size: 0x236 Align: 2(1)
+       Ref by:   _LdtobLarge
+      _GenldLarge          0x00012EDC  Loc
+    --------------------------------------------------
+       Segment part 13, <CODE> 2
+                      (was CODE)
+       Address:  0x00015EE2 Size: 0xC Align: 2(1)
+       Ref by:   _GenldLarge
+    --------------------------------------------------
+       Segment part 14, <CODE> 2
+                      (was CODE)
+       Address:  0x00015F12 Size: 0xA Align: 2(1)
+       Ref by:   Segment part 13
+                 _GenldLarge
+    --------------------------------------------------
+       Segment part 15, <CODE> 2
+                      (was CODE)
+       Address:  0x00015E62 Size: 0x10 Align: 2(1)
+       Ref by:   _GenldLarge
+    --------------------------------------------------
+       Segment part 16, <CODE> 2
+                      (was CODE)
+       Address:  0x00015EBA Size: 0xE Align: 2(1)
+       Ref by:   Segment part 15
+                 _GenldLarge
+    --------------------------------------------------
+       Segment part 17, <CODE> 2
+                      (was CODE)
+       Address:  0x00015C16 Size: 0x1E Align: 2(1)
+       Ref by:   _GenldLarge
+    --------------------------------------------------
+       Segment part 37, <CODE> 2
+                      (was CODE)
+       Address:  0x0001598A Size: 0x30 Align: 2(1)
+       Ref by:   Segment part 33
+                 pad
+      _PutcharsLarge       0x0001598A  Loc
+    --------------------------------------------------
+       Segment part 3, DATA16_C
+       Address:  0xC4F8 Size: 0x7 Align: 1(0)
+       Ref by:   _PrintfLarge
+    --------------------------------------------------
+       Segment part 5, DATA16_C
+       Address:  0xC4FF Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 6, DATA16_C
+       Address:  0xC503 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 7, DATA16_C
+       Address:  0xC507 Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 8, DATA16_C
+       Address:  0xC50B Size: 0x4 Align: 1(0)
+       Ref by:   _LdtobLarge
+    --------------------------------------------------
+       Segment part 9, DATA16_C
+       Address:  0xC50F Size: 0x2 Align: 1(0)
+       Ref by:   _GenldLarge
+  ============================================================
+  Module: ?xprout
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D80 Size: 0x18 Align: 2(1)
+      _Prout               0x00015D80  Pub  Ref by:   printf (?printf)
+  ============================================================
+  Module: ?xwctomb
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00015D02 Size: 0x1A Align: 2(1)
+      _Wctomb              0x00015D02  Pub  Ref by:   _PutstrLarge (?xprintflarge)
+  ============================================================
+  Module: ?xxmemxfree
+       Segment part 2, <CODE> 2
+                      (was CODE)
+       Address:  0x00014D82 Size: 0x86 Align: 2(1)
+      __data16_free        0x00014D82  Pub  Ref by:   __data16_findmem (?xxmemxmalloc)
+                                                      _PutstrLarge (?xprintflarge)
+                                                      free (?free)
+                                                      fclose (?fclose)
+  ============================================================
+  Module: ?xxmemxmalloc
+       Segment part 2, DATA16_Z
+       Address:  0x1CD2 Size: 0x4 Align: 2(1)
+       Ref by:   __data16_malloc
+                 __data16_findmem
+      __data16_Aldata      0x1CD2  Pub  Ref by:   __data16_free (?xxmemxfree)
+    --------------------------------------------------
+       Segment part 4, <CODE> 2
+                      (was CODE)
+       Address:  0x00015244 Size: 0x64 Align: 2(1)
+       Ref by:   __data16_malloc
+      __data16_findmem     0x00015244  Loc
+    --------------------------------------------------
+       Segment part 6, <CODE> 2
+                      (was CODE)
+       Address:  0x000150F6 Size: 0x72 Align: 2(1)
+      __data16_malloc      0x000150F6  Pub  Ref by:   _PutstrLarge (?xprintflarge)
+                                                      malloc (?malloc)
+
+
+                ****************************************
+                *                                      *
+                *      SEGMENTS IN ADDRESS ORDER       *
+                *                                      *
+                ****************************************
+
+SEGMENT      SPACE     START/END ADDRESS       SIZE  TYPE  ALIGN
+-------      -----   ---------------------     ----  ----  -----
+DATA16_I                0x1C00 - 0x1CB5        0xB6   rel   2(1)
+DATA16_Z                0x1CB6 - 0x1D75        0xC0   rel   2(1)
+DATA16_HEAP             0x1D76 - 0x215D       0x3E8   rel   2(1)
+CODE_I                      0x215E                    rel   2(1)
+DATA20_I                    0x215E                    rel   2(1)
+DATA20_Z                    0x215E                    rel   2(1)
+DATA20_N                    0x215E                    rel   2(1)
+CSTACK                  0x26D0 - 0x9BFF      0x7530   rel   2(1)
+DATA16_C                0xC000 - 0xC510       0x511   rel   2(1)
+DATA16_ID               0xC512 - 0xC5C7        0xB6   rel   2(1)
+CSTART                  0xC5C8 - 0xC5EF        0x28   rel   2(1)
+<CODE> 1                0xC5F0 - 0xFF7F      0x3990   rel   2(1)
+RESET                   0xFFFE - 0xFFFF         0x2   rel   2(1)
+<CODE> 2            0x00010000 - 0x00015F4F  0x5F50   rel   2(1)
+CODE_ID                   0x00015F50                  rel   2(1)
+DATA20_ID                 0x00015F50                  rel   2(1)
+DATA20_C                  0x00015F50                  rel   2(1)
+DATA16_AN               0x015C - 0x015D         0x2   abs   1(0)
+
+ 39'178 bytes of CODE  memory
+ 31'374 bytes of DATA  memory (+ 2 absolute )
+  1'479 bytes of CONST memory
+
+Errors: none
+Warnings: none
