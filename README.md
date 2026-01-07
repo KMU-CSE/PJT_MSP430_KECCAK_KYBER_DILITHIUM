@@ -1,9 +1,8 @@
 # Keccak, Kyber, and Dilithium
 - Title: **Optimized Implementations of Keccak, Kyber, and Dilithium on the MSP430 Microcontroller**
-- Authors: Anonymous Submission
-
+- Authors: DongHyun Shin, YoungBeom Kim, Ayesha Khalid, Máire O’Neill2 and Seog Chung Se
 ## Artifact
-This repository contains the **artifact** accompanying our paper submitted to [**CHES 2026**](https://ches.iacr.org/2026/) issue 2.  
+This repository contains the **artifact** accompanying our paper accepted in [**CHES 2026**](https://ches.iacr.org/2026/) issue 2.  
 It includes the complete source code, MSP430 assembly implementations for **Kyber** and **Dilithium**. This repository contains two subfolders:
 
 ```bash
@@ -18,7 +17,8 @@ artifact_tches2026-2/
 ```
 
 The artifact demonstrates:
-- **Optimized implementations** of Kyber and Dilithium on 16-bit MSP430 microcontrollers.  
+- **Optimized implementations** of Kyber and Dilithium on 16-bit MSP430 microcontrollers.
+    -  The Keccak implementation can be found within each scheme.
 - **Optimized MSP430 assembly routines** for modular arithmetic, NTT, inverse NTT, and Keccak.  
 - **Experimental results** including cycle counts, stack usage, and code size, validated on the `MSP430F67791` device.
 
