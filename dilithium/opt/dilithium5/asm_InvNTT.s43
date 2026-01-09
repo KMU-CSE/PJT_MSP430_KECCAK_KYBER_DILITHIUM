@@ -23,26 +23,81 @@ mont      macro   a0, a1, b0, b1
          mov a0, &MPYS32L
          mov a1, &MPYS32H
          mov b0, &OP2L
-         mov b1, &OP2H                 
-                  
+         mov b1, &OP2H                
+         
+         
+         mov &RES0, temp0
+         mov &RES1, temp1
          mov &RES2, a0
          mov &RES3, a1
          
-         mov &RES0, &MPYS32L
-         mov &RES1, &MPYS32H
+         mov temp0, &MPYS32L
+         mov temp1, &MPYS32H
          mov #0x2001, &OP2L
          mov #0x380, &OP2H    
          
          mov &RES0, &MPYS32L
          mov &RES1, &MPYS32H
          mov #0xe001, &OP2L
+         mov #0x7f, &OP2H        
+         
+         sub &RES2, a0
+         subc &RES3, a1         
+
+         endm
+
+mul32_32      macro   a0, a1, b0, b1
+                                                              
+         mov a0, &MPYS32L
+         mov a1, &MPYS32H
+         mov b0, &OP2L
+         mov b1, &OP2H                          
+                                    
+         endm
+
+mont_red      macro   a0, a1
+
+         mov &RES2, a0         
+         mov &RES3, a1
+         mov &RES0, &MPYS32L         
+         mov &RES1, &MPYS32H         
+                  
+         mov #0x2001, &OP2L
+         mov #0x380, &OP2H    
+         
+         mov &RES0, &MPYS32L         
+         mov &RES1, &MPYS32H
+         mov #0xe001, &OP2L
          mov #0x7f, &OP2H         
                   
-         sub &RES2, a0
+         sub &RES2, a0         
          subc &RES3, a1        
-         
+
          endm
          
+mont_red1      macro   a0, a1
+
+         mov &RES2, a0         
+         mov &RES3, a1
+         mov &RES0, &MPYS32L         
+         mov &RES1, &MPYS32H         
+                  
+         mov #0x2001, &OP2L
+         mov #0x380, &OP2H    
+         
+         mov &RES0, &MPYS32L         
+         mov &RES1, &MPYS32H
+         mov #0xe001, &OP2L
+         mov #0x7f, &OP2H                                   
+
+         endm
+
+mont_red2      macro   a0, a1
+                  
+         sub &RES2, a0         
+         subc &RES3, a1        
+
+         endm
 gs_butterfly      macro   w0_0, w0_1, w1_0, w1_1, zeta0_0, zeta0_1
     
          mov    w0_0, temp0
@@ -57,12 +112,14 @@ gs_butterfly      macro   w0_0, w0_1, w1_0, w1_1, zeta0_0, zeta0_1
          mov    temp0, w1_0
          mov    temp1, w1_1
 
-         mont   w1_0, w1_1, zeta0_0, zeta0_1
-
+         ;mont   w1_0, w1_1, zeta0_0, zeta0_1
+         mul32_32 w1_0, w1_1, zeta0_0, zeta0_1
+         mont_red w1_0, w1_1
+         
          endm
                  
 
-first_merging_2  macro   zeta1_0, zeta1_1, zeta2_0, zeta2_1, zeta3_0, zeta3_1, off1, off2, off3, off4, off5, off6, off7, off8
+merging_2  macro   zeta1_0, zeta1_1, zeta2_0, zeta2_1, zeta3_0, zeta3_1, off1, off2, off3, off4, off5, off6, off7, off8, loop_cnt
 
          mov    off1(ptr), a0_0
          mov    off2(ptr), a0_1
@@ -73,51 +130,85 @@ first_merging_2  macro   zeta1_0, zeta1_1, zeta2_0, zeta2_1, zeta3_0, zeta3_1, o
          mov    off7(ptr), a3_0
          mov    off8(ptr), a3_1
 
-         gs_butterfly     a0_0, a0_1,a1_0, a1_1, zeta1_0, zeta1_1   
-         gs_butterfly     a2_0, a2_1,a3_0, a3_1, zeta2_0, zeta2_1  
+         ;gs_butterfly     a0_0, a0_1,a1_0, a1_1, zeta1_0, zeta1_1   
+         mov    a0_0, temp0
+         mov    a0_1, temp1
          
-         gs_butterfly     a0_0, a0_1,a2_0, a2_1, zeta3_0, zeta3_1  
-         gs_butterfly     a1_0, a1_1,a3_0, a3_1, zeta3_0, zeta3_1  
+         add    a1_0, a0_0
+         addc   a1_1, a0_1        
+
+         sub    a1_0, temp0          
+         subc    a1_1, temp1        
+
+         mov    temp0, a1_0
+         mov    temp1, a1_1
          
+         mul32_32 a1_0, a1_1, zeta1_0, zeta1_1
+         mov    a2_0, temp0
+         mov    a2_1, temp1
+         
+         add    a3_0, a2_0
+         addc   a3_1, a2_1   
+         
+         mont_red1 a1_0, a1_1         
+         sub    a3_0, temp0          
+         subc    a3_1, temp1        
+
+         mov    temp0, a3_0
+         mov    temp1, a3_1
+         mont_red2 a1_0, a1_1
+         
+         ;gs_butterfly     a2_0, a2_1,a3_0, a3_1, zeta2_0, zeta2_1  
+         
+         
+         mul32_32 a3_0, a3_1, zeta2_0, zeta2_1
+         mov    a0_0, temp0
+         mov    a0_1, temp1
+         
+         add    a2_0, a0_0
+         addc   a2_1, a0_1        
+         
+         mont_red1 a3_0, a3_1
+         sub    a2_0, temp0          
+         subc    a2_1, temp1        
+
+         mov    temp0, a2_0
+         mov    temp1, a2_1
+         mont_red2 a3_0, a3_1
+         
+         ;gs_butterfly     a0_0, a0_1,a2_0, a2_1, zeta3_0, zeta3_1  
+         mul32_32 a2_0, a2_1, zeta3_0, zeta3_1
+         mov    a1_0, temp0
+         mov    a1_1, temp1
+         
+         add    a3_0, a1_0
+         addc   a3_1, a1_1        
+         
+         mont_red1 a2_0, a2_1
+         sub    a3_0, temp0          
+         subc    a3_1, temp1        
+
+         mov    temp0, a3_0
+         mov    temp1, a3_1
+         mont_red2 a2_0, a2_1
+         
+         ;gs_butterfly     a1_0, a1_1,a3_0, a3_1, zeta3_0, zeta3_1  
+         mul32_32 a3_0, a3_1, zeta3_0, zeta3_1
          mov     a0_0, off1(ptr)
          mov     a0_1, off2(ptr)
+         
+         mont_red1 a3_0, a3_1
          mov     a1_0, off3(ptr)
          mov     a1_1, off4(ptr)
+         mont_red2 a3_0, a3_1
+         
+         
          mov     a2_0, off5(ptr)
          mov     a2_1, off6(ptr)
          mov     a3_0, off7(ptr)
          mov     a3_1, off8(ptr)
          
-         add    #16, ptr
-         endm        
-
-merging_2  macro   zeta1_0, zeta1_1, zeta2_0, zeta2_1, zeta3_0, zeta3_1, off1, off2, off3, off4, off5, off6, off7, off8
-
-         mov    off1(ptr), a0_0
-         mov    off2(ptr), a0_1
-         mov    off3(ptr), a1_0
-         mov    off4(ptr), a1_1
-         mov    off5(ptr), a2_0
-         mov    off6(ptr), a2_1
-         mov    off7(ptr), a3_0
-         mov    off8(ptr), a3_1
-
-         gs_butterfly     a0_0, a0_1,a1_0, a1_1, zeta1_0, zeta1_1   
-         gs_butterfly     a2_0, a2_1,a3_0, a3_1, zeta2_0, zeta2_1  
-         
-         gs_butterfly     a0_0, a0_1,a2_0, a2_1, zeta3_0, zeta3_1  
-         gs_butterfly     a1_0, a1_1,a3_0, a3_1, zeta3_0, zeta3_1  
-         
-         mov     a0_0, off1(ptr)
-         mov     a0_1, off2(ptr)
-         mov     a1_0, off3(ptr)
-         mov     a1_1, off4(ptr)
-         mov     a2_0, off5(ptr)
-         mov     a2_1, off6(ptr)
-         mov     a3_0, off7(ptr)
-         mov     a3_1, off8(ptr)
-         
-         add    #4, ptr
+         add    loop_cnt, ptr
          endm  
          
          
@@ -135,78 +226,78 @@ asm_invntt_merging:
          push.w r10
          push.w r11
 
-         
 
+         
          mov    ptr, forstop
                   
          
          ;layer 1,2
 layer12_merge:
          
-         first_merging_2  #0xd632, #0xffe1, #0xe94a, #0xc, #0x6827, #0xffc5, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xa198, #0xffea, #0xea36, #0xffc3, #0x5fa9, #0x37, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xc921, #0x14, #0xbcb2, #0x0, #0x3864, #0x3b, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x30d4, #0xffc4, #0x75b0, #0x8, #0x115e, #0x2e, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x1a57, #0x36, #0x63d6, #0xffe7, #0xf7fe, #0x15, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xe7fb, #0xe, #0x336d, #0xfffd, #0x66bc, #0xc, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xe2f7, #0x22, #0x6c23, #0x6, #0x2f20, #0x18, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x1e51, #0x22, #0xd89c, #0x2c, #0x61db, #0xffec, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x8025, #0x3a, #0xfa26, #0x3, #0x886e, #0xffeb, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xd9cd, #0x10, #0x7168, #0x19, #0xecfb, #0xffeb, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xd998, #0xffe2, #0x8352, #0x1b, #0xb520, #0x2, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xb330, #0xffe5, #0x82bb, #0x6, #0xc36d, #0x24, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xcbf2, #0xfff8, #0xca19, #0xffe5, #0x400a, #0x1c, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xe40c, #0xe, #0x3b09, #0xffde, #0xc93e, #0xffcf, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xe240, #0xfffb, #0xfeeb, #0xffc4, #0x37f8, #0x36, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x3ac7, #0xffca, #0x5ec4, #0x2e, #0x1b94, #0xfffd, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x73c3, #0x1b, #0x5e99, #0x38, #0x17f8, #0x14, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xc866, #0xffe6, #0xa35b, #0xfff3, #0x675f, #0xfff4, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x28f, #0xffd2, #0x55f8, #0xffe7, #0x3821, #0x3, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x83e4, #0xfffd, #0x9342, #0x30, #0x8a94, #0xffdb, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x6c59, #0x12, #0x2b45, #0xfffd, #0x9640, #0x31, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x9768, #0xffcc, #0x2268, #0xffe2, #0xc6b8, #0xffe6, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x8371, #0x2, #0x8c49, #0xffda, #0x2182, #0x0, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xe275, #0xffda, #0xb9a8, #0x1e, #0xd436, #0x38, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xa1e1, #0x39, #0xef28, #0xfff6, #0x98a6, #0xffc3, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xd3ee, #0x38, #0x6ee5, #0x27, #0x32bc, #0xfff2, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x2ea9, #0x1c, #0x8008, #0x19, #0xc942, #0x10, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x35f4, #0x2b, #0x46cc, #0x8, #0x5300, #0xffff, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x731, #0xffcc, #0xe218, #0xffdd, #0xba78, #0xffd0, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x2419, #0xfff4, #0x1bfb, #0xffe9, #0x3be9, #0xfff8, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xfa53, #0x14, #0xda88, #0x26, #0xf510, #0xfffb, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xbf67, #0xffe2, #0x86ad, #0x13, #0x417, #0x33, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xf292, #0x1d, #0x8d7d, #0xffcd, #0xd39e, #0x15, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xf939, #0xffeb, #0xe21c, #0x6, #0xba9d, #0xffe3, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xd2d1, #0x15, #0xa1c2, #0x32, #0x6a2c, #0xffeb, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x1ee5, #0xffed, #0x5742, #0x14, #0xd423, #0x5, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x95a, #0x10, #0xf4b5, #0xffe2, #0xf609, #0x13, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x7ac1, #0xffe3, #0xaf77, #0x2d, #0x59c5, #0x0, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x2470, #0x36, #0xc76f, #0xffd7, #0xbeed, #0x12, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xeb42, #0xffec, #0x7ae8, #0x39, #0x3d7e, #0xa, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xa5ba, #0xffe7, #0xfaf, #0xffda, #0xcbf7, #0x25, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xf67c, #0xffec, #0x1ee4, #0xffc2, #0x4593, #0x6, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xb28f, #0xffec, #0x85c6, #0x27, #0x5bb5, #0x38, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xee67, #0xffd6, #0xa11b, #0xffd4, #0x485d, #0x2d, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xe6dc, #0xfffc, #0x8339, #0xffe5, #0x9161, #0xffd6, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xffc5, #0x32, #0x8d19, #0xffcb, #0x39c8, #0xffdf, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x4fe5, #0xffc1, #0x32bf, #0x25, #0x17b, #0xf, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x9ef4, #0xfffb, #0xc6e7, #0xfffa, #0xef0e, #0xffcb, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xde3e, #0x36, #0xba6e, #0xb, #0x1036, #0xfffe, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x32a, #0x8, #0x4683, #0x36, #0x6f20, #0x37, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x107a, #0xffcf, #0xff7c, #0xffe0, #0x2d52, #0x30, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xa50a, #0x2f, #0xffdf, #0x9, #0xad80, #0x30, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xf904, #0x7, #0xa8fc, #0x0, #0x430a, #0xf, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x9d76, #0x18, #0x707d, #0xfff8, #0x4f8e, #0x3e, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x80a6, #0xfff3, #0x1f1a, #0xfff2, #0x688e, #0xffe2, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xa1e6, #0xffe3, #0x41a2, #0xfff2, #0x308b, #0x13, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xba22, #0x30, #0x44aa, #0x12, #0x3045, #0x18, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x5d04, #0x39, #0xb760, #0x35, #0xca39, #0xffde, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x64a3, #0xffca, #0xdb10, #0x12, #0xf612, #0xffca, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xda79, #0xffda, #0xed0b, #0xfffb, #0x29a3, #0x16, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0x5bde, #0x36, #0x5461, #0x25, #0x67e7, #0x2e, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xc205, #0xffdd, #0x8e, #0x33, #0x1e31, #0x38, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xbe08, #0xffc5, #0xa72c, #0xffdc, #0x537f, #0x17, 0, 2, 4, 6, 8, 10, 12, 14
-         first_merging_2  #0xa6, #0xffcc, #0x156d, #0xffe0, #0xf91b, #0x3b, 0, 2, 4, 6, 8, 10, 12, 14
+         merging_2  #0xd632, #0xffe1, #0xe94a, #0xc, #0x6827, #0xffc5, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xa198, #0xffea, #0xea36, #0xffc3, #0x5fa9, #0x37, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xc921, #0x14, #0xbcb2, #0x0, #0x3864, #0x3b, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x30d4, #0xffc4, #0x75b0, #0x8, #0x115e, #0x2e, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x1a57, #0x36, #0x63d6, #0xffe7, #0xf7fe, #0x15, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xe7fb, #0xe, #0x336d, #0xfffd, #0x66bc, #0xc, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xe2f7, #0x22, #0x6c23, #0x6, #0x2f20, #0x18, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x1e51, #0x22, #0xd89c, #0x2c, #0x61db, #0xffec, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x8025, #0x3a, #0xfa26, #0x3, #0x886e, #0xffeb, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xd9cd, #0x10, #0x7168, #0x19, #0xecfb, #0xffeb, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xd998, #0xffe2, #0x8352, #0x1b, #0xb520, #0x2, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xb330, #0xffe5, #0x82bb, #0x6, #0xc36d, #0x24, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xcbf2, #0xfff8, #0xca19, #0xffe5, #0x400a, #0x1c, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xe40c, #0xe, #0x3b09, #0xffde, #0xc93e, #0xffcf, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xe240, #0xfffb, #0xfeeb, #0xffc4, #0x37f8, #0x36, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x3ac7, #0xffca, #0x5ec4, #0x2e, #0x1b94, #0xfffd, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x73c3, #0x1b, #0x5e99, #0x38, #0x17f8, #0x14, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xc866, #0xffe6, #0xa35b, #0xfff3, #0x675f, #0xfff4, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x28f, #0xffd2, #0x55f8, #0xffe7, #0x3821, #0x3, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x83e4, #0xfffd, #0x9342, #0x30, #0x8a94, #0xffdb, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x6c59, #0x12, #0x2b45, #0xfffd, #0x9640, #0x31, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x9768, #0xffcc, #0x2268, #0xffe2, #0xc6b8, #0xffe6, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x8371, #0x2, #0x8c49, #0xffda, #0x2182, #0x0, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xe275, #0xffda, #0xb9a8, #0x1e, #0xd436, #0x38, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xa1e1, #0x39, #0xef28, #0xfff6, #0x98a6, #0xffc3, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xd3ee, #0x38, #0x6ee5, #0x27, #0x32bc, #0xfff2, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x2ea9, #0x1c, #0x8008, #0x19, #0xc942, #0x10, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x35f4, #0x2b, #0x46cc, #0x8, #0x5300, #0xffff, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x731, #0xffcc, #0xe218, #0xffdd, #0xba78, #0xffd0, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x2419, #0xfff4, #0x1bfb, #0xffe9, #0x3be9, #0xfff8, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xfa53, #0x14, #0xda88, #0x26, #0xf510, #0xfffb, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xbf67, #0xffe2, #0x86ad, #0x13, #0x417, #0x33, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xf292, #0x1d, #0x8d7d, #0xffcd, #0xd39e, #0x15, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xf939, #0xffeb, #0xe21c, #0x6, #0xba9d, #0xffe3, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xd2d1, #0x15, #0xa1c2, #0x32, #0x6a2c, #0xffeb, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x1ee5, #0xffed, #0x5742, #0x14, #0xd423, #0x5, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x95a, #0x10, #0xf4b5, #0xffe2, #0xf609, #0x13, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x7ac1, #0xffe3, #0xaf77, #0x2d, #0x59c5, #0x0, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x2470, #0x36, #0xc76f, #0xffd7, #0xbeed, #0x12, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xeb42, #0xffec, #0x7ae8, #0x39, #0x3d7e, #0xa, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xa5ba, #0xffe7, #0xfaf, #0xffda, #0xcbf7, #0x25, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xf67c, #0xffec, #0x1ee4, #0xffc2, #0x4593, #0x6, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xb28f, #0xffec, #0x85c6, #0x27, #0x5bb5, #0x38, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xee67, #0xffd6, #0xa11b, #0xffd4, #0x485d, #0x2d, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xe6dc, #0xfffc, #0x8339, #0xffe5, #0x9161, #0xffd6, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xffc5, #0x32, #0x8d19, #0xffcb, #0x39c8, #0xffdf, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x4fe5, #0xffc1, #0x32bf, #0x25, #0x17b, #0xf, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x9ef4, #0xfffb, #0xc6e7, #0xfffa, #0xef0e, #0xffcb, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xde3e, #0x36, #0xba6e, #0xb, #0x1036, #0xfffe, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x32a, #0x8, #0x4683, #0x36, #0x6f20, #0x37, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x107a, #0xffcf, #0xff7c, #0xffe0, #0x2d52, #0x30, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xa50a, #0x2f, #0xffdf, #0x9, #0xad80, #0x30, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xf904, #0x7, #0xa8fc, #0x0, #0x430a, #0xf, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x9d76, #0x18, #0x707d, #0xfff8, #0x4f8e, #0x3e, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x80a6, #0xfff3, #0x1f1a, #0xfff2, #0x688e, #0xffe2, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xa1e6, #0xffe3, #0x41a2, #0xfff2, #0x308b, #0x13, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xba22, #0x30, #0x44aa, #0x12, #0x3045, #0x18, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x5d04, #0x39, #0xb760, #0x35, #0xca39, #0xffde, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x64a3, #0xffca, #0xdb10, #0x12, #0xf612, #0xffca, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xda79, #0xffda, #0xed0b, #0xfffb, #0x29a3, #0x16, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0x5bde, #0x36, #0x5461, #0x25, #0x67e7, #0x2e, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xc205, #0xffdd, #0x8e, #0x33, #0x1e31, #0x38, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xbe08, #0xffc5, #0xa72c, #0xffdc, #0x537f, #0x17, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
+         merging_2  #0xa6, #0xffcc, #0x156d, #0xffe0, #0xf91b, #0x3b, 0, 2, 4, 6, 8, 10, 12, 14 ,#16
          
          sub #1024, ptr
          add #16, forstop
@@ -215,97 +306,97 @@ layer12_merge:
 layer34_merge:
 
 poly34_1:         
-          merging_2  #0xb0d3, #0x2a, #0x62ac, #0xffe0, #0xba3b, #0xfffb, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0xb0d3, #0x2a, #0x62ac, #0xffe0, #0xba3b, #0xfffb, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_1
           add  #48, ptr
           add  #64, forstop          
 poly34_2:          
-          merging_2  #0x3d0, #0x27, #0x7acc, #0xffc4, #0xcdff, #0xffc2, 0, 2, 16, 18, 32, 34, 48, 50          
+          merging_2  #0x3d0, #0x27, #0x7acc, #0xffc4, #0xcdff, #0xffc2, 0, 2, 16, 18, 32, 34, 48, 50, #4          
           cmp    forstop, ptr
           jn     poly34_2
           add  #48, ptr
           add  #64, forstop  
 poly34_3:          
-          merging_2  #0xc7ad, #0xffc4, #0x708a, #0xfff1, #0x4bde, #0x0, 0, 2, 16, 18, 32, 34, 48, 50        
+          merging_2  #0xc7ad, #0xffc4, #0x708a, #0xfff1, #0x4bde, #0x0, 0, 2, 16, 18, 32, 34, 48, 50, #4        
           cmp    forstop, ptr
           jn     poly34_3
           add  #48, ptr
           add  #64, forstop  
 poly34_4:          
-          merging_2  #0xe466, #0xfff7, #0x9c58, #0xfff3, #0x2fcb, #0xffe5, 0, 2, 16, 18, 32, 34, 48, 50         
+          merging_2  #0xe466, #0xfff7, #0x9c58, #0xfff3, #0x2fcb, #0xffe5, 0, 2, 16, 18, 32, 34, 48, 50, #4         
           cmp    forstop, ptr
           jn     poly34_4
           add  #48, ptr
           add  #64, forstop   
 poly34_5:          
-          merging_2  #0x8c74, #0xffc7, #0x6ba4, #0x18, #0x368, #0x32, 0, 2, 16, 18, 32, 34, 48, 50          
+          merging_2  #0x8c74, #0xffc7, #0x6ba4, #0x18, #0x368, #0x32, 0, 2, 16, 18, 32, 34, 48, 50, #4          
           cmp    forstop, ptr
           jn     poly34_5
           add  #48, ptr
           add  #64, forstop  
 poly34_6:          
-          merging_2  #0xa9e9, #0x20, #0x7bc1, #0xffca, #0x5b09, #0x15, 0, 2, 16, 18, 32, 34, 48, 50          
+          merging_2  #0xa9e9, #0x20, #0x7bc1, #0xffca, #0x5b09, #0x15, 0, 2, 16, 18, 32, 34, 48, 50, #4          
           cmp    forstop, ptr
           jn     poly34_6
           add  #48, ptr
           add  #64, forstop  
 poly34_7:          
-          merging_2  #0x50a7, #0x3a, #0x81e2, #0xffca, #0xe519, #0x3a, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x50a7, #0x3a, #0x81e2, #0xffca, #0xe519, #0x3a, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_7
           add  #48, ptr
           add  #64, forstop  
 poly34_8:          
-          merging_2  #0x152a, #0x19, #0xedc3, #0x19, #0x522a, #0x20, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x152a, #0x19, #0xedc3, #0x19, #0x522a, #0x20, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_8
           add  #48, ptr
           add  #64, forstop  
 poly34_9:          
-          merging_2  #0x3aa3, #0x8, #0x2964, #0xffdc, #0x2c85, #0x20, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x3aa3, #0x8, #0x2964, #0xffdc, #0x2c85, #0x20, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_9
           add  #48, ptr
           add  #64, forstop  
 poly34_10:         
-          merging_2  #0x95b3, #0x4, #0xfc00, #0xffc9, #0x698, #0xffd8, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x95b3, #0x4, #0xfc00, #0xffc9, #0x698, #0xffd8, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_10
           add  #48, ptr
           add  #64, forstop  
 poly34_11:          
-          merging_2  #0xc1bf, #0x2b, #0x756a, #0xffc9, #0x1560, #0x11, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0xc1bf, #0x2b, #0x756a, #0xffc9, #0x1560, #0x11, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_11
           add  #48, ptr
           add  #64, forstop  
 poly34_12:          
-          merging_2  #0x7184, #0x2e, #0xea7b, #0x3a, #0x6270, #0x8, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x7184, #0x2e, #0xea7b, #0x3a, #0x6270, #0x8, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_12
           add  #48, ptr
           add  #64, forstop  
 poly34_13:          
-          merging_2  #0x4151, #0xffc4, #0xb82c, #0x26, #0x4878, #0xffc9, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x4151, #0xffc4, #0xb82c, #0x26, #0x4878, #0xffc9, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_13
           add  #48, ptr
           add  #64, forstop  
 poly34_14:          
-          merging_2  #0xcfd4, #0x36, #0x5afd, #0x19, #0x7a5c, #0x10, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0xcfd4, #0x36, #0x5afd, #0x19, #0x7a5c, #0x10, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_14
           add  #48, ptr
           add  #64, forstop  
 poly34_15:         
-          merging_2  #0x213b, #0xffca, #0xb33, #0xffd1, #0x5f90, #0xfff0, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x213b, #0xffca, #0xb33, #0xffd1, #0x5f90, #0xfff0, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_15
           add  #48, ptr
           add  #64, forstop  
 poly34_16:          
-          merging_2  #0x89e0, #0xfffe, #0xb599, #0xffd6, #0x69a8, #0xffd6, 0, 2, 16, 18, 32, 34, 48, 50
+          merging_2  #0x89e0, #0xfffe, #0xb599, #0xffd6, #0x69a8, #0xffd6, 0, 2, 16, 18, 32, 34, 48, 50, #4
           cmp    forstop, ptr
           jn     poly34_16            
 
@@ -316,25 +407,25 @@ poly34_16:
 layer56_merge:
 
 poly56_1:
-          merging_2  #0x1ad9, #0xffd7, #0x85b7, #0xffd0, #0xe1dc, #0xfff8, 0, 2, 64, 66, 128, 130, 192, 194
+          merging_2  #0x1ad9, #0xffd7, #0x85b7, #0xffd0, #0xe1dc, #0xfff8, 0, 2, 64, 66, 128, 130, 192, 194, #4
           cmp    forstop, ptr
           jn     poly56_1
           add  #192, ptr
           add  #256, forstop  
 poly56_2:
-          merging_2  #0x4f7, #0x2c, #0x658b, #0xffd0, #0x5ed8, #0xd, 0, 2, 64, 66, 128, 130, 192, 194
+          merging_2  #0x4f7, #0x2c, #0x658b, #0xffd0, #0x5ed8, #0xd, 0, 2, 64, 66, 128, 130, 192, 194, #4
           cmp    forstop, ptr
           jn     poly56_2
           add  #192, ptr
           add  #256, forstop  
 poly56_3:
-          merging_2  #0xeb81, #0x1f, #0x7b53, #0x5, #0xdee8, #0xb, 0, 2, 64, 66, 128, 130, 192, 194
+          merging_2  #0xeb81, #0x1f, #0x7b53, #0x5, #0xdee8, #0xb, 0, 2, 64, 66, 128, 130, 192, 194, #4
           cmp    forstop, ptr
           jn     poly56_3
           add  #192, ptr
           add  #256, forstop  
 poly56_4:
-          merging_2  #0x16d5, #0xffdc, #0x21d5, #0xffe4, #0x61bc, #0xfffc, 0, 2, 64, 66, 128, 130, 192, 194
+          merging_2  #0x16d5, #0xffdc, #0x21d5, #0xffe4, #0x61bc, #0xfffc, 0, 2, 64, 66, 128, 130, 192, 194, #4
           cmp    forstop, ptr
           jn     poly56_4
           
@@ -343,7 +434,7 @@ poly56_4:
         
 ;layer 7,8
 layer78_merge:
-          merging_2  #0xeafd, #0x7, #0xcefe, #0x27, #0x9b09, #0xffff, 0, 2, 256, 258, 512, 514, 768, 770
+          merging_2  #0xeafd, #0x7, #0xcefe, #0x27, #0x9b09, #0xffff, 0, 2, 256, 258, 512, 514, 768, 770, #4
           cmp    forstop, ptr
           jn     layer78_merge
 

@@ -11,6 +11,7 @@
 
 #define         reduce32_constant    r14
 #define         temp1    r15
+#define         temp2    r7
 
 reduce32   macro
                                                      
@@ -19,15 +20,21 @@ reduce32   macro
          mov    a1, temp1
          
          add reduce32_constant, temp1     
-         
-         rra    temp1
-         rra    temp1
-         rra    temp1
-         rra    temp1
-         rra    temp1
-         
-         rra    temp1
-         rra    temp1  
+
+         //old
+//         rra    temp1
+//         rra    temp1
+//         rra    temp1
+//         rra    temp1
+//         rra    temp1         
+//         rra    temp1
+//         rra    temp1  
+         //new
+         swpb   temp1
+         mov    temp1, temp2
+         sxt    temp1
+         rla    temp2
+         rlc    temp1
          
          mov    temp1, &OP2L
          
@@ -68,7 +75,7 @@ asm_poly_reduce32:
          push r13
          push r14
          push r15
-         
+
          mov    #0x40, reduce32_constant
          
          mov    ptr_dst, forstop       
