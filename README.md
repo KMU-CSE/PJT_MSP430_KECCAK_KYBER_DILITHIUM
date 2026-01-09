@@ -1,6 +1,6 @@
 # Optimized Implementations of Keccak, Kyber, and Dilithium on the MSP430 Microcontroller
 - Title: **Optimized Implementations of Keccak, Kyber, and Dilithium on the MSP430 Microcontroller**
-- Authors: DongHyun Shin, YoungBeom Kim, Ayesha Khalid, Máire O’Neill2 and Seog Chung Se
+- Authors: DongHyun Shin, YoungBeom Kim, Ayesha Khalid, Máire O’Neill and Seog Chung Seo
 
 ## Artifact
 This repository contains the **artifact** accompanying our paper accepted in [**CHES 2026**](https://ches.iacr.org/2026/) issue 2.
