@@ -58,8 +58,34 @@ We developed and benchmarked the code using the "IAR Embedded Workbench for MSP4
 Please select “New Workspace” and “New Project” in IAR Workbench and paste our code.
 The target device is "MSP430F67791", equipped with 32KB of RAM.
 The compiler used is "IAR C/C++ Compiler for MSP430 (version 8.10.3)", and we compile the code using the "High (Speed)" option, which is equivalent to the “-O3” option in GCC.
-Our Kyber and Dilithium implementations are based on the optimized code from PQClean (https://github.com/PQClean/PQClean).
 - In *Tools* → *Options* → *stack*, we enabled the flag `Enable stack usage tracking`, and measured stack usage via *View* → *stack* during runtime.
 - We measure cycle counts using the \texttt{CYCLECOUNTER} register in *View* → *registers*.
 - We measured code size from the *.map* file generated after the build.
 - Note: Code execution may take a long time. Please wait—this is expected behavior and not a bug.
+  
+## Example
+1. Create a workspace and project
+In IAR, create a new Workspace and Project.
+
+2. Manually add the source code
+Add all source files to the project manually, including main.c.
+
+3. Configure the board and optimization options
+
+- Board setting
+Go to Project Options → General Options → Target and select MSP430F67791.
+
+- Optimization setting
+Go to Project Options → C/C++ Compiler → Optimizations and set the optimization level to High (speed).
+
+4. Run the program
+
+Set breakpoints at the functions you want to measure in main.c. After that, click Download and Debug (the green button at the top) to start the execution.
+
+5. Check the register view
+
+Open the Register window by selecting View → Registers. As the program executes each function, you can monitor the changes in CYCLECOUNTER or CCSTEP in that window.
+
+ 
+
+
