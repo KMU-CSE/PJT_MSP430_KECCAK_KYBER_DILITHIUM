@@ -15,40 +15,39 @@
 #define PQC_SHAKECTX_BYTES (sizeof(uint64_t)*25)
 
 
-
 // Context for incremental API
 typedef struct {
-    uint64_t* ctx;
+    uint64_t ctx[PQC_SHAKEINCCTX_BYTES];
 } shake128incctx;
 
 // Context for non-incremental API
 typedef struct {
-    uint64_t* ctx;
+    uint64_t ctx[PQC_SHAKECTX_BYTES];
 } shake128ctx;
 
 // Context for incremental API
 typedef struct {
-    uint64_t* ctx;
+    uint64_t ctx[PQC_SHAKEINCCTX_BYTES];
 } shake256incctx;
 
 // Context for non-incremental API
 typedef struct {
-    uint64_t* ctx;
+    uint64_t ctx[PQC_SHAKECTX_BYTES];
 } shake256ctx;
 
 // Context for incremental API
 typedef struct {
-    uint64_t* ctx;
+    uint64_t ctx[PQC_SHAKEINCCTX_BYTES];
 } sha3_256incctx;
 
 // Context for incremental API
 typedef struct {
-    uint64_t* ctx;
+    uint64_t ctx[PQC_SHAKEINCCTX_BYTES];
 } sha3_384incctx;
 
 // Context for incremental API
 typedef struct {
-    uint64_t* ctx;
+    uint64_t ctx[PQC_SHAKEINCCTX_BYTES];
 } sha3_512incctx;
 
 /* Initialize the state and absorb the provided input.
@@ -165,7 +164,5 @@ void sha3_512_inc_ctx_release(sha3_512incctx *state);
 
 /* One-stop SHA3-512 shop */
 void sha3_512(uint8_t *output, const uint8_t *input, size_t inlen);
-
-
 
 #endif
