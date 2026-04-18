@@ -93,99 +93,49 @@ Open the Register window by selecting View → Registers. As the program execute
 **Compiler Option:** High Speed Optimization
 **Note:** 1 k = 1,000 cycles
 
-## 16-bit NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
-| Implementation | NTT | NTT⁻¹ | PWM |
-|---------------|-----|-------|-----|
-| C (Ref) | 102,505 | 175,840 | 51,939 |
-| This Work (Asm) | 43,732 | 50,378 | 16,765 |
+## NTT / PWM / Keccak Performance 
 
-## 16-bit (q = 257) NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
-| Implementation | NTT | NTT⁻¹ | PWM |
-|---------------|-----|-------|-----|
-| This Work (Asm) | 22,545 | 45,982 | 13,429 |
-
-## 32-bit NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
-| Implementation | NTT | NTT⁻¹ | PWM |
-|---------------|-----|-------|-----|
-| C (Ref) | 158,038 | 206,692 | 32,546 |
-| This Work (Asm) | 82,635 | 105,409 | 20,826 |
+| Category | Variant | Implementation | NTT | NTT⁻¹ | PWM | Keccak-f1600 |
+|----------|--------|---------------|-----|-------|-----|---------------|
+| NTT | 16-bit | C (Ref) | 102,505 | 175,840 | 51,939 | - |
+| NTT | 16-bit | This Work (Asm) | 43,732 | 50,378 | 16,765 | - |
+| NTT | 16-bit (q=257) | This Work (Asm) | 22,545 | 45,982 | 13,429 | - |
+| NTT | 32-bit | C (Ref) | 158,038 | 206,692 | 32,546 | - |
+| NTT | 32-bit | This Work (Asm) | 82,635 | 105,409 | 20,826 | - |
+| Keccak | - | C (Ref) | - | - | - | 86,599 |
+| Keccak | - | This Work (Asm) | - | - | - | 55,316 |
 
 ---
 
-## Keccak-f1600
+## Kyber Performance
 
-| Implementation | Cycle Count |
-|---------------|------------|
-| C (Ref) | 86,599 |
-| This Work (Asm) | 55,316 |
-
----
-
-## Kyber512
-| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
-|---------------|----------|------------------|----------|
-| C (Ref) | KeyGen (K) | 3,244 k | 6,146 |
-| C (Ref) | Encaps (E) | 4,288 k | 8,804 |
-| C (Ref) | Decaps (D) | 4,170 k | 9,576 |
-| This Work (Asm) | KeyGen (K) | 2,221 k | 2,740 |
-| This Work (Asm) | Encaps (E) | 2,946 k | 2,816 |
-| This Work (Asm) | Decaps (D) | 2,852 k | 2,824 |
+| Variant | Operation | C (Ref) Cycle (k cc) | C Stack (B) | This Work Cycle (k cc) | This Work Stack (B) |
+|--------|----------|----------------------|-------------|------------------------|---------------------|
+| 512 | KeyGen (K) | 3,244 k | 6,146 | 2,221 k | 2,740 |
+| 512 | Encaps (E) | 4,288 k | 8,804 | 2,946 k | 2,816 |
+| 512 | Decaps (D) | 4,170 k | 9,576 | 2,852 k | 2,824 |
+| 768 | KeyGen (K) | 5,480 k | 10,176 | 3,622 k | 3,190 |
+| 768 | Encaps (E) | 7,204 k | 13,344 | 4,503 k | 3,266 |
+| 768 | Decaps (D) | 7,070 k | 14,436 | 4,357 k | 3,274 |
+| 1024 | KeyGen (K) | 8,620 k | 15,296 | 5,710 k | 3,704 |
+| 1024 | Encaps (E) | 10,760 k | 18,976 | 6,820 k | 3,780 |
+| 1024 | Decaps (D) | 10,559 k | 20,548 | 6,640 k | 3,794 |
 
 ---
 
-## Kyber768
-| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
-|---------------|----------|------------------|----------|
-| C (Ref) | KeyGen (K) | 5,480 k | 10,176 |
-| C (Ref) | Encaps (E) | 7,204 k | 13,344 |
-| C (Ref) | Decaps (D) | 7,070 k | 14,436 |
-| This Work (Asm) | KeyGen (K) | 3,622 k | 3,190 |
-| This Work (Asm) | Encaps (E) | 4,503 k | 3,266 |
-| This Work (Asm) | Decaps (D) | 4,357 k | 3,274 |
+## Dilithium Performance
 
----
-
-## Kyber1024
-| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
-|---------------|----------|------------------|----------|
-| C (Ref) | KeyGen (K) | 8,620 k | 15,296 |
-| C (Ref) | Encaps (E) | 10,760 k | 18,976 |
-| C (Ref) | Decaps (D) | 10,559 k | 20,548 |
-| This Work (Asm) | KeyGen (K) | 5,710 k | 3,704 |
-| This Work (Asm) | Encaps (E) | 6,820 k | 3,780 |
-| This Work (Asm) | Decaps (D) | 6,640 k | 3,794 |
-
----
-
-## Dilithium2
-| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
-|---------------|----------|------------------|----------|
-| C (Ref) | KeyGen (K) | 13,505 k | 13,236 |
-| C (Ref) | Sign (S) | 105,419 k | 17,148 |
-| C (Ref) | Verify (V) | 13,869 k | 16,622 |
-| This Work (Asm) | KeyGen (K) | 9,142 k | 13,236 |
-| This Work (Asm) | Sign (S) | 63,892 k | 18,172 |
-| This Work (Asm) | Verify (V) | 9,251 k | 16,622 |
-
-## Dilithium3
-| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
-|---------------|----------|------------------|----------|
-| C (Ref) | KeyGen (K) | 24,638 k | 17,397 |
-| C (Ref) | Sign (S) | 203,764 k | 21,540 |
-| C (Ref) | Verify (V) | 24,480 k | 19,158 |
-| This Work (Asm) | KeyGen (K) | 17,053 k | 17,397 |
-| This Work (Asm) | Sign (S) | 129,404 k | 22,564 |
-| This Work (Asm) | Verify (V) | 16,758 k | 19,158 |
-
-## Dilithium5
-| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
-|---------------|----------|------------------|----------|
-| C (Ref) | KeyGen (K) | 40,631 k | 21,005 |
-| C (Ref) | Sign (S) | 271,094 k | 25,810 |
-| C (Ref) | Verify (V) | 41,012 k | 23,458 |
-| This Work (Asm) | KeyGen (K) | 27,399 k | 21,005 |
-| This Work (Asm) | Sign (S) | 167,436 k | 26,834 |
-| This Work (Asm) | Verify (V) | 27,345 k | 23,458 |
+| Variant | Operation | C (Ref) Cycle (k cc) | C Stack (B) | This Work Cycle (k cc) | This Work Stack (B) |
+|--------|----------|----------------------|-------------|------------------------|---------------------|
+| 2 | KeyGen (K) | 13,505 k | 13,236 | 9,142 k | 13,236 |
+| 2 | Sign (S) | 105,419 k | 17,148 | 63,892 k | 18,172 |
+| 2 | Verify (V) | 13,869 k | 16,622 | 9,251 k | 16,622 |
+| 3 | KeyGen (K) | 24,638 k | 17,397 | 17,053 k | 17,397 |
+| 3 | Sign (S) | 203,764 k | 21,540 | 129,404 k | 22,564 |
+| 3 | Verify (V) | 24,480 k | 19,158 | 16,758 k | 19,158 |
+| 5 | KeyGen (K) | 40,631 k | 21,005 | 27,399 k | 21,005 |
+| 5 | Sign (S) | 271,094 k | 25,810 | 167,436 k | 26,834 |
+| 5 | Verify (V) | 41,012 k | 23,458 | 27,345 k | 23,458 |
 
 ---
 
