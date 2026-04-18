@@ -87,11 +87,41 @@ Set breakpoints at the functions you want to measure in main.c. After that, clic
 Open the Register window by selecting View → Registers. As the program executes each function, you can monitor the changes in CYCLECOUNTER or CCSTEP in that window.
 
 
-# Kyber Performance Comparison (Ref vs opt(This Work))
+# Performance Comparison (Ref (Pure C) vs opt (This Work))
 
 **Platform:** 16-bit MSP430 (MSP430F67791)
 **Compiler Option:** High Speed Optimization
 **Note:** 1 k = 1,000 cycles
+
+## NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
+
+## 16-bit
+| Implementation | NTT | NTT⁻¹ | PWM |
+|---------------|-----|-------|-----|
+| C (Ref) | 102,505 | 175,840 | 51,939 |
+| This Work (Asm) | 43,732 | 50,378 | 16,765 |
+
+## 16-bit (q = 257)
+| Implementation | NTT | NTT⁻¹ | PWM |
+|---------------|-----|-------|-----|
+| This Work (Asm) | 22,545 | 45,982 | 13,429 |
+
+## 32-bit
+| Implementation | NTT | NTT⁻¹ | PWM |
+|---------------|-----|-------|-----|
+| C (Ref) | 158,038 | 206,692 | 32,546 |
+| This Work (Asm) | 82,635 | 105,409 | 20,826 |
+
+---
+
+## Keccak-f1600
+
+| Implementation | Cycle Count |
+|---------------|------------|
+| C (Ref) | 86,599 |
+| This Work (Asm) | 55,316 |
+
+---
 
 ## Kyber512
 | Implementation | Operation | Cycle Count (k cc) | Stack (B) |
@@ -128,6 +158,37 @@ Open the Register window by selecting View → Registers. As the program execute
 | This Work (Asm) | Decaps (D) | 6,640 k | 3,794 |
 
 ---
-  
+
+## Dilithium2
+| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
+|---------------|----------|------------------|----------|
+| C (Ref) | KeyGen (K) | 13,505 k | 13,236 |
+| C (Ref) | Sign (S) | 105,419 k | 17,148 |
+| C (Ref) | Verify (V) | 13,869 k | 16,622 |
+| This Work (Asm) | KeyGen (K) | 9,142 k | 13,236 |
+| This Work (Asm) | Sign (S) | 63,892 k | 18,172 |
+| This Work (Asm) | Verify (V) | 9,251 k | 16,622 |
+
+## Dilithium3
+| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
+|---------------|----------|------------------|----------|
+| C (Ref) | KeyGen (K) | 24,638 k | 17,397 |
+| C (Ref) | Sign (S) | 203,764 k | 21,540 |
+| C (Ref) | Verify (V) | 24,480 k | 19,158 |
+| This Work (Asm) | KeyGen (K) | 17,053 k | 17,397 |
+| This Work (Asm) | Sign (S) | 129,404 k | 22,564 |
+| This Work (Asm) | Verify (V) | 16,758 k | 19,158 |
+
+## Dilithium5
+| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
+|---------------|----------|------------------|----------|
+| C (Ref) | KeyGen (K) | 40,631 k | 21,005 |
+| C (Ref) | Sign (S) | 271,094 k | 25,810 |
+| C (Ref) | Verify (V) | 41,012 k | 23,458 |
+| This Work (Asm) | KeyGen (K) | 27,399 k | 21,005 |
+| This Work (Asm) | Sign (S) | 167,436 k | 26,834 |
+| This Work (Asm) | Verify (V) | 27,345 k | 23,458 |
+
+---
 
 
