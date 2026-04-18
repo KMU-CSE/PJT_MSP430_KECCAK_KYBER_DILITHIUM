@@ -59,6 +59,8 @@ Please select “New Workspace” and “New Project” in IAR Workbench and pas
 The target device is "MSP430F67791", equipped with 32KB of RAM.
 The compiler used is "IAR C/C++ Compiler for MSP430 (version 8.10.3)", and we compile the code using the "High (Speed)" option.
 
+- Note: Code execution may take a long time. Please wait—this is expected behavior and not a bug.
+  
 ### 1. Cycle Measurement
 
 Cycle counts are measured using the `CYCLECOUNTER` or `CCSTEP` registers.
@@ -95,8 +97,6 @@ Net stack usage = (observed stack usage) - (size of local variables)
 
 Code size is measured based on the `*.map` file generated after the build process.
 
-
-- Note: Code execution may take a long time. Please wait—this is expected behavior and not a bug.
 
 
 
