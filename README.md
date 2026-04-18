@@ -93,20 +93,18 @@ Open the Register window by selecting View → Registers. As the program execute
 **Compiler Option:** High Speed Optimization
 **Note:** 1 k = 1,000 cycles
 
-## NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
-
-## 16-bit
+## 16-bit NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
 | Implementation | NTT | NTT⁻¹ | PWM |
 |---------------|-----|-------|-----|
 | C (Ref) | 102,505 | 175,840 | 51,939 |
 | This Work (Asm) | 43,732 | 50,378 | 16,765 |
 
-## 16-bit (q = 257)
+## 16-bit (q = 257) NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
 | Implementation | NTT | NTT⁻¹ | PWM |
 |---------------|-----|-------|-----|
 | This Work (Asm) | 22,545 | 45,982 | 13,429 |
 
-## 32-bit
+## 32-bit NTT / NTT⁻¹ / Point-wise Multiplication (PWM)
 | Implementation | NTT | NTT⁻¹ | PWM |
 |---------------|-----|-------|-----|
 | C (Ref) | 158,038 | 206,692 | 32,546 |
