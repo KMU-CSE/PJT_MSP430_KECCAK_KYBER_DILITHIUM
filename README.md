@@ -57,12 +57,49 @@ We developed and benchmarked the code using the "IAR Embedded Workbench for MSP4
 
 Please select “New Workspace” and “New Project” in IAR Workbench and paste our code.
 The target device is "MSP430F67791", equipped with 32KB of RAM.
-The compiler used is "IAR C/C++ Compiler for MSP430 (version 8.10.3)", and we compile the code using the "High (Speed)" option, which is equivalent to the “-O3” option in GCC.
-- In *Tools* → *Options* → *stack*, we enabled the flag `Enable stack usage tracking`, and measured stack usage via *View* → *stack* during runtime.
-- We measure cycle counts using the \texttt{CYCLECOUNTER} register in *View* → *registers*.
-- We measured code size from the *.map* file generated after the build.
+The compiler used is "IAR C/C++ Compiler for MSP430 (version 8.10.3)", and we compile the code using the "High (Speed)" option.
+
+### 1. Cycle Measurement
+
+Cycle counts are measured using the `CYCLECOUNTER` or `CCSTEP` registers.
+
+- Set a breakpoint at the target function (e.g., `kem_keypair`, `kem_enc`) and run the project.
+- During execution, enable **View → Registers** to monitor the `CYCLECOUNTER` or `CCSTEP` registers.
+  - `CYCLECOUNTER`: cumulative cycle count
+  - `CCSTEP`: cycle count for the currently executed function
+
+---
+
+### 2. Stack Usage Measurement
+
+To measure stack usage, enable the following options:
+
+- **Tools → Options → Stack**
+  - Enable `Enable stack usage tracking`
+- **Project Options → General Options → Stack/Heap**
+  - Increase the maximum stack observation range if necessary
+
+During execution, stack usage can be monitored via **View → Stack**.
+
+For accurate measurement:
+- Keep only the target function and required variables, and comment out all other code.
+- Set a breakpoint at the target function and run the program up to that point.
+- Execute the function, then compute the net stack usage as:
+
+Net stack usage = (observed stack usage) - (size of local variables)
+
+
+---
+
+### 3. Code Size Measurement
+
+Code size is measured based on the `*.map` file generated after the build process.
+
+
 - Note: Code execution may take a long time. Please wait—this is expected behavior and not a bug.
-  
+
+
+
 ## Example
 1. Create a workspace and project
 In IAR, create a new Workspace and Project.
@@ -85,6 +122,9 @@ Set breakpoints at the functions you want to measure in main.c. After that, clic
 5. Check the register view
 
 Open the Register window by selecting View → Registers. As the program executes each function, you can monitor the changes in CYCLECOUNTER or CCSTEP in that window.
+
+
+
 
 
 # Performance Comparison (Ref (Pure C) vs opt (This Work))
