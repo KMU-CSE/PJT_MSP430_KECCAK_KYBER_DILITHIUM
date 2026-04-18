@@ -86,6 +86,48 @@ Set breakpoints at the functions you want to measure in main.c. After that, clic
 
 Open the Register window by selecting View → Registers. As the program executes each function, you can monitor the changes in CYCLECOUNTER or CCSTEP in that window.
 
- 
+
+# Kyber Performance Comparison (Ref vs opt(This Work))
+
+**Platform:** 16-bit MSP430 (MSP430F67791)
+**Compiler Option:** High Speed Optimization
+**Note:** 1 k = 1,000 cycles
+
+## Kyber512
+| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
+|---------------|----------|------------------|----------|
+| C (Ref) | KeyGen (K) | 3,244 k | 6,146 |
+| C (Ref) | Encaps (E) | 4,288 k | 8,804 |
+| C (Ref) | Decaps (D) | 4,170 k | 9,576 |
+| This Work (Asm) | KeyGen (K) | 2,221 k | 2,740 |
+| This Work (Asm) | Encaps (E) | 2,946 k | 2,816 |
+| This Work (Asm) | Decaps (D) | 2,852 k | 2,824 |
+
+---
+
+## Kyber768
+| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
+|---------------|----------|------------------|----------|
+| C (Ref) | KeyGen (K) | 5,480 k | 10,176 |
+| C (Ref) | Encaps (E) | 7,204 k | 13,344 |
+| C (Ref) | Decaps (D) | 7,070 k | 14,436 |
+| This Work (Asm) | KeyGen (K) | 3,622 k | 3,190 |
+| This Work (Asm) | Encaps (E) | 4,503 k | 3,266 |
+| This Work (Asm) | Decaps (D) | 4,357 k | 3,274 |
+
+---
+
+## Kyber1024
+| Implementation | Operation | Cycle Count (k cc) | Stack (B) |
+|---------------|----------|------------------|----------|
+| C (Ref) | KeyGen (K) | 8,620 k | 15,296 |
+| C (Ref) | Encaps (E) | 10,760 k | 18,976 |
+| C (Ref) | Decaps (D) | 10,559 k | 20,548 |
+| This Work (Asm) | KeyGen (K) | 5,710 k | 3,704 |
+| This Work (Asm) | Encaps (E) | 6,820 k | 3,780 |
+| This Work (Asm) | Decaps (D) | 6,640 k | 3,794 |
+
+---
+  
 
 
